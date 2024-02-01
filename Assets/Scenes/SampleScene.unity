@@ -259,10 +259,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  jumpForce: 5
+  jumpForce: 20
   groundLayer:
     serializedVersion: 2
     m_Bits: 0
+  isGrounded: 1
 --- !u!114 &301862829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,9 +277,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashForce: 10
-  dashDuration: 0.5
+  dashDuration: 0.25
   gravityScaleDuringDash: 0
   dashKey: 304
+  cooldownDuration: 0.5
 --- !u!136 &301862831
 CapsuleCollider:
   m_ObjectHideFlags: 0

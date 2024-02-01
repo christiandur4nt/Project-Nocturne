@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static PlayerMovement instance;
     public float speed = 5f;
     public float jumpForce = 10f;
     public LayerMask groundLayer;
     private Rigidbody rb;
-    private bool isGrounded = true;
+    // Only public to gain access in other scripts
+    public bool isGrounded = true;
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
         rb = GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationY;
     }

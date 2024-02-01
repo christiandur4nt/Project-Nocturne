@@ -9,7 +9,10 @@ public class DashAbility : MonoBehaviour
     public float gravityScaleDuringDash = 0;
 
     public KeyCode dashKey = KeyCode.LeftShift;
+    public float cooldownDuration = 0.5f;
     private bool isDashing = false;
+    private bool onCooldown = false;
+    private bool grounded = true;
     private Rigidbody rb;
 
     void Start()
@@ -20,10 +23,17 @@ public class DashAbility : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(dashKey) && !isDashing)
+        grounded = PlayerMovement.instance.isGrounded;
+
+        if (Input.GetKeyDown(dashKey) && !isDashing && !onCooldown)
         {
             StartDash();
+
+            if (!grounded)
+                onCooldown = true;
         }
+        if (!isDashing && grounded)
+            onCooldown = false;
     }
 
     void StartDash()
@@ -37,6 +47,8 @@ public class DashAbility : MonoBehaviour
         rb.AddForce(dashDirection * dashForce, ForceMode.Impulse);
 
         StartCoroutine(EndDashAfterDelay());
+        
+        
     }
 
     IEnumerator EndDashAfterDelay()
@@ -45,5 +57,13 @@ public class DashAbility : MonoBehaviour
 
         rb.useGravity = true;
         isDashing = false;
+        if (grounded)
+            StartCoroutine(Cooldown());
+    }
+
+    IEnumerator Cooldown()
+    {
+        yield return new WaitForSeconds(cooldownDuration);
+        onCooldown = false;
     }
 }
