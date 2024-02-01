@@ -18,6 +18,7 @@ public class DashAbility : MonoBehaviour
 
     void Start()
     {
+        instance = this;
         rb = GetComponent<Rigidbody>();
     }
 
