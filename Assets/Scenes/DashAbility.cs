@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class DashAbility : MonoBehaviour
 {
+    public static DashAbility instance;
     public float dashForce = 10f;
     public float dashDuration = 0.5f;
     public float gravityScaleDuringDash = 0;
 
-    public KeyCode dashKey = KeyCode.LeftShift;
+    public int dashButton = 0;
     public float cooldownDuration = 0.5f;
-    private bool isDashing = false;
+    public bool isDashing = false;
     private bool onCooldown = false;
     private bool grounded = true;
     private Rigidbody rb;
@@ -25,7 +26,7 @@ public class DashAbility : MonoBehaviour
     {
         grounded = PlayerMovement.instance.isGrounded;
 
-        if (Input.GetKeyDown(dashKey) && !isDashing && !onCooldown)
+        if (Input.GetMouseButtonDown(dashButton) && !isDashing && !onCooldown)
         {
             StartDash();
 
@@ -47,8 +48,6 @@ public class DashAbility : MonoBehaviour
         rb.AddForce(dashDirection * dashForce, ForceMode.Impulse);
 
         StartCoroutine(EndDashAfterDelay());
-        
-        
     }
 
     IEnumerator EndDashAfterDelay()
