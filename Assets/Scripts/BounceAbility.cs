@@ -22,8 +22,8 @@ public class BounceAbility : MonoBehaviour
     {
         dashing = DashAbility.instance.isDashing;
         Debug.Log("Dashing: " + dashing);
-        Debug.Log("Space Pressed: " + Input.GetKeyDown(bounceKey));
-        if (Input.GetKeyDown(bounceKey) && dashing && touchingEnemy)
+        Debug.Log("Space Pressed: " + Input.GetKey(bounceKey));
+        if (Input.GetKey(bounceKey) && dashing && touchingEnemy)
         {
             BounceUp();
         }

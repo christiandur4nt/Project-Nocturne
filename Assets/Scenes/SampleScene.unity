@@ -458,7 +458,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 537285cc0ab94b745a536386bf5d292c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounceForce: 20
+  bounceForce: 1
   bounceKey: 32
 --- !u!1 &394743617
 GameObject:
