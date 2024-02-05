@@ -15,6 +15,7 @@ public class DashAbility : MonoBehaviour
     private bool onCooldown = false;
     private bool grounded = true;
     private Rigidbody rb;
+    [SerializeField] Animator armanim;
 
     void Start()
     {
@@ -43,7 +44,7 @@ public class DashAbility : MonoBehaviour
         isDashing = true;
         rb.useGravity = false;
         rb.velocity = Vector3.zero;
-
+        armanim.SetBool("Is Dashing", true);
         Vector3 dashDirection = transform.forward;
 
         rb.AddForce(dashDirection * dashForce, ForceMode.Impulse);
@@ -57,6 +58,7 @@ public class DashAbility : MonoBehaviour
 
         rb.useGravity = true;
         isDashing = false;
+        armanim.SetBool("Is Dashing", false);
         if (grounded)
             StartCoroutine(Cooldown());
     }
