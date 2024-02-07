@@ -9,7 +9,7 @@ public class DashAbility : MonoBehaviour
     public float dashDuration = 0.5f;
     public float gravityScaleDuringDash = 0;
 
-    public int dashButton = 0;
+    public int dashButton = 1;
     public float cooldownDuration = 0.5f;
     public bool isDashing = false;
     private bool onCooldown = false;
