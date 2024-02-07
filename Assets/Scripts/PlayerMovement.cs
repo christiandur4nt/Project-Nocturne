@@ -53,7 +53,6 @@ public class PlayerMovement : MonoBehaviour
 
     // Grapple Hook Functions //
 
-    // WIP: Should pull to position rather than jump
     public void JumpToPosition(Vector3 targetPosition, float trajectoryHeight)
     {
         Vector3 vel = CalculateJumpVelocity(transform.position, targetPosition, trajectoryHeight);
@@ -68,7 +67,9 @@ public class PlayerMovement : MonoBehaviour
         Vector3 displacementXZ = new Vector3(endPoint.x - startPoint.x, 0f, endPoint.z - startPoint.z);
 
         Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * gravity * trajectoryHeight);
-        Vector3 velocityXZ = 2*displacementXZ / (Mathf.Sqrt(-2 * trajectoryHeight / gravity) 
+
+        // WIP: Velocity can be multiplied according to player's current velocity?
+        Vector3 velocityXZ = displacementXZ / (Mathf.Sqrt(-2 * trajectoryHeight / gravity) 
             + Mathf.Sqrt(2 * (displacementY - trajectoryHeight) / gravity));
 
         return velocityXZ + velocityY;
