@@ -7,7 +7,6 @@ public class GrappleAbility : MonoBehaviour
 {
     [Header("Components")]
     public Transform playerCamera;
-    public Transform grappleTip;
     private PlayerMovement playerMovementScript;
 
     [Header("General Variables")]

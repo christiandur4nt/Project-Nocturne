@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GrappleRopeAnim : MonoBehaviour {
+    public Transform grappleTip;
     private Spring spring;
     private LineRenderer lineRenderer;
     private Vector3 currentGrapplePosition;
@@ -39,7 +40,7 @@ public class GrappleRopeAnim : MonoBehaviour {
     void DrawRope() {
         // Only render if player is currently grappling
         if (!grappleScript.IsGrappling()) {
-            currentGrapplePosition = grappleScript.grappleTip.position;
+            currentGrapplePosition = grappleTip.position;
             spring.Reset();
             if (lineRenderer.positionCount > 0)
                 lineRenderer.positionCount = 0;
@@ -56,7 +57,7 @@ public class GrappleRopeAnim : MonoBehaviour {
         spring.Update(Time.deltaTime);
 
         var grapplePoint = grappleScript.GetGrapplePoint();
-        var gunTipPosition = grappleScript.grappleTip.position;
+        var gunTipPosition = grappleTip.position;
         var up = Quaternion.LookRotation((grapplePoint - gunTipPosition).normalized) * Vector3.up;
 
         currentGrapplePosition = Vector3.Lerp(currentGrapplePosition, grapplePoint, Time.deltaTime * 12f);
