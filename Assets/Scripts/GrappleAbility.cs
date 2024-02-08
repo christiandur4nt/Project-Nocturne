@@ -8,8 +8,7 @@ public class GrappleAbility : MonoBehaviour
     [Header("Components")]
     public Transform playerCamera;
     public Transform grappleTip;
-    public LineRenderer grappleRope;
-    public PlayerMovement pm;
+    private PlayerMovement playerMovementScript;
 
     [Header("General Variables")]
     public LayerMask wallMask;
@@ -48,6 +47,10 @@ public class GrappleAbility : MonoBehaviour
         wallMask = LayerMask.GetMask(defaultLayers);
     }
 
+    void Start() {
+        playerMovementScript = GetComponent<PlayerMovement>();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -63,15 +66,9 @@ public class GrappleAbility : MonoBehaviour
 
         if (cooldownTimer > 0) cooldownTimer -= Time.deltaTime;
     }
-    
-    private void LateUpdate() {
-        if (isGrappling) {
-            grappleRope.SetPosition(0, grappleTip.transform.position);
-        }
-    }
 
     void InitGrapple(GrappleType type) {
-        // Prevent use on cooldown WIP: and isGrappling?
+        // Prevent use on cooldown or if other GrappleType is currently active
         if (cooldownTimer > 0 || isGrappling) return;
 
         isGrappling = true;
@@ -79,20 +76,16 @@ public class GrappleAbility : MonoBehaviour
         if (Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, maxGrappleDistance, wallMask)) {
             grapplePoint = hit.point;
             switch (type) {
-                case (GrappleType.ZIP):
+                case GrappleType.ZIP:
                     PerformGrappleZip();
                     break;
-                case (GrappleType.SWING):
+                case GrappleType.SWING:
                     PerformGrappleSwing();
                     break;
             }
         } else {
             grapplePoint = playerCamera.position + playerCamera.forward*maxGrappleDistance;
         }
-
-        // Grapple Rope animation
-        grappleRope.enabled = true;
-        StartCoroutine(AnimateLine());
     }
     
     void PerformGrappleZip() {
@@ -103,7 +96,7 @@ public class GrappleAbility : MonoBehaviour
 
         if (grapplePointRelativeYPos < 0) highestPointOnArc = overshootYAxis;
 
-        pm.JumpToPosition(grapplePoint, highestPointOnArc);
+        playerMovementScript.JumpToPosition(grapplePoint, highestPointOnArc);
     }
 
     void PerformGrappleSwing() {
@@ -125,7 +118,6 @@ public class GrappleAbility : MonoBehaviour
 
     void StopGrapple(GrappleType type) {
         isGrappling = false;
-        grappleRope.enabled = false;
 
         if (type == GrappleType.SWING)
             Destroy(joint);
@@ -138,15 +130,20 @@ public class GrappleAbility : MonoBehaviour
         return isGrappling;
     }
 
-    private IEnumerator AnimateLine() {
-        float startTime = Time.time;
-        
-        Vector3 pos = grappleRope.GetPosition(0);
-        while (pos != grapplePoint) {
-            float t = (Time.time - startTime) / animationDuration;
-            pos = Vector3.Lerp(grappleRope.GetPosition(0), grapplePoint, t);
-            grappleRope.SetPosition(1, pos);
-            yield return null;
-        }
+    public Vector3 GetGrapplePoint() {
+        return grapplePoint;
     }
+
+    // Old simple animation
+    // private IEnumerator AnimateLine() {
+    //     float startTime = Time.time;
+        
+    //     Vector3 pos = grappleRope.GetPosition(0);
+    //     while (pos != grapplePoint) {
+    //         float t = (Time.time - startTime) / animationDuration;
+    //         pos = Vector3.Lerp(grappleRope.GetPosition(0), grapplePoint, t);
+    //         grappleRope.SetPosition(1, pos);
+    //         yield return null;
+    //     }
+    // }
 }
