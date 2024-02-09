@@ -68,4 +68,10 @@ public class DashAbility : MonoBehaviour
         yield return new WaitForSeconds(cooldownDuration);
         onCooldown = false;
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Enemy" && isDashing)
+            onCooldown = false;
+    }
 }
