@@ -23,11 +23,11 @@ public class BounceAbility : MonoBehaviour
         dashing = DashAbility.instance.isDashing;
         if (Input.GetKey(bounceKey) && dashing && touchingEnemy)
         {
-            Debug.log("Can bounce");
+            Debug.Log("Can bounce");
             BounceUp();
         }
         else
-            Debug.log("Cannot bounce");
+            touchingEnemy = false;
     }
 
     void BounceUp()
@@ -43,11 +43,4 @@ public class BounceAbility : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.tag == "Enemy")
-        {
-            touchingEnemy = false;
-        }
-    }
 }
