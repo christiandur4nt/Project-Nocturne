@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -51,7 +50,11 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = vel;
     }
 
-    // Grapple Hook Functions //
+    public Vector3 GetVelocity() {
+        return rb.velocity;
+    }
+
+    // Grapple Zip Functions //
 
     public void JumpToPosition(Vector3 targetPosition, float trajectoryHeight)
     {
