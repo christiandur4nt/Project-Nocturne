@@ -21,12 +21,13 @@ public class BounceAbility : MonoBehaviour
     void Update()
     {
         dashing = DashAbility.instance.isDashing;
-        Debug.Log("Dashing: " + dashing);
-        Debug.Log("Space Pressed: " + Input.GetKey(bounceKey));
         if (Input.GetKey(bounceKey) && dashing && touchingEnemy)
         {
+            Debug.log("Can bounce");
             BounceUp();
         }
+        else
+            Debug.log("Cannot bounce");
     }
 
     void BounceUp()
