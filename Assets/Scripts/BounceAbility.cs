@@ -7,6 +7,7 @@ public class BounceAbility : MonoBehaviour
     private bool dashing = false;
     private Rigidbody rb;
     public float bounceForce = 20f;
+    public float bounceDuration = 0.25f;
     private bool touchingEnemy = false;
 
     public KeyCode bounceKey = KeyCode.Space;
@@ -25,6 +26,7 @@ public class BounceAbility : MonoBehaviour
         {
             Debug.Log("Can bounce");
             BounceUp();
+
         }
         else
             touchingEnemy = false;
@@ -32,7 +34,12 @@ public class BounceAbility : MonoBehaviour
 
     void BounceUp()
     {
-        rb.AddForce(Vector3.up * bounceForce, ForceMode.Impulse);
+        rb.AddForce(Vector3.up * bounceForce, ForceMode.VelocityChange);
+    }
+
+    IEnumerator EndBounceDelay()
+    {
+        yield return new WaitForSeconds(bounceDuration);
     }
 
     private void OnCollisionEnter(Collision collision)
