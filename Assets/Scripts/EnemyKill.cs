@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 
 public class EnemyKill : MonoBehaviour
@@ -23,6 +24,7 @@ public class EnemyKill : MonoBehaviour
         if (collision.gameObject.tag == "Player" && playerDashing)
         {
             Destroy(gameObject);
+            collision.rigidbody.velocity = UnityEngine.Vector3.zero;
         }
     }
 }

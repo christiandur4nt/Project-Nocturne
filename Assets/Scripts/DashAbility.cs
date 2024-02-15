@@ -47,7 +47,7 @@ public class DashAbility : MonoBehaviour
         armanim.SetBool("Is Dashing", true);
         Vector3 dashDirection = transform.forward;
 
-        rb.AddForce(dashDirection * dashForce, ForceMode.Impulse);
+        rb.AddForce(dashDirection * dashForce, ForceMode.VelocityChange);
 
         StartCoroutine(EndDashAfterDelay());
     }
