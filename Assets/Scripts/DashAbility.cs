@@ -5,6 +5,9 @@ using UnityEngine;
 public class DashAbility : MonoBehaviour
 {
     public static DashAbility instance;
+    public Camera playerCamera;
+    public float dashFOV = 90f;
+    private float originalFOV;
     public float dashForce = 10f;
     public float dashDuration = 0.5f;
     public float gravityScaleDuringDash = 0;
@@ -21,6 +24,7 @@ public class DashAbility : MonoBehaviour
     {
         instance = this;
         rb = GetComponent<Rigidbody>();
+        originalFOV = playerCamera.fieldOfView;
     }
 
     // Update is called once per frame
@@ -31,7 +35,7 @@ public class DashAbility : MonoBehaviour
         if (Input.GetMouseButtonDown(dashButton) && !isDashing && !onCooldown)
         {
             StartDash();
-
+            playerCamera.fieldOfView = dashFOV;
             if (!grounded)
                 onCooldown = true;
         }
@@ -56,6 +60,7 @@ public class DashAbility : MonoBehaviour
     {
         yield return new WaitForSeconds(dashDuration);
 
+        resetFOV();
         rb.useGravity = true;
         isDashing = false;
         armanim.SetBool("Is Dashing", false);
@@ -67,6 +72,11 @@ public class DashAbility : MonoBehaviour
     {
         yield return new WaitForSeconds(cooldownDuration);
         onCooldown = false;
+    }
+
+    private void resetFOV()
+    {
+        playerCamera.fieldOfView = originalFOV;
     }
 
     private void OnCollisionEnter(Collision collision)
