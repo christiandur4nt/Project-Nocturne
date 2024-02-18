@@ -868,6 +868,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4005671417008550051, guid: 6bc525b2c65c93b498e8c9a53e5bf6e9, type: 3}
+      propertyPath: m_Drag
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 4660431994008811322, guid: 6bc525b2c65c93b498e8c9a53e5bf6e9, type: 3}
       propertyPath: easingCurve.m_Curve.Array.size
       value: 2
@@ -915,6 +919,14 @@ PrefabInstance:
     - target: {fileID: 6282737760972863338, guid: 6bc525b2c65c93b498e8c9a53e5bf6e9, type: 3}
       propertyPath: m_Name
       value: Player Character
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611341512818971950, guid: 6bc525b2c65c93b498e8c9a53e5bf6e9, type: 3}
+      propertyPath: grappleForce
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611341512818971950, guid: 6bc525b2c65c93b498e8c9a53e5bf6e9, type: 3}
+      propertyPath: grappleMouseKey
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
