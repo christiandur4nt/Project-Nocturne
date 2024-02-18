@@ -282,7 +282,7 @@ Transform:
   m_GameObject: {fileID: 6282737760972863338}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.4570417, y: 3.0840423, z: -10.148648}
+  m_LocalPosition: {x: 0, y: 1.43, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -567,16 +567,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 8571964710630432583}
-  wallMask:
-    serializedVersion: 2
-    m_Bits: 192
   maxGrappleDistance: 100
   animationDuration: 0.1
   cooldownTime: 0.1
-  grappleZipMouseKey: 0
-  grappleSwingMouseKey: 1
+  grappleMouseKey: 0
   overshootYAxis: 0
-  grappleForce: 80
+  grappleForce: 40
   damper: 7
   massScale: 4.5
   relativeSwingRadius: 0.5
