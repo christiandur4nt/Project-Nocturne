@@ -270,6 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bounceForce: 1
+  bounceDuration: 0.25
   bounceKey: 32
 --- !u!54 &1615603208057802238
 Rigidbody:
@@ -324,11 +325,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: da693851885102147a06414cd527244f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.051216304
+      value: -0.516
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: da693851885102147a06414cd527244f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.36565676
+      value: 0.433
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: da693851885102147a06414cd527244f, type: 3}
       propertyPath: m_LocalRotation.w
