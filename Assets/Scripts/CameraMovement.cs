@@ -1,13 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    public float sensitivity = 2.0f;
+    public float sensitivity;
     public Transform playerBody;
 
     float rotationX = 0f;
+
+    void Reset() {
+        sensitivity = 800f;
+    }
 
     void Start()
     {

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -43,5 +42,39 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.tag == "Ground")
             isGrounded = true;
+    }
+
+    private IEnumerator SetVelocity(float waitTime, Vector3 vel)
+    {
+        yield return new WaitForSeconds(waitTime);
+        rb.velocity = vel;
+    }
+
+    public Vector3 GetVelocity() {
+        return rb.velocity;
+    }
+
+    // Grapple Zip Functions //
+
+    public void JumpToPosition(Vector3 targetPosition, float trajectoryHeight)
+    {
+        Vector3 vel = CalculateJumpVelocity(transform.position, targetPosition, trajectoryHeight);
+        StartCoroutine(SetVelocity(0.1f, vel));
+    }
+
+    // Function from external repository for calculating velocity for grappling
+    private Vector3 CalculateJumpVelocity(Vector3 startPoint, Vector3 endPoint, float trajectoryHeight)
+    {
+        float gravity = Physics.gravity.y;
+        float displacementY = endPoint.y - startPoint.y;
+        Vector3 displacementXZ = new Vector3(endPoint.x - startPoint.x, 0f, endPoint.z - startPoint.z);
+
+        Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * gravity * trajectoryHeight);
+
+        // WIP: Velocity can be multiplied according to player's current velocity?
+        Vector3 velocityXZ = displacementXZ / (Mathf.Sqrt(-2 * trajectoryHeight / gravity) 
+            + Mathf.Sqrt(2 * (displacementY - trajectoryHeight) / gravity));
+
+        return velocityXZ + velocityY;
     }
 }
