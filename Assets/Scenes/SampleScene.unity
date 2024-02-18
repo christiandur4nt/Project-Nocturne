@@ -872,6 +872,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 271948068}
   m_SourcePrefab: {fileID: 100100000, guid: b0c9027d2955e3045aea5f9276cd0ecc, type: 3}
+--- !u!20 &1338557337 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 6295203360646150602, guid: 21caa6deac7433e48b4c80e5b85c1f5e, type: 3}
+  m_PrefabInstance: {fileID: 1466649129}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1466649129
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -892,13 +897,25 @@ PrefabInstance:
       propertyPath: dashDuration
       value: 0.4
       objectReference: {fileID: 0}
+    - target: {fileID: 1764332594776053903, guid: 21caa6deac7433e48b4c80e5b85c1f5e, type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 1338557337}
     - target: {fileID: 5600404905048861784, guid: 21caa6deac7433e48b4c80e5b85c1f5e, type: 3}
       propertyPath: m_Name
       value: Player Character
       objectReference: {fileID: 0}
     - target: {fileID: 5864172693881967165, guid: 21caa6deac7433e48b4c80e5b85c1f5e, type: 3}
       propertyPath: bounceForce
-      value: 0.1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5864172693881967165, guid: 21caa6deac7433e48b4c80e5b85c1f5e, type: 3}
+      propertyPath: launchForce
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5864172693881967165, guid: 21caa6deac7433e48b4c80e5b85c1f5e, type: 3}
+      propertyPath: upwardForce
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8241394295971045830, guid: 21caa6deac7433e48b4c80e5b85c1f5e, type: 3}
       propertyPath: m_LocalPosition.x

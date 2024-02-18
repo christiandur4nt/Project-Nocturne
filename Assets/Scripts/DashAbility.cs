@@ -8,6 +8,8 @@ public class DashAbility : MonoBehaviour
     public Camera playerCamera;
     public float dashFOV = 90f;
     private float originalFOV;
+    public float fovTransitionDuration = 0.3f;
+    private float transitionTimer;
     public float dashForce = 10f;
     public float dashDuration = 0.5f;
     public float gravityScaleDuringDash = 0;
@@ -31,11 +33,9 @@ public class DashAbility : MonoBehaviour
     void Update()
     {
         grounded = PlayerMovement.instance.isGrounded;
-
         if (Input.GetMouseButtonDown(dashButton) && !isDashing && !onCooldown)
         {
             StartDash();
-            playerCamera.fieldOfView = dashFOV;
             if (!grounded)
                 onCooldown = true;
         }

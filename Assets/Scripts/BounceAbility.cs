@@ -7,6 +7,8 @@ public class BounceAbility : MonoBehaviour
     private bool dashing = false;
     private Rigidbody rb;
     public float bounceForce = 20f;
+    public float launchForce = 10f;
+    public float upwardForce = 2f;
     public float bounceDuration = 0.25f;
     private bool touchingEnemy = false;
 
@@ -26,7 +28,10 @@ public class BounceAbility : MonoBehaviour
         {
             Debug.Log("Can bounce");
             BounceUp();
-
+        }
+        else if (dashing && touchingEnemy)
+        {
+            LaunchForward();
         }
         else
             touchingEnemy = false;
@@ -35,6 +40,15 @@ public class BounceAbility : MonoBehaviour
     void BounceUp()
     {
         rb.AddForce(Vector3.up * bounceForce, ForceMode.VelocityChange);
+    }
+
+    void LaunchForward()
+    {
+        Vector3 launchDirection = transform.forward * launchForce;
+        launchDirection += Vector3.up * upwardForce;
+        launchDirection.Normalize();
+        rb.velocity = Vector3.zero;
+        rb.AddForce(launchDirection, ForceMode.VelocityChange);
     }
 
     IEnumerator EndBounceDelay()
