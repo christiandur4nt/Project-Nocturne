@@ -2,10 +2,18 @@ using UnityEngine;
 
 public class FOVController : MonoBehaviour
 {
+    [Header("FOV Variables")]
     public float minFOV;
     public float maxFOV;
     public float maxSpeed;
     public AnimationCurve easingCurve;
+
+    // Components
+    private PlayerMovement playerMovementScript;
+
+    void Start() {
+        playerMovementScript = GetComponent<PlayerMovement>();
+    }
 
     void Reset() {
         minFOV = 60f;
@@ -18,7 +26,7 @@ public class FOVController : MonoBehaviour
     void Update()
     {
         // Update Camera FOV according to speed in the XZ direction
-        Vector3 vel = PlayerMovement.instance.GetVelocity();
+        Vector3 vel = playerMovementScript.GetVelocity();
         float speed = (vel-vel.y*Vector3.up).magnitude;
         float parameter = easingCurve.Evaluate(Mathf.InverseLerp(0, maxSpeed, speed));
         float FOV = Mathf.Lerp(minFOV, maxFOV, parameter);

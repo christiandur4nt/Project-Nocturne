@@ -2,11 +2,15 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    public float sensitivity;
+    [Header("Components")]
     public Transform playerBody;
+    
+    [Header("Movement Variables")]
+    public float sensitivity;
     public float smoothness = 0.5f;
 
-    float rotationX = 0f;
+    // Internal
+    private float rotationX = 0f;
 
     void Reset() {
         sensitivity = 800f;

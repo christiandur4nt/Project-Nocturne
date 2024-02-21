@@ -1,28 +1,29 @@
-using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public static PlayerMovement instance;
+    public LayerMask groundLayer;
+    private Rigidbody rb;
+
+    [Header("Movement Variables")]
     public float topSpeed = 5f;
     public float acceleration = 5f;
     public float deceleration = 10f;
-    public float jumpForce = 10f;
-    public LayerMask groundLayer;
-    private Rigidbody rb;
-    // Only public to gain access in other scripts
-    public bool isGrounded = true;
+    public float jumpForce = 60f;
+
+    // Internal
+    private bool isGrounded = true;
     private float currentSpeed = 0f;
     private Vector3 moveDirection = Vector3.zero;
+
     // Start is called before the first frame update
     void Start()
     {
-        instance = this;
         rb = GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationY;
     }
+    
     // Update is called once per frame
     void Update()
     {
@@ -68,6 +69,10 @@ public class PlayerMovement : MonoBehaviour
 
     public Vector3 GetVelocity() {
         return rb.velocity;
+    }
+
+    public bool IsGrounded() {
+        return isGrounded;
     }
 
     // Grapple Zip Functions //

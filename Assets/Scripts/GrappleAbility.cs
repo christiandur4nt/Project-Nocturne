@@ -5,7 +5,7 @@ using UnityEngine;
 public class GrappleAbility : MonoBehaviour
 {
     [Header("Components")]
-    public Transform playerCamera;
+    public Transform playerCameraT;
     private PlayerMovement playerMovementScript;
 
     [Header("General Variables")]
@@ -36,6 +36,7 @@ public class GrappleAbility : MonoBehaviour
     private float cooldownTimer;
 
     void Reset() {
+        playerCameraT = Camera.main.transform;
         cooldownTime = 0.1f;
         animationDuration = 0.1f;
         maxGrappleDistance = 100f;
@@ -59,7 +60,7 @@ public class GrappleAbility : MonoBehaviour
     void Update()
     {
         // Separate Ray-cast for rendering grapple icon for grapple walls and monkey bars
-        if (Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, maxGrappleDistance, wallMask | barMask)) {
+        if (Physics.Raycast(playerCameraT.position, playerCameraT.forward, out hit, maxGrappleDistance, wallMask | barMask)) {
             Transform grappleIcon = hit.transform.Find("Hook Icon");
             if (grappleIcon != null) {
                 grappleIcon.gameObject.SetActive(true);
@@ -86,14 +87,14 @@ public class GrappleAbility : MonoBehaviour
         if (cooldownTimer > 0 || isGrappling) return;
 
         isGrappling = true;
-        if (Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, maxGrappleDistance, wallMask)) {
+        if (Physics.Raycast(playerCameraT.position, playerCameraT.forward, out hit, maxGrappleDistance, wallMask)) {
             grapplePoint = hit.transform.position;
             PerformGrappleZip();
-        } else if (Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, maxGrappleDistance, barMask)) {
+        } else if (Physics.Raycast(playerCameraT.position, playerCameraT.forward, out hit, maxGrappleDistance, barMask)) {
             grapplePoint = hit.transform.position;
             PerformGrappleSwing();
         } else {
-            grapplePoint = playerCamera.position + playerCamera.forward*maxGrappleDistance;
+            grapplePoint = playerCameraT.position + playerCameraT.forward*maxGrappleDistance;
         }
     }
     

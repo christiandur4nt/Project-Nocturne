@@ -1,29 +1,33 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BounceAbility : MonoBehaviour
 {
-    private bool dashing = false;
-    private Rigidbody rb;
+    [Header("Bounce Variables")]
     public float bounceForce = 20f;
     public float launchForce = 10f;
     public float upwardForce = 2f;
     public float bounceDuration = 0.25f;
+    public KeyCode bounceKey = KeyCode.Space;
+
+    // Internal
+    private bool dashing = false;
+    private DashAbility dashAbilityScript;
+    private Rigidbody rb;
     private bool touchingEnemy = false;
 
-    public KeyCode bounceKey = KeyCode.Space;
 
     // Start is called before the first frame update
     void Start()
     {
+        dashAbilityScript = GetComponent<DashAbility>();
         rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        dashing = DashAbility.instance.isDashing;
+        dashing = dashAbilityScript.IsDashing();
         if (Input.GetKey(bounceKey) && dashing && touchingEnemy)
         {
             Debug.Log("Can bounce");

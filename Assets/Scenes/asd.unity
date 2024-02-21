@@ -6080,6 +6080,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33c954bd412566d48b19d22088ce0ee7, type: 3}
+--- !u!95 &364126013 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 575666928181730092, guid: 21caa6deac7433e48b4c80e5b85c1f5e, type: 3}
+  m_PrefabInstance: {fileID: 1154968441}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &366163042 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 33c954bd412566d48b19d22088ce0ee7, type: 3}
@@ -19549,12 +19554,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1764332594776053903, guid: 21caa6deac7433e48b4c80e5b85c1f5e, type: 3}
       propertyPath: dashForce
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1764332594776053903, guid: 21caa6deac7433e48b4c80e5b85c1f5e, type: 3}
-      propertyPath: dashDuration
-      value: 0.25
+      propertyPath: dashButton
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1764332594776053903, guid: 21caa6deac7433e48b4c80e5b85c1f5e, type: 3}
+      propertyPath: armAnimation
+      value: 
+      objectReference: {fileID: 364126013}
+    - target: {fileID: 1764332594776053903, guid: 21caa6deac7433e48b4c80e5b85c1f5e, type: 3}
+      propertyPath: dashDuration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1764332594776053903, guid: 21caa6deac7433e48b4c80e5b85c1f5e, type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 1342472132}
     - target: {fileID: 1989371664692779743, guid: 21caa6deac7433e48b4c80e5b85c1f5e, type: 3}
       propertyPath: speed
       value: 10
@@ -22556,6 +22573,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 33c954bd412566d48b19d22088ce0ee7, type: 3}
   m_PrefabInstance: {fileID: 1551427373}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &1342472132 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 6295203360646150602, guid: 21caa6deac7433e48b4c80e5b85c1f5e, type: 3}
+  m_PrefabInstance: {fileID: 1154968441}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1343897305 stripped
 Transform:
