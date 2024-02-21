@@ -4,6 +4,7 @@ public class CameraMovement : MonoBehaviour
 {
     public float sensitivity;
     public Transform playerBody;
+    public float smoothness = 0.5f;
 
     float rotationX = 0f;
 
@@ -29,6 +30,7 @@ public class CameraMovement : MonoBehaviour
         rotationX -= mouseY;
         rotationX = Mathf.Clamp(rotationX, -90f, 90f);
 
-        transform.localRotation = Quaternion.Euler(rotationX, 0f, 0f);
+        Quaternion targetRotation = Quaternion.Euler(rotationX, 0f, 0f);
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, smoothness);
     }
 }

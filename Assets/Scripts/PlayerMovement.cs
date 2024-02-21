@@ -1,15 +1,21 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
     public static PlayerMovement instance;
-    public float speed = 5f;
+    public float topSpeed = 5f;
+    public float acceleration = 5f;
+    public float deceleration = 10f;
     public float jumpForce = 10f;
     public LayerMask groundLayer;
     private Rigidbody rb;
     // Only public to gain access in other scripts
     public bool isGrounded = true;
+    private float currentSpeed = 0f;
+    private Vector3 moveDirection = Vector3.zero;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +28,17 @@ public class PlayerMovement : MonoBehaviour
     {
         float x_input = Input.GetAxis("Horizontal");
         float z_input = Input.GetAxis("Vertical");
+        Vector3 inputVector = new Vector3(x_input, 0f, z_input).normalized;
+
+        if (inputVector.magnitude > 0)
+        {
+            currentSpeed = Mathf.MoveTowards(currentSpeed, topSpeed, acceleration * Time.deltaTime);
+            moveDirection = inputVector;
+        }
+        else
+        {
+            currentSpeed = Mathf.MoveTowards(currentSpeed, 0f, deceleration * Time.deltaTime);
+        }
 
         if (isGrounded && Input.GetButtonDown("Jump"))
         {
@@ -29,8 +46,7 @@ public class PlayerMovement : MonoBehaviour
             isGrounded = false;
         }
 
-        Vector3 movement = new Vector3(x_input, 0f, z_input) * speed * Time.deltaTime;
-        transform.Translate(movement);
+        transform.Translate(moveDirection * currentSpeed * Time.deltaTime);
     }
 
     void Jump()
