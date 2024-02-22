@@ -93,7 +93,7 @@ public class DashAbility : MonoBehaviour
             onCooldown = false;
     }
 
-    public Boolean IsDashing() {
+    public bool IsDashing() {
         return isDashing;
     }
 }

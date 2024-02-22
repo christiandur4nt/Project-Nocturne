@@ -28,9 +28,9 @@ public class BounceAbility : MonoBehaviour
     void Update()
     {
         dashing = dashAbilityScript.IsDashing();
-        if (Input.GetKey(bounceKey) && dashing && touchingEnemy)
+        if (dashing && touchingEnemy && Input.GetKey(bounceKey))
         {
-            Debug.Log("Can bounce");
+            Debug.Log(touchingEnemy);
             BounceUp();
         }
         else if (dashing && touchingEnemy)
