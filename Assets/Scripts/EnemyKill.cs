@@ -3,10 +3,15 @@ using UnityEngine;
 public class EnemyKill : MonoBehaviour
 {
     [Header("Components")]
-    public DashAbility dashAbilityScript;
+    public GameObject playerCharacter;
+    private DashAbility dashAbilityScript;
 
     // Internal
     private bool playerDashing = false;
+
+    void Awake() {
+        dashAbilityScript = playerCharacter.GetComponent<DashAbility>();
+    }
 
     // Update is called once per frame
     void Update()
