@@ -19,7 +19,7 @@ public class DashAbility : MonoBehaviour
     [Header("Cooldown")]
     public float cooldownDuration = 10f;
 
-    [Header("Input")]
+    [Header("Keybinds")]
     public int dashButton = 0;
 
     // Internal
@@ -40,11 +40,11 @@ public class DashAbility : MonoBehaviour
     void Update()
     {
         grounded = pm.IsGrounded();
-        if (Input.GetMouseButtonDown(dashButton) && !isDashing && !onCooldown)
+        if (Input.GetMouseButtonDown(dashButton))
         {
             Dash();
-            if (!grounded)
-                onCooldown = true;
+            // if (!grounded)
+            //     onCooldown = true;
         }
         if (!isDashing && grounded)
             onCooldown = false;
@@ -54,21 +54,23 @@ public class DashAbility : MonoBehaviour
     {
         Vector3 forceToApply = orientation.forward * dashForce + orientation.up * dashUpwardForce;
 
-        isDashing = true;
-        rb.useGravity = false;
-        rb.velocity = Vector3.zero;
-        armAnimation.SetBool("Is Dashing", true);
-        Vector3 dashDirection = transform.forward;
-
         rb.AddForce(forceToApply, ForceMode.Impulse);
 
         Invoke(nameof(ResetDash), dashDuration);
+
+        // isDashing = true;
+        // rb.useGravity = false;
+        // rb.velocity = Vector3.zero;
+        // armAnimation.SetBool("Is Dashing", true);
+        // Vector3 dashDirection = transform.forward;
+
+        
         //StartCoroutine(EndDashAfterDelay());
     }
 
     void ResetDash()
     {
-
+        
     }
 
     IEnumerator EndDashAfterDelay()

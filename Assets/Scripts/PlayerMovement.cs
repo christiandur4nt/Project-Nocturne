@@ -1,4 +1,5 @@
 using System.Collections;
+//using System.Numerics;
 using UnityEditor.Animations;
 using UnityEngine;
 
@@ -11,19 +12,36 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
+    public KeyCode sprintKey = KeyCode.LeftShift;
+    public KeyCode crouchKey = KeyCode.LeftControl;
 
-    [Header("Movement Variables")]
-    public float speed;
+    [Header("Movement")]
+    public float walkSpeed;
+    public float sprintSpeed;
     public float groundDrag;
+    private float speed;
+    
+
+    [Header("Jumping")]
     public float jumpForce;
     public float jumpCooldown;
     public float airMultiplier;
     private bool readyToJump;
 
+    [Header("Crounching")]
+    public float crouchSpeed;
+    public float crouchYScale;
+    private float startYScale;
+
     [Header("Ground Check")]
     public float height;
     public LayerMask groundLayer;
     private bool isGrounded;
+
+    [Header("Slope Handling")]
+    public float maxSlopeAngle;
+    private bool exitingSlope;
+    private RaycastHit slopeHit;
 
     // Internal
     private float xInput;
@@ -31,12 +49,22 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     private Vector3 moveDirection;
 
+    public MovementState state;
+    public enum MovementState
+    {
+        walking,
+        sprinting,
+        air,
+        crouching,
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         readyToJump = true;
+        startYScale = transform.localScale.y;
     }
     
     private void getInput()
@@ -50,6 +78,16 @@ public class PlayerMovement : MonoBehaviour
             Jump();
             Invoke(nameof(ResetJump), jumpCooldown);
         }
+
+        if (Input.GetKeyDown(crouchKey))
+        {
+            transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
+            rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+        }
+        if (Input.GetKeyUp(crouchKey))
+        {
+            transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
+        }
     }
 
     // Update is called once per frame
@@ -59,6 +97,7 @@ public class PlayerMovement : MonoBehaviour
 
         getInput();
         TopSpeed();
+        StateHandler();
 
         if (isGrounded)
             rb.drag = groundDrag;
@@ -69,16 +108,6 @@ public class PlayerMovement : MonoBehaviour
         //     animator.SetBool("Movement", true);
         // else
         //     animator.SetBool("Movement", false);
-
-        // if (isGrounded && Input.GetButtonDown("Jump"))
-        // {
-        //     Jump();
-        //     isGrounded = false;
-        // }
-
-        // transform.Translate(moveDirection * currentSpeed * Time.deltaTime);
-        // Vector3 movement = new Vector3(xInput, 0f, zInput) * speed * Time.deltaTime;
-        // transform.Translate(movement);
     }
 
     private void FixedUpdate()
@@ -86,19 +115,53 @@ public class PlayerMovement : MonoBehaviour
         MovePlayer();
     }
 
+    private void StateHandler()
+    {
+        if (Input.GetKey(crouchKey))
+        {
+            state = MovementState.crouching;
+            speed = crouchSpeed;
+        }
+        else if (isGrounded && Input.GetKey(sprintKey))
+        {
+            state = MovementState.sprinting;
+            speed = sprintSpeed;
+        }
+        else if (isGrounded)
+        {
+            state = MovementState.walking;
+            speed = walkSpeed;
+        }
+        else
+        {
+            state = MovementState.air;
+        }
+    }
+
     private void MovePlayer()
     {
         moveDirection = orientation.forward * zInput + orientation.right * xInput;
+
+        if (OnSlope())
+        {
+            rb.AddForce(getSlopeMoveDirection() * speed * 20f, ForceMode.Force);
+
+            if (rb.velocity.y > 0)
+                rb.AddForce(Vector3.down * 80f, ForceMode.Force);
+        }
 
         if (isGrounded)
             rb.AddForce(moveDirection.normalized * speed * 10f, ForceMode.Force);
         else if(!isGrounded)
             rb.AddForce(moveDirection.normalized * speed * 10f * airMultiplier, ForceMode.Force);
         
+        rb.useGravity = !OnSlope();
     }
 
     void Jump()
     {
+        exitingSlope = true;
+
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
@@ -106,10 +169,17 @@ public class PlayerMovement : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
+        exitingSlope = false;
     }
 
     private void TopSpeed()
     {
+        if (OnSlope() && !exitingSlope)
+        {
+            if (rb.velocity.magnitude > speed)
+                rb.velocity = rb.velocity.normalized * speed;
+        }
+
         Vector3 rawVelocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         if (rawVelocity.magnitude > speed)
@@ -117,6 +187,22 @@ public class PlayerMovement : MonoBehaviour
             Vector3 limitedVelocity = rawVelocity.normalized * speed;
             rb.velocity = new Vector3(limitedVelocity.x, rb.velocity.y, limitedVelocity.z);
         }
+    }
+
+    private bool OnSlope()
+    {
+        if(Physics.Raycast(transform.position, Vector3.down, out slopeHit, height * 0.5f + 0.3f))
+        {
+            float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
+            return angle < maxSlopeAngle && angle != 0;
+        }
+
+        return false;
+    }
+
+    private Vector3 getSlopeMoveDirection()
+    {
+        return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized;
     }
 
     private void OnCollisionEnter(Collision collision)
