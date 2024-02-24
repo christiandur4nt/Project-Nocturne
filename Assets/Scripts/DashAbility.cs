@@ -5,18 +5,22 @@ using UnityEngine;
 public class DashAbility : MonoBehaviour
 {
     [Header("Components")]
-    public Camera playerCamera;
-    private PlayerMovement playerMovementScript;
+    public Transform orientation;
+    public Transform playerCamera;
+    private PlayerMovement pm;
     private Rigidbody rb;
 
     [Header("Dash Variables")]
-    public float dashFOV = 90f;
-    public float fovTransitionDuration = 0.3f;
-    public float dashForce = 10f;
-    public float dashDuration = 0.5f;
-    public float gravityScaleDuringDash = 0;
-    public int dashButton = 0;
+    public float dashForce;
+    public float dashUpwardForce;
+    public float dashDuration;
+    public float gravityScaleDuringDash;
+
+    [Header("Cooldown")]
     public float cooldownDuration = 10f;
+
+    [Header("Input")]
+    public int dashButton = 0;
 
     // Internal
     private float transitionTimer;
@@ -26,24 +30,19 @@ public class DashAbility : MonoBehaviour
     private bool grounded = true;
     [SerializeField] private Animator armAnimation;
 
-    void Reset() {
-        playerCamera = Camera.main;
-    }
-
     void Start()
     {
-        playerMovementScript = GetComponent<PlayerMovement>();
+        pm = GetComponent<PlayerMovement>();
         rb = GetComponent<Rigidbody>();
-        originalFOV = playerCamera.fieldOfView;
     }
 
     // Update is called once per frame
     void Update()
     {
-        grounded = playerMovementScript.IsGrounded();
+        grounded = pm.IsGrounded();
         if (Input.GetMouseButtonDown(dashButton) && !isDashing && !onCooldown)
         {
-            StartDash();
+            Dash();
             if (!grounded)
                 onCooldown = true;
         }
@@ -51,24 +50,31 @@ public class DashAbility : MonoBehaviour
             onCooldown = false;
     }
 
-    void StartDash()
+    void Dash()
     {
+        Vector3 forceToApply = orientation.forward * dashForce + orientation.up * dashUpwardForce;
+
         isDashing = true;
         rb.useGravity = false;
         rb.velocity = Vector3.zero;
         armAnimation.SetBool("Is Dashing", true);
         Vector3 dashDirection = transform.forward;
 
-        rb.AddForce(dashDirection * dashForce, ForceMode.VelocityChange);
+        rb.AddForce(forceToApply, ForceMode.Impulse);
 
-        StartCoroutine(EndDashAfterDelay());
+        Invoke(nameof(ResetDash), dashDuration);
+        //StartCoroutine(EndDashAfterDelay());
+    }
+
+    void ResetDash()
+    {
+
     }
 
     IEnumerator EndDashAfterDelay()
     {
         yield return new WaitForSeconds(dashDuration);
 
-        resetFOV();
         rb.useGravity = true;
         isDashing = false;
         armAnimation.SetBool("Is Dashing", false);
@@ -80,11 +86,6 @@ public class DashAbility : MonoBehaviour
     {
         yield return new WaitForSeconds(cooldownDuration);
         onCooldown = false;
-    }
-
-    private void resetFOV()
-    {
-        playerCamera.fieldOfView = originalFOV;
     }
 
     private void OnCollisionEnter(Collision collision)

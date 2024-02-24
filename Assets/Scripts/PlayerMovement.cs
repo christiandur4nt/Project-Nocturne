@@ -4,67 +4,119 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public static PlayerMovement instance;
+    [Header("References")]
+    public Transform orientation;
     [SerializeField] private Animator animator;
-    public float speed = 5f;
-    public LayerMask groundLayer;
-    private Rigidbody rb;
+    
+
+    [Header("Keybinds")]
+    public KeyCode jumpKey = KeyCode.Space;
 
     [Header("Movement Variables")]
-    public float topSpeed = 5f;
-    public float acceleration = 5f;
-    public float deceleration = 10f;
-    public float jumpForce = 60f;
+    public float speed;
+    public float groundDrag;
+    public float jumpForce;
+    public float jumpCooldown;
+    public float airMultiplier;
+    private bool readyToJump;
+
+    [Header("Ground Check")]
+    public float height;
+    public LayerMask groundLayer;
+    private bool isGrounded;
 
     // Internal
-    private bool isGrounded = true;
-    private float currentSpeed = 0f;
-    private Vector3 moveDirection = Vector3.zero;
+    private float xInput;
+    private float zInput;
+    private Rigidbody rb;
+    private Vector3 moveDirection;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationY;
+        rb.freezeRotation = true;
+        readyToJump = true;
     }
     
+    private void getInput()
+    {
+        xInput = Input.GetAxisRaw("Horizontal");
+        zInput = Input.GetAxisRaw("Vertical");
+
+        if (Input.GetKey(jumpKey) && readyToJump && isGrounded)
+        {
+            readyToJump = false;
+            Jump();
+            Invoke(nameof(ResetJump), jumpCooldown);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
-        float x_input = Input.GetAxis("Horizontal");
-        float z_input = Input.GetAxis("Vertical");
-        Vector3 inputVector = new Vector3(x_input, 0f, z_input).normalized;
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, height * 0.5f + 0.2f, groundLayer);
 
-        if (x_input != 0 || z_input != 0)
-            animator.SetBool("Movement", true);
+        getInput();
+        TopSpeed();
+
+        if (isGrounded)
+            rb.drag = groundDrag;
         else
-            animator.SetBool("Movement", false);
+            rb.drag = 0;
+
+        // if (xInput != 0 || zInput != 0)
+        //     animator.SetBool("Movement", true);
+        // else
+        //     animator.SetBool("Movement", false);
+
+        // if (isGrounded && Input.GetButtonDown("Jump"))
+        // {
+        //     Jump();
+        //     isGrounded = false;
+        // }
+
+        // transform.Translate(moveDirection * currentSpeed * Time.deltaTime);
+        // Vector3 movement = new Vector3(xInput, 0f, zInput) * speed * Time.deltaTime;
+        // transform.Translate(movement);
+    }
+
+    private void FixedUpdate()
+    {
+        MovePlayer();
+    }
+
+    private void MovePlayer()
+    {
+        moveDirection = orientation.forward * zInput + orientation.right * xInput;
+
+        if (isGrounded)
+            rb.AddForce(moveDirection.normalized * speed * 10f, ForceMode.Force);
+        else if(!isGrounded)
+            rb.AddForce(moveDirection.normalized * speed * 10f * airMultiplier, ForceMode.Force);
         
-
-        if (inputVector.magnitude > 0)
-        {
-            currentSpeed = Mathf.MoveTowards(currentSpeed, topSpeed, acceleration * Time.deltaTime);
-            moveDirection = inputVector;
-        }
-        else
-        {
-            currentSpeed = Mathf.MoveTowards(currentSpeed, 0f, deceleration * Time.deltaTime);
-        }
-
-        if (isGrounded && Input.GetButtonDown("Jump"))
-        {
-            Jump();
-            isGrounded = false;
-        }
-
-        transform.Translate(moveDirection * currentSpeed * Time.deltaTime);
-        Vector3 movement = new Vector3(x_input, 0f, z_input) * speed * Time.deltaTime;
-        transform.Translate(movement);
     }
 
     void Jump()
     {
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+    }
+
+    private void ResetJump()
+    {
+        readyToJump = true;
+    }
+
+    private void TopSpeed()
+    {
+        Vector3 rawVelocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+        if (rawVelocity.magnitude > speed)
+        {
+            Vector3 limitedVelocity = rawVelocity.normalized * speed;
+            rb.velocity = new Vector3(limitedVelocity.x, rb.velocity.y, limitedVelocity.z);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)

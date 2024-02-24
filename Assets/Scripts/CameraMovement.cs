@@ -3,17 +3,19 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     [Header("Components")]
-    public Transform playerBody;
+    public Transform orientation;
     
-    [Header("Movement Variables")]
-    public float sensitivity;
-    public float smoothness = 0.5f;
+    [Header("Mouse Variables")]
+    public float sensitivityX;
+    public float sensitivityY;
+    public float smoothness;
 
     // Internal
-    private float rotationX = 0f;
+    private float rotationX;
+    private float rotationY;
 
     void Reset() {
-        sensitivity = 800f;
+        sensitivityX = sensitivityY = 800f;
     }
 
     void Start()
@@ -26,15 +28,19 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
+        
 
-        playerBody.Rotate(Vector3.up * mouseX);
+        float mouseX = Input.GetAxis("Mouse X") * sensitivityX * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * sensitivityY * Time.deltaTime;
 
+        orientation.Rotate(Vector3.up * mouseX);
+
+        rotationY += mouseX;
         rotationX -= mouseY;
         rotationX = Mathf.Clamp(rotationX, -90f, 90f);
 
-        Quaternion targetRotation = Quaternion.Euler(rotationX, 0f, 0f);
-        transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, smoothness);
+        transform.rotation = Quaternion.Euler(rotationX, rotationY, 0f);
+        orientation.rotation = Quaternion.Euler(0, rotationY, 0);
+        // transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, smoothness);
     }
 }

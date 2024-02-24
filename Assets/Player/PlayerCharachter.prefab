@@ -937,8 +937,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72f58db08967edf41b65cb235dc371b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerBody: {fileID: 4622459780620626247}
-  sensitivity: 800
+  orientation: {fileID: 0}
+  sensitivityX: 0
+  sensitivityY: 0
   smoothness: 0.5
 --- !u!1 &4476070265255256972
 GameObject:
@@ -2224,6 +2225,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1224491376669303248}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9081511967849022803
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7613803409611287915}
+  m_Layer: 0
+  m_Name: Orientation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7613803409611287915
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9081511967849022803}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4622459780620626247}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9205837342016677081
 GameObject:
   m_ObjectHideFlags: 0
@@ -2265,6 +2297,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3382799412650857896}
+  - {fileID: 7613803409611287915}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 95.637, z: 0}
 --- !u!33 &3680945804328305331
@@ -2352,14 +2385,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42f91b329580e014fbe6bc15b8ca6182, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  orientation: {fileID: 0}
   playerCamera: {fileID: 7287977331665957195}
-  dashFOV: 90
-  fovTransitionDuration: 0.3
   dashForce: 15
+  dashUpwardForce: 0
   dashDuration: 0.25
   gravityScaleDuringDash: 0
-  dashButton: 0
   cooldownDuration: 10
+  dashButton: 0
   armAnimation: {fileID: 3856269690394547117}
 --- !u!114 &3018181556068504158
 MonoBehaviour:
