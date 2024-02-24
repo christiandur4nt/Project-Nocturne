@@ -1,8 +1,12 @@
 using System.Collections;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static PlayerMovement instance;
+    [SerializeField] private Animator animator;
+    public float speed = 5f;
     public LayerMask groundLayer;
     private Rigidbody rb;
 
@@ -31,6 +35,12 @@ public class PlayerMovement : MonoBehaviour
         float z_input = Input.GetAxis("Vertical");
         Vector3 inputVector = new Vector3(x_input, 0f, z_input).normalized;
 
+        if (x_input != 0 || z_input != 0)
+            animator.SetBool("Movement", true);
+        else
+            animator.SetBool("Movement", false);
+        
+
         if (inputVector.magnitude > 0)
         {
             currentSpeed = Mathf.MoveTowards(currentSpeed, topSpeed, acceleration * Time.deltaTime);
@@ -48,6 +58,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         transform.Translate(moveDirection * currentSpeed * Time.deltaTime);
+        Vector3 movement = new Vector3(x_input, 0f, z_input) * speed * Time.deltaTime;
+        transform.Translate(movement);
     }
 
     void Jump()

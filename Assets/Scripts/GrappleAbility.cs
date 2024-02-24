@@ -33,6 +33,7 @@ public class GrappleAbility : MonoBehaviour
     private RaycastHit hit;
     private ArrayList activeIcons;
     private bool isGrappling = false;
+    [SerializeField] private Animator anim;
     private float cooldownTimer;
 
     void Reset() {
@@ -77,8 +78,9 @@ public class GrappleAbility : MonoBehaviour
             InitGrapple();
         } else if (Input.GetMouseButtonUp(grappleMouseKey)) {
             StopGrapple();
+            anim.SetBool("IsGrappling", false);
         }
-
+        
         if (cooldownTimer > 0) cooldownTimer -= Time.deltaTime;
     }
 
@@ -87,6 +89,7 @@ public class GrappleAbility : MonoBehaviour
         if (cooldownTimer > 0 || isGrappling) return;
 
         isGrappling = true;
+        anim.SetBool("IsGrappling", true);
         if (Physics.Raycast(playerCameraT.position, playerCameraT.forward, out hit, maxGrappleDistance, wallMask)) {
             grapplePoint = hit.transform.position;
             PerformGrappleZip();

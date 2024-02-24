@@ -16,7 +16,7 @@ public class DashAbility : MonoBehaviour
     public float dashDuration = 0.5f;
     public float gravityScaleDuringDash = 0;
     public int dashButton = 0;
-    public float cooldownDuration = 0.5f;
+    public float cooldownDuration = 10f;
 
     // Internal
     private float transitionTimer;
