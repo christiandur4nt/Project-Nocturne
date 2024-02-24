@@ -14,18 +14,17 @@ public class DashAbility : MonoBehaviour
     public float dashForce;
     public float dashUpwardForce;
     public float dashDuration;
-    public float gravityScaleDuringDash;
+    // public float gravityScaleDuringDash;
 
     [Header("Cooldown")]
-    public float cooldownDuration = 10f;
+    public float cooldownDuration;
 
     [Header("Keybinds")]
     public int dashButton = 0;
 
     // Internal
-    private float transitionTimer;
-    private float originalFOV;
     private bool isDashing = false;
+    private float cooldownTimer = 0;
     private bool onCooldown = false;
     private bool grounded = true;
     [SerializeField] private Animator armAnimation;
@@ -43,34 +42,44 @@ public class DashAbility : MonoBehaviour
         if (Input.GetMouseButtonDown(dashButton))
         {
             Dash();
-            // if (!grounded)
-            //     onCooldown = true;
         }
-        if (!isDashing && grounded)
-            onCooldown = false;
+        // if (!isDashing && grounded)
+        //     onCooldown = false;
+
+        if (cooldownTimer > 0)
+            cooldownTimer -= Time.deltaTime;
     }
 
     void Dash()
     {
+        if (cooldownTimer > 0) return;
+        else cooldownTimer = cooldownDuration;
+
+        pm.dashing = true;
+
         Vector3 forceToApply = orientation.forward * dashForce + orientation.up * dashUpwardForce;
 
         rb.AddForce(forceToApply, ForceMode.Impulse);
+        delayedForceToApply = forceToApply;
 
+        Invoke(nameof(DelayedDashForce), 0.025f);
         Invoke(nameof(ResetDash), dashDuration);
 
         // isDashing = true;
         // rb.useGravity = false;
-        // rb.velocity = Vector3.zero;
         // armAnimation.SetBool("Is Dashing", true);
-        // Vector3 dashDirection = transform.forward;
 
-        
-        //StartCoroutine(EndDashAfterDelay());
+    }
+
+    private Vector3 delayedForceToApply;
+    private void DelayedDashForce()
+    {
+        rb.AddForce(delayedForceToApply, ForceMode.Impulse);
     }
 
     void ResetDash()
     {
-        
+        pm.dashing = false;
     }
 
     IEnumerator EndDashAfterDelay()

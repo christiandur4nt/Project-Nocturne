@@ -18,8 +18,11 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     public float walkSpeed;
     public float sprintSpeed;
+    public float dashSpeed;
+    public float dashSpeedChangeFactor;
     public float groundDrag;
     private float speed;
+    
     
 
     [Header("Jumping")]
@@ -56,7 +59,10 @@ public class PlayerMovement : MonoBehaviour
         sprinting,
         air,
         crouching,
+        dashing,
     }
+
+    public bool dashing;
 
     // Start is called before the first frame update
     void Start()
@@ -99,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
         TopSpeed();
         StateHandler();
 
-        if (isGrounded)
+        if (state == MovementState.walking || state == MovementState.sprinting || state == MovementState.crouching)
             rb.drag = groundDrag;
         else
             rb.drag = 0;
@@ -115,27 +121,63 @@ public class PlayerMovement : MonoBehaviour
         MovePlayer();
     }
 
+    private float desiredMoveSpeed;
+    private float lastDesiredMoveSpeed;
+    private MovementState lastState;
+    private bool keepMomentum;
+
     private void StateHandler()
     {
+        if (dashing)
+        {
+            state = MovementState.dashing;
+            desiredMoveSpeed = dashSpeed;
+            speedChangeFactor = dashSpeedChangeFactor;
+        }
+
         if (Input.GetKey(crouchKey))
         {
             state = MovementState.crouching;
-            speed = crouchSpeed;
+            desiredMoveSpeed = crouchSpeed;
         }
         else if (isGrounded && Input.GetKey(sprintKey))
         {
             state = MovementState.sprinting;
-            speed = sprintSpeed;
+            desiredMoveSpeed = sprintSpeed;
         }
         else if (isGrounded)
         {
             state = MovementState.walking;
-            speed = walkSpeed;
+            desiredMoveSpeed = walkSpeed;
         }
         else
         {
             state = MovementState.air;
+            if (desiredMoveSpeed < sprintSpeed)
+                desiredMoveSpeed = walkSpeed;
+            else
+                desiredMoveSpeed = sprintSpeed;
         }
+
+        bool desiredSpeedHasChanged = desiredMoveSpeed != lastDesiredMoveSpeed;
+        if (lastState == MovementState.dashing) keepMomentum = true;
+
+        if (desiredSpeedHasChanged)
+        {
+            if (keepMomentum)
+            {
+                StopAllCoroutines();
+                StartCoroutine(SmoothMoveSpeed());
+            }
+            else
+            {
+                StopAllCoroutines();
+                speed = desiredMoveSpeed;
+            }
+        }
+
+        lastDesiredMoveSpeed = desiredMoveSpeed;
+        lastState = state;
     }
 
     private void MovePlayer()
@@ -205,12 +247,6 @@ public class PlayerMovement : MonoBehaviour
         return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized;
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Ground")
-            isGrounded = true;
-    }
-
     private IEnumerator SetVelocity(float waitTime, Vector3 vel)
     {
         yield return new WaitForSeconds(waitTime);
@@ -247,5 +283,28 @@ public class PlayerMovement : MonoBehaviour
             + Mathf.Sqrt(2 * (displacementY - trajectoryHeight) / gravity));
 
         return velocityXZ + velocityY;
+    }
+
+    private float speedChangeFactor;
+    private IEnumerator SmoothMoveSpeed()
+    {
+        float time = 0;
+        float difference = Mathf.Abs(desiredMoveSpeed - speed);
+        float startValue = speed;
+
+        float boostFactor = speedChangeFactor;
+
+        while (time < difference)
+        {
+            speed = Mathf.Lerp(startValue, desiredMoveSpeed, time / difference);
+
+            time += Time.deltaTime * boostFactor;
+
+            yield return null;
+        }
+
+        speed = desiredMoveSpeed;
+        speedChangeFactor = 1f;
+        keepMomentum = false;
     }
 }
