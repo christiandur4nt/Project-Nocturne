@@ -47,6 +47,6 @@ public class CameraMovement : MonoBehaviour
 
     public void doFOV(float endValue)
     {
-        GetComponent<Camera>().DOFieldOfView(endValue, 0.2f);
+        GetComponent<Camera>().DOFieldOfView(endValue, 0.3f);
     }
 }
