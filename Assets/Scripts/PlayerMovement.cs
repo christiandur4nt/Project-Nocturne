@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     public float dashSpeed;
     public float dashSpeedChangeFactor;
     public float groundDrag;
+    public float maxYSpeed;
     private float speed;
     
     
@@ -128,6 +129,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void StateHandler()
     {
+
         if (dashing)
         {
             state = MovementState.dashing;
@@ -191,13 +193,17 @@ public class PlayerMovement : MonoBehaviour
             if (rb.velocity.y > 0)
                 rb.AddForce(Vector3.down * 80f, ForceMode.Force);
         }
+        
+        if (dashing)
+            rb.drag = 0;
 
         if (isGrounded)
             rb.AddForce(moveDirection.normalized * speed * 10f, ForceMode.Force);
         else if(!isGrounded)
             rb.AddForce(moveDirection.normalized * speed * 10f * airMultiplier, ForceMode.Force);
         
-        rb.useGravity = !OnSlope();
+        if (!dashing)     
+            rb.useGravity = !OnSlope();
     }
 
     void Jump()
@@ -222,13 +228,19 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity = rb.velocity.normalized * speed;
         }
 
-        Vector3 rawVelocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
-        if (rawVelocity.magnitude > speed)
+        else
         {
-            Vector3 limitedVelocity = rawVelocity.normalized * speed;
-            rb.velocity = new Vector3(limitedVelocity.x, rb.velocity.y, limitedVelocity.z);
+            Vector3 rawVelocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+            if (rawVelocity.magnitude > speed)
+            {
+                Vector3 limitedVelocity = rawVelocity.normalized * speed;
+                rb.velocity = new Vector3(limitedVelocity.x, rb.velocity.y, limitedVelocity.z);
+            }
         }
+
+        if (maxYSpeed != 0 && rb.velocity.y > maxYSpeed)
+            rb.velocity = new Vector3(rb.velocity.x, maxYSpeed, rb.velocity.z);
     }
 
     private bool OnSlope()
