@@ -22,6 +22,9 @@ public class DashAbility : MonoBehaviour
     [Header("Keybinds")]
     public int dashButton = 0;
 
+    [Header("Settings")]
+    public bool disableGravity;
+
     // Internal
     private bool isDashing = false;
     private float cooldownTimer = 0;
@@ -55,6 +58,9 @@ public class DashAbility : MonoBehaviour
         if (cooldownTimer > 0) return;
         else cooldownTimer = cooldownDuration;
 
+        if (disableGravity)
+            rb.useGravity = false;
+
         pm.dashing = true;
 
         Vector3 forceToApply = orientation.forward * dashForce + orientation.up * dashUpwardForce;
@@ -80,6 +86,8 @@ public class DashAbility : MonoBehaviour
     void ResetDash()
     {
         pm.dashing = false;
+        if (disableGravity)
+            rb.useGravity = true;
     }
 
     IEnumerator EndDashAfterDelay()
