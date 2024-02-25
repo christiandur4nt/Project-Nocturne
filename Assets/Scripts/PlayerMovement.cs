@@ -61,9 +61,11 @@ public class PlayerMovement : MonoBehaviour
         air,
         crouching,
         dashing,
+        bouncing,
     }
 
     public bool dashing;
+    public bool bouncing;
 
     // Start is called before the first frame update
     void Start()
@@ -135,6 +137,11 @@ public class PlayerMovement : MonoBehaviour
             state = MovementState.dashing;
             desiredMoveSpeed = dashSpeed;
             speedChangeFactor = dashSpeedChangeFactor;
+        }
+
+        if (bouncing)
+        {
+            state = MovementState.bouncing;
         }
 
         if (Input.GetKey(crouchKey))
