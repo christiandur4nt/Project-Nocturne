@@ -131,12 +131,8 @@ public class DashAbility : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Enemy" && isDashing)
+        if (collision.gameObject.tag == "Enemy" && pm.dashing)
             onCooldown = false;
-    }
-
-    public bool IsDashing() {
-        return isDashing;
     }
 
     private Vector3 getDirection(Transform forwardT)
