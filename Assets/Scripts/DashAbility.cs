@@ -5,8 +5,8 @@ using UnityEngine;
 public class DashAbility : MonoBehaviour
 {
     [Header("Components")]
-    public Transform orientation;
-    public Transform playerCamera;
+    [HideInInspector] public Transform orientation;
+    [HideInInspector] public Transform playerCamera;
     private PlayerMovement pm;
     private Rigidbody rb;
 
@@ -17,7 +17,7 @@ public class DashAbility : MonoBehaviour
     public float maxDashYSpeed;
 
     [Header("Camera Effects")]
-    public CameraMovement camera;
+    [HideInInspector] public CameraMovement cam;
     public float dashFOV;
 
     [Header("Cooldown")]
@@ -35,10 +35,15 @@ public class DashAbility : MonoBehaviour
 
     // Internal
     public bool onCooldown = false;
-    private bool isDashing = false;
     private float cooldownTimer = 0;
     private bool grounded = true;
     [SerializeField] private Animator armAnimation;
+
+    void Awake() {
+        orientation = GameObject.Find("Orientation").transform;
+        playerCamera = GameObject.Find("Player Camera").transform;
+        cam = FindObjectOfType<CameraMovement>();
+    }
 
     void Start()
     {
@@ -71,7 +76,7 @@ public class DashAbility : MonoBehaviour
         pm.dashing = true;
         pm.maxYSpeed = maxDashYSpeed;
 
-        camera.doFOV(dashFOV);
+        cam.doFOV(dashFOV);
 
         Transform forwardT;
 
@@ -107,20 +112,9 @@ public class DashAbility : MonoBehaviour
         pm.dashing = false;
         pm.maxYSpeed = 0;
 
-        camera.doFOV(60f);
+        cam.doFOV(60f);
 
         rb.useGravity = true;
-    }
-
-    IEnumerator EndDashAfterDelay()
-    {
-        yield return new WaitForSeconds(dashDuration);
-
-        rb.useGravity = true;
-        isDashing = false;
-        armAnimation.SetBool("Is Dashing", false);
-        if (grounded)
-            StartCoroutine(Cooldown());
     }
 
     IEnumerator Cooldown()
@@ -151,5 +145,9 @@ public class DashAbility : MonoBehaviour
             direction = forwardT.forward;
 
         return direction.normalized;
+    }
+
+    public bool IsDashing() {
+        return pm.dashing;
     }
 }

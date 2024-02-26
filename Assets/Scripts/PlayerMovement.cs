@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 //using System.Numerics;
 using UnityEditor.Animations;
@@ -6,7 +7,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("References")]
-    public Transform orientation;
+    [HideInInspector] public Transform orientation;
     [SerializeField] private Animator animator;
     
 
@@ -24,8 +25,6 @@ public class PlayerMovement : MonoBehaviour
     public float maxYSpeed;
     private float speed;
     
-    
-
     [Header("Jumping")]
     public float jumpForce;
     public float jumpCooldown;
@@ -62,10 +61,17 @@ public class PlayerMovement : MonoBehaviour
         crouching,
         dashing,
         bouncing,
+        grappling,
     }
 
+    // Ability Bools
     public bool dashing;
     public bool bouncing;
+    public bool grappling;
+
+    void Awake() {
+        orientation = GameObject.Find("Orientation").transform;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -105,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = Physics.Raycast(transform.position, Vector3.down, height * 0.5f + 0.2f, groundLayer);
 
         getInput();
-        TopSpeed();
+        if (!grappling) TopSpeed();
         StateHandler();
 
         if (state == MovementState.walking || state == MovementState.sprinting || state == MovementState.crouching)
@@ -143,8 +149,10 @@ public class PlayerMovement : MonoBehaviour
         {
             state = MovementState.bouncing;
         }
-
-        if (Input.GetKey(crouchKey))
+        
+        if (grappling) {
+            state = MovementState.grappling;
+        } else if (Input.GetKey(crouchKey))
         {
             state = MovementState.crouching;
             desiredMoveSpeed = crouchSpeed;
@@ -206,7 +214,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (isGrounded)
             rb.AddForce(moveDirection.normalized * speed * 10f, ForceMode.Force);
-        else if(!isGrounded)
+        else if(!grappling)
             rb.AddForce(moveDirection.normalized * speed * 10f * airMultiplier, ForceMode.Force);
         
         if (!dashing)     
@@ -234,7 +242,6 @@ public class PlayerMovement : MonoBehaviour
             if (rb.velocity.magnitude > speed)
                 rb.velocity = rb.velocity.normalized * speed;
         }
-
         else
         {
             Vector3 rawVelocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
@@ -280,7 +287,7 @@ public class PlayerMovement : MonoBehaviour
         return isGrounded;
     }
 
-    // Grapple Zip Functions //
+    // Grapple Functions //
 
     public void JumpToPosition(Vector3 targetPosition, float trajectoryHeight)
     {
@@ -303,6 +310,8 @@ public class PlayerMovement : MonoBehaviour
 
         return velocityXZ + velocityY;
     }
+
+    // End Grapple Functions //
 
     private float speedChangeFactor;
     private IEnumerator SmoothMoveSpeed()

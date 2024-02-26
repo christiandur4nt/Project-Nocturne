@@ -4,7 +4,7 @@ using DG.Tweening;
 public class CameraMovement : MonoBehaviour
 {
     [Header("Components")]
-    public Transform orientation;
+    [HideInInspector] public Transform orientation;
     
     [Header("Mouse Variables")]
     public float sensitivityX;
@@ -17,6 +17,10 @@ public class CameraMovement : MonoBehaviour
 
     void Reset() {
         sensitivityX = sensitivityY = 800f;
+    }
+
+    void Awake() {
+        orientation = GameObject.Find("Orientation").transform;
     }
 
     void Start()
