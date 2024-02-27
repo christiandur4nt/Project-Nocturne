@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GrappleRopeAnim : MonoBehaviour {
-    public Transform grappleTip;
+    [HideInInspector] public Transform grappleTip;
     private Spring spring;
     private LineRenderer lineRenderer;
     private Vector3 currentGrapplePosition;
@@ -14,7 +14,7 @@ public class GrappleRopeAnim : MonoBehaviour {
     public float velocity;
     public float waveCount;
     public float waveHeight;
-    public AnimationCurve affectCurve;
+    public AnimationCurve effectCurve;
     
     void Reset() {
         quality = 500;
@@ -30,6 +30,7 @@ public class GrappleRopeAnim : MonoBehaviour {
         spring.SetTarget(0);
         lineRenderer = GetComponent<LineRenderer>();
         grappleScript = GetComponent<GrappleAbility>();
+        grappleTip = GameObject.Find("Grapple Tip").transform;
     }
     
     // Called after Update
@@ -64,9 +65,7 @@ public class GrappleRopeAnim : MonoBehaviour {
 
         for (var i = 0; i < quality + 1; i++) {
             var delta = i / (float) quality;
-            var offset = up * waveHeight * Mathf.Sin(delta * waveCount * Mathf.PI) * spring.Value *
-                         affectCurve.Evaluate(delta);
-            
+            var offset = up * waveHeight * Mathf.Sin(delta * waveCount * Mathf.PI) * spring.Value * effectCurve.Evaluate(delta);
             lineRenderer.SetPosition(i, Vector3.Lerp(gunTipPosition, currentGrapplePosition, delta) + offset);
         }
     }

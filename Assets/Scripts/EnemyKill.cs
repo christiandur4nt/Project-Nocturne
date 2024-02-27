@@ -1,30 +1,32 @@
+using System;
 using UnityEngine;
 
 public class EnemyKill : MonoBehaviour
 {
-    [Header("Components")]
-    public GameObject playerCharacter;
-    private DashAbility dashAbilityScript;
+    [Header("References")]
+    public GameObject player;
 
     // Internal
-    private bool playerDashing = false;
+    private PlayerMovement pm;
+    private bool dashing = false;
 
-    void Awake() {
-        dashAbilityScript = playerCharacter.GetComponent<DashAbility>();
+    void Start()
+    {
+        pm = player.GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        playerDashing = dashAbilityScript.IsDashing();
+        Debug.Log(dashing);
+        dashing = pm.dashing;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player" && playerDashing)
+        if (collision.gameObject.tag == "Player" && dashing)
         {
             Destroy(gameObject);
-            collision.rigidbody.velocity = UnityEngine.Vector3.zero;
         }
     }
 }

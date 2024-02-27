@@ -1,4 +1,7 @@
+using System;
 using System.Collections;
+using System.Runtime.CompilerServices;
+
 //using System.Numerics;
 using UnityEditor.Animations;
 using UnityEngine;
@@ -6,7 +9,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("References")]
-    public Transform orientation;
+    [HideInInspector] public Transform orientation;
     [SerializeField] private Animator animator;
     
 
@@ -19,12 +22,12 @@ public class PlayerMovement : MonoBehaviour
     public float walkSpeed;
     public float sprintSpeed;
     public float dashSpeed;
+    public float wallRunSpeed;
     public float dashSpeedChangeFactor;
     public float groundDrag;
+    public float maxYSpeed;
     private float speed;
     
-    
-
     [Header("Jumping")]
     public float jumpForce;
     public float jumpCooldown;
@@ -60,9 +63,20 @@ public class PlayerMovement : MonoBehaviour
         air,
         crouching,
         dashing,
+        bouncing,
+        grappling,
+        wallrunning,
     }
 
+    // Ability Bools
     public bool dashing;
+    public bool bouncing;
+    public bool grappling;
+    public bool wallrunning;
+
+    void Awake() {
+        orientation = GameObject.Find("Orientation").transform;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -102,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = Physics.Raycast(transform.position, Vector3.down, height * 0.5f + 0.2f, groundLayer);
 
         getInput();
-        TopSpeed();
+        if (!grappling) TopSpeed();
         StateHandler();
 
         if (state == MovementState.walking || state == MovementState.sprinting || state == MovementState.crouching)
@@ -128,6 +142,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void StateHandler()
     {
+
+        if (wallrunning)
+        {
+            state = MovementState.wallrunning;
+            desiredMoveSpeed = wallRunSpeed;
+        }
+
         if (dashing)
         {
             state = MovementState.dashing;
@@ -135,7 +156,15 @@ public class PlayerMovement : MonoBehaviour
             speedChangeFactor = dashSpeedChangeFactor;
         }
 
-        if (Input.GetKey(crouchKey))
+        if (bouncing)
+        {
+            state = MovementState.bouncing;
+        }
+        
+        if (grappling) {
+            state = MovementState.grappling;
+        } 
+        else if (Input.GetKey(crouchKey))
         {
             state = MovementState.crouching;
             desiredMoveSpeed = crouchSpeed;
@@ -191,13 +220,17 @@ public class PlayerMovement : MonoBehaviour
             if (rb.velocity.y > 0)
                 rb.AddForce(Vector3.down * 80f, ForceMode.Force);
         }
+        
+        if (dashing)
+            rb.drag = 0;
 
         if (isGrounded)
             rb.AddForce(moveDirection.normalized * speed * 10f, ForceMode.Force);
-        else if(!isGrounded)
+        else if(!grappling)
             rb.AddForce(moveDirection.normalized * speed * 10f * airMultiplier, ForceMode.Force);
         
-        rb.useGravity = !OnSlope();
+        if (!dashing || !wallrunning)     
+            rb.useGravity = !OnSlope();
     }
 
     void Jump()
@@ -221,14 +254,19 @@ public class PlayerMovement : MonoBehaviour
             if (rb.velocity.magnitude > speed)
                 rb.velocity = rb.velocity.normalized * speed;
         }
-
-        Vector3 rawVelocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
-        if (rawVelocity.magnitude > speed)
+        else
         {
-            Vector3 limitedVelocity = rawVelocity.normalized * speed;
-            rb.velocity = new Vector3(limitedVelocity.x, rb.velocity.y, limitedVelocity.z);
+            Vector3 rawVelocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+            if (rawVelocity.magnitude > speed)
+            {
+                Vector3 limitedVelocity = rawVelocity.normalized * speed;
+                rb.velocity = new Vector3(limitedVelocity.x, rb.velocity.y, limitedVelocity.z);
+            }
         }
+
+        if (maxYSpeed != 0 && rb.velocity.y > maxYSpeed)
+            rb.velocity = new Vector3(rb.velocity.x, maxYSpeed, rb.velocity.z);
     }
 
     private bool OnSlope()
@@ -261,7 +299,7 @@ public class PlayerMovement : MonoBehaviour
         return isGrounded;
     }
 
-    // Grapple Zip Functions //
+    // Grapple Functions //
 
     public void JumpToPosition(Vector3 targetPosition, float trajectoryHeight)
     {
@@ -284,6 +322,8 @@ public class PlayerMovement : MonoBehaviour
 
         return velocityXZ + velocityY;
     }
+
+    // End Grapple Functions //
 
     private float speedChangeFactor;
     private IEnumerator SmoothMoveSpeed()

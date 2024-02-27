@@ -5,8 +5,8 @@ using UnityEngine;
 public class DashAbility : MonoBehaviour
 {
     [Header("Components")]
-    public Transform orientation;
-    public Transform playerCamera;
+    [HideInInspector] public Transform orientation;
+    [HideInInspector] public Transform playerCamera;
     private PlayerMovement pm;
     private Rigidbody rb;
 
@@ -14,7 +14,11 @@ public class DashAbility : MonoBehaviour
     public float dashForce;
     public float dashUpwardForce;
     public float dashDuration;
-    // public float gravityScaleDuringDash;
+    public float maxDashYSpeed;
+
+    [Header("Camera Effects")]
+    [HideInInspector] public CameraMovement cam;
+    public float dashFOV;
 
     [Header("Cooldown")]
     public float cooldownDuration;
@@ -23,14 +27,23 @@ public class DashAbility : MonoBehaviour
     public int dashButton = 0;
 
     [Header("Settings")]
-    public bool disableGravity;
+    public bool useCameraForward = false;
+    public bool allowAllDirections = true;
+    public bool resetVelocity = true;
+    public bool disableGravity = true;
+
 
     // Internal
-    private bool isDashing = false;
+    public bool onCooldown = false;
     private float cooldownTimer = 0;
-    private bool onCooldown = false;
     private bool grounded = true;
     [SerializeField] private Animator armAnimation;
+
+    void Awake() {
+        orientation = GameObject.Find("Orientation").transform;
+        playerCamera = GameObject.Find("Player Camera").transform;
+        cam = FindObjectOfType<CameraMovement>();
+    }
 
     void Start()
     {
@@ -42,12 +55,14 @@ public class DashAbility : MonoBehaviour
     void Update()
     {
         grounded = pm.IsGrounded();
-        if (Input.GetMouseButtonDown(dashButton))
+        if (Input.GetMouseButtonDown(dashButton) && !onCooldown)
         {
             Dash();
+            onCooldown = true;
         }
-        // if (!isDashing && grounded)
-        //     onCooldown = false;
+
+        if (pm.IsGrounded())
+            onCooldown = false;
 
         if (cooldownTimer > 0)
             cooldownTimer -= Time.deltaTime;
@@ -56,49 +71,50 @@ public class DashAbility : MonoBehaviour
     void Dash()
     {
         if (cooldownTimer > 0) return;
-        else cooldownTimer = cooldownDuration;
-
-        if (disableGravity)
-            rb.useGravity = false;
+        else if (pm.IsGrounded()) cooldownTimer = cooldownDuration;
 
         pm.dashing = true;
+        pm.maxYSpeed = maxDashYSpeed;
 
-        Vector3 forceToApply = orientation.forward * dashForce + orientation.up * dashUpwardForce;
+        cam.doFOV(dashFOV);
+
+        Transform forwardT;
+
+        if (useCameraForward)
+            forwardT = playerCamera;
+        else
+            forwardT = orientation;
+
+        Vector3 direction = getDirection(forwardT);
+
+        Vector3 forceToApply = direction * dashForce + orientation.up * dashUpwardForce;
+        
+        rb.useGravity = false;
 
         rb.AddForce(forceToApply, ForceMode.Impulse);
         delayedForceToApply = forceToApply;
 
         Invoke(nameof(DelayedDashForce), 0.025f);
         Invoke(nameof(ResetDash), dashDuration);
-
-        // isDashing = true;
-        // rb.useGravity = false;
-        // armAnimation.SetBool("Is Dashing", true);
-
     }
 
     private Vector3 delayedForceToApply;
     private void DelayedDashForce()
     {
+        if(resetVelocity)
+            rb.velocity = Vector3.zero;
+
         rb.AddForce(delayedForceToApply, ForceMode.Impulse);
     }
 
     void ResetDash()
     {
         pm.dashing = false;
-        if (disableGravity)
-            rb.useGravity = true;
-    }
+        pm.maxYSpeed = 0;
 
-    IEnumerator EndDashAfterDelay()
-    {
-        yield return new WaitForSeconds(dashDuration);
+        cam.doFOV(60f);
 
         rb.useGravity = true;
-        isDashing = false;
-        armAnimation.SetBool("Is Dashing", false);
-        if (grounded)
-            StartCoroutine(Cooldown());
     }
 
     IEnumerator Cooldown()
@@ -109,11 +125,29 @@ public class DashAbility : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Enemy" && isDashing)
+        if (collision.gameObject.tag == "Enemy" && pm.dashing)
             onCooldown = false;
     }
 
+    private Vector3 getDirection(Transform forwardT)
+    {
+        float xInput = Input.GetAxisRaw("Horizontal");
+        float zInput = Input.GetAxisRaw("Vertical");
+
+        Vector3 direction = new Vector3();
+
+        if (allowAllDirections)
+            direction = forwardT.forward * zInput + forwardT.right * xInput;
+        else
+            direction = forwardT.forward;
+        
+        if (zInput == 0 && xInput == 0)
+            direction = forwardT.forward;
+
+        return direction.normalized;
+    }
+
     public bool IsDashing() {
-        return isDashing;
+        return pm.dashing;
     }
 }
