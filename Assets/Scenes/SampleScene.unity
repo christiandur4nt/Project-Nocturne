@@ -956,6 +956,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 271948068}
   m_SourcePrefab: {fileID: 100100000, guid: b0c9027d2955e3045aea5f9276cd0ecc, type: 3}
+--- !u!4 &1161083022 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5785856307365009566, guid: 88e7d65f57aa0bf4d8f34a16b2e5e899, type: 3}
+  m_PrefabInstance: {fileID: 107098280616111307}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1203317348 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8285838378433552104, guid: e140df0f74a421e4091dc0d367804bab, type: 3}
@@ -1085,13 +1090,20 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   wallRunForce: 200
-  maxWallRunTime: 1.5
+  wallJumpUpForce: 7
+  wallJumpSideForce: 12
+  maxWallRunTime: 0.7
   wallClimbSpeed: 5
   upwardsRunKey: 304
   downwardsRunKey: 306
+  jumpKey: 32
+  exitWallTime: 0.2
+  useGravity: 0
+  gravityCounterForce: 10
   wallCheckDistance: 0.7
   minJumpHeight: 2
   orientation: {fileID: 1367942052}
+  camera: {fileID: 739296009}
 --- !u!1 &1627080745
 GameObject:
   m_ObjectHideFlags: 0
@@ -1579,6 +1591,10 @@ PrefabInstance:
       propertyPath: orientation
       value: 
       objectReference: {fileID: 1367942052}
+    - target: {fileID: 6546935960511006510, guid: 88e7d65f57aa0bf4d8f34a16b2e5e899, type: 3}
+      propertyPath: cameraHolder
+      value: 
+      objectReference: {fileID: 1161083022}
     - target: {fileID: 6904475495451002971, guid: 88e7d65f57aa0bf4d8f34a16b2e5e899, type: 3}
       propertyPath: m_Name
       value: Camera Holder
