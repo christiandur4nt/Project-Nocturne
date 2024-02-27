@@ -3,34 +3,43 @@ using UnityEngine;
 
 public class BounceAbility : MonoBehaviour
 {
+    [Header("References")]
+    public Transform orientation;
+    private PlayerMovement pm;
+    private Rigidbody rb;
+
+
     [Header("Bounce Variables")]
-    public float bounceForce = 20f;
-    public float launchForce = 10f;
-    public float upwardForce = 2f;
-    public float bounceDuration = 0.25f;
+    public float bounceForce;
+    public float launchForce;
+    public float upwardForce;
+    public float bounceDuration;
+
+    [Header("Keybinds")]
     public KeyCode bounceKey = KeyCode.Space;
+
+    [Header("Settings")]
+    public bool resetVelocity = false;
 
     // Internal
     private bool dashing = false;
-    private DashAbility dashAbilityScript;
-    private Rigidbody rb;
     private bool touchingEnemy = false;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        dashAbilityScript = GetComponent<DashAbility>();
+        pm = GetComponent<PlayerMovement>();
         rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        dashing = dashAbilityScript.IsDashing();
+        dashing = pm.dashing;
+
         if (dashing && touchingEnemy && Input.GetKey(bounceKey))
         {
-            Debug.Log(touchingEnemy);
             BounceUp();
         }
         else if (dashing && touchingEnemy)
@@ -41,23 +50,28 @@ public class BounceAbility : MonoBehaviour
             touchingEnemy = false;
     }
 
-    void BounceUp()
+    private void BounceUp()
     {
-        rb.AddForce(Vector3.up * bounceForce, ForceMode.VelocityChange);
+        if (resetVelocity)
+            rb.velocity = Vector3.zero;
+        rb.AddForce(orientation.up * bounceForce, ForceMode.Impulse);
     }
 
-    void LaunchForward()
+    private void LaunchForward()
     {
-        Vector3 launchDirection = transform.forward * launchForce;
-        launchDirection += Vector3.up * upwardForce;
+        if (resetVelocity)
+            rb.velocity = Vector3.zero;
+
+        Vector3 launchDirection = orientation.forward * launchForce;
+        launchDirection += orientation.up * upwardForce;
         launchDirection.Normalize();
-        rb.velocity = Vector3.zero;
-        rb.AddForce(launchDirection, ForceMode.VelocityChange);
+        
+        rb.AddForce(launchDirection, ForceMode.Impulse);
     }
 
-    IEnumerator EndBounceDelay()
+    private void ResetBounce()
     {
-        yield return new WaitForSeconds(bounceDuration);
+        
     }
 
     private void OnCollisionEnter(Collision collision)

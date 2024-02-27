@@ -1,9 +1,10 @@
 using UnityEngine;
+using DG.Tweening;
 
 public class CameraMovement : MonoBehaviour
 {
     [Header("Components")]
-    public Transform orientation;
+    [HideInInspector] public Transform orientation;
     
     [Header("Mouse Variables")]
     public float sensitivityX;
@@ -16,6 +17,10 @@ public class CameraMovement : MonoBehaviour
 
     void Reset() {
         sensitivityX = sensitivityY = 800f;
+    }
+
+    void Awake() {
+        orientation = GameObject.Find("Orientation").transform;
     }
 
     void Start()
@@ -42,5 +47,10 @@ public class CameraMovement : MonoBehaviour
         transform.rotation = Quaternion.Euler(rotationX, rotationY, 0f);
         orientation.rotation = Quaternion.Euler(0, rotationY, 0);
         // transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, smoothness);
+    }
+
+    public void doFOV(float endValue)
+    {
+        GetComponent<Camera>().DOFieldOfView(endValue, 0.3f);
     }
 }

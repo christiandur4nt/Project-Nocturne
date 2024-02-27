@@ -5,7 +5,11 @@ using UnityEngine;
 public class CameraPosition : MonoBehaviour
 {
     [Header("Reference")]
-    public Transform cameraPos;
+    [HideInInspector] public Transform cameraPos;
+
+    void Awake() {
+        cameraPos = GameObject.Find("CameraPos").transform;
+    }
 
     // Update is called once per frame
     void Update()

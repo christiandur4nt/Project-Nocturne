@@ -5,14 +5,15 @@ using UnityEngine;
 public class GrappleAbility : MonoBehaviour
 {
     [Header("Components")]
-    public Transform playerCameraT;
-    private PlayerMovement playerMovementScript;
+    [HideInInspector] public Transform playerCameraT;
+    [SerializeField] private Animator armAnimation;
+    private PlayerMovement pm;
 
     [Header("General Variables")]
     public float maxGrappleDistance;
     public float animationDuration;
     public float cooldownTime;
-    public int grappleMouseKey = 0;
+    public int grappleMouseKey;
 
     [Header("Zip Variables")]
     public float overshootYAxis;
@@ -25,19 +26,17 @@ public class GrappleAbility : MonoBehaviour
     public float relativeSwingRadius;
 
     // Internal
-    private LayerMask wallMask;
-    private LayerMask barMask;
+    [SerializeField] private LayerMask gZip; // WIP: gZip
+    [SerializeField] private LayerMask gSwing; // WIP: gSwing
     private LayerMask grappleableObjects;
     private SpringJoint joint;
     private Vector3 grapplePoint;
     private RaycastHit hit;
     private ArrayList activeIcons;
-    private bool isGrappling = false;
-    [SerializeField] private Animator anim;
     private float cooldownTimer;
 
     void Reset() {
-        playerCameraT = Camera.main.transform;
+        grappleMouseKey = 1;
         cooldownTime = 0.1f;
         animationDuration = 0.1f;
         maxGrappleDistance = 100f;
@@ -48,20 +47,21 @@ public class GrappleAbility : MonoBehaviour
     }
 
     void Start() {
-        playerMovementScript = GetComponent<PlayerMovement>();
+        pm = GetComponent<PlayerMovement>();
+        playerCameraT = Camera.main.transform;
         activeIcons = new();
 
-        string[] layers = {"Grapple Walls", "Monkey Bars", "Enemies"};
-        wallMask = LayerMask.GetMask("Grapple Walls");
-        barMask = LayerMask.GetMask("Monkey Bars");
+        string[] layers = {"Grapple Zip", "Grapple Swing", "Enemies"};
+        gZip = LayerMask.GetMask("Grapple Zip");
+        gSwing = LayerMask.GetMask("Grapple Swing");
         grappleableObjects = LayerMask.GetMask(layers);
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Separate Ray-cast for rendering grapple icon for grapple walls and monkey bars
-        if (Physics.Raycast(playerCameraT.position, playerCameraT.forward, out hit, maxGrappleDistance, wallMask | barMask)) {
+        // Separate Ray-cast for rendering grapple icon for grappleable objects
+        if (Physics.Raycast(playerCameraT.position, playerCameraT.forward, out hit, maxGrappleDistance, gZip | gSwing)) {
             Transform grappleIcon = hit.transform.Find("Hook Icon");
             if (grappleIcon != null) {
                 grappleIcon.gameObject.SetActive(true);
@@ -78,7 +78,6 @@ public class GrappleAbility : MonoBehaviour
             InitGrapple();
         } else if (Input.GetMouseButtonUp(grappleMouseKey)) {
             StopGrapple();
-            anim.SetBool("IsGrappling", false);
         }
         
         if (cooldownTimer > 0) cooldownTimer -= Time.deltaTime;
@@ -86,14 +85,14 @@ public class GrappleAbility : MonoBehaviour
 
     void InitGrapple() {
         // Prevent use on cooldown or if grappling is currently active somehow
-        if (cooldownTimer > 0 || isGrappling) return;
+        if (cooldownTimer > 0 || pm.grappling) return;
 
-        isGrappling = true;
-        anim.SetBool("IsGrappling", true);
-        if (Physics.Raycast(playerCameraT.position, playerCameraT.forward, out hit, maxGrappleDistance, wallMask)) {
+        pm.grappling = true;
+        // armAnimation.SetBool("IsGrappling", true);
+        if (Physics.Raycast(playerCameraT.position, playerCameraT.forward, out hit, maxGrappleDistance, gZip)) {
             grapplePoint = hit.transform.position;
             PerformGrappleZip();
-        } else if (Physics.Raycast(playerCameraT.position, playerCameraT.forward, out hit, maxGrappleDistance, barMask)) {
+        } else if (Physics.Raycast(playerCameraT.position, playerCameraT.forward, out hit, maxGrappleDistance, gSwing)) {
             grapplePoint = hit.transform.position;
             PerformGrappleSwing();
         } else {
@@ -109,7 +108,7 @@ public class GrappleAbility : MonoBehaviour
 
         if (grapplePointRelativeYPos < 0) highestPointOnArc = overshootYAxis;
 
-        playerMovementScript.JumpToPosition(grapplePoint, highestPointOnArc);
+        pm.JumpToPosition(grapplePoint, highestPointOnArc);
     }
 
     void PerformGrappleSwing() {
@@ -130,7 +129,8 @@ public class GrappleAbility : MonoBehaviour
     }
 
     void StopGrapple() {
-        isGrappling = false;
+        pm.grappling = false;
+        // armAnimation.SetBool("IsGrappling", false);
 
         if (joint != null)
             Destroy(joint);
@@ -140,7 +140,7 @@ public class GrappleAbility : MonoBehaviour
     }
 
     public bool IsGrappling() {
-        return isGrappling;
+        return pm.grappling;
     }
 
     public Vector3 GetGrapplePoint() {
