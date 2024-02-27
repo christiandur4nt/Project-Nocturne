@@ -9,11 +9,18 @@ public class WallRunning : MonoBehaviour
     public LayerMask whatIsGround;
     public float wallRunForce;
     public float maxWallRunTime;
+    public float wallClimbSpeed;
     private float wallRunTimer;
 
     [Header("Input")]
+    public KeyCode upwardsRunKey = KeyCode.LeftShift;
+    public KeyCode downwardsRunKey = KeyCode.LeftControl;
     private float xInput;
     private float zInput;
+    private bool upwardsRunning;
+    private bool downwardsRunning;
+
+    
 
     [Header("Detection")]
     public float wallCheckDistance;
@@ -64,6 +71,8 @@ public class WallRunning : MonoBehaviour
     {
         xInput = Input.GetAxisRaw("Horizontal");
         zInput = Input.GetAxisRaw("Vertical");
+        upwardsRunning = Input.GetKey(upwardsRunKey);
+        downwardsRunning = Input.GetKey(downwardsRunKey);
 
         if ((wallLeft || wallRight) && zInput > 0 && AboveGround())
         {
@@ -92,7 +101,18 @@ public class WallRunning : MonoBehaviour
         Vector3 wallNormal = wallRight ? rightWallHit.normal : leftWallHit.normal;
         Vector3 wallForward = Vector3.Cross(wallNormal, transform.up);
 
+        if ((orientation.forward - wallForward).magnitude > (orientation.forward - -wallForward).magnitude)
+            wallForward = -wallForward;
+
         rb.AddForce(wallForward * wallRunForce, ForceMode.Force);
+
+        if (upwardsRunning)
+            rb.velocity = new Vector3(rb.velocity.x, wallClimbSpeed, rb.velocity.z);
+        if (downwardsRunning)
+            rb.velocity = new Vector3(rb.velocity.x, -wallClimbSpeed, rb.velocity.z);
+        
+        if (!(wallLeft && xInput > 0) && !(wallRight && xInput < 0))
+            rb.AddForce(-wallNormal * 100, ForceMode.Force);
     }
 
     private void StopWallRun()
