@@ -143,7 +143,11 @@ public class PlayerMovement : MonoBehaviour
     private void StateHandler()
     {
 
-        
+        if (wallrunning)
+        {
+            state = MovementState.wallrunning;
+            desiredMoveSpeed = wallRunSpeed;
+        }
 
         if (dashing)
         {
@@ -160,11 +164,6 @@ public class PlayerMovement : MonoBehaviour
         if (grappling) {
             state = MovementState.grappling;
         } 
-        else if (wallrunning)
-        {
-            state = MovementState.wallrunning;
-            desiredMoveSpeed = wallRunSpeed;
-        }
         else if (Input.GetKey(crouchKey))
         {
             state = MovementState.crouching;
