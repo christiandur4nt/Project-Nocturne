@@ -5,6 +5,7 @@ public class CameraMovement : MonoBehaviour
 {
     [Header("Components")]
     [HideInInspector] public Transform orientation;
+    public Transform cameraHolder;
     
     [Header("Mouse Variables")]
     public float sensitivityX;
@@ -44,7 +45,7 @@ public class CameraMovement : MonoBehaviour
         rotationX -= mouseY;
         rotationX = Mathf.Clamp(rotationX, -90f, 90f);
 
-        transform.rotation = Quaternion.Euler(rotationX, rotationY, 0f);
+        cameraHolder.rotation = Quaternion.Euler(rotationX, rotationY, 0f);
         orientation.rotation = Quaternion.Euler(0, rotationY, 0);
         // transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, smoothness);
     }
@@ -52,5 +53,10 @@ public class CameraMovement : MonoBehaviour
     public void doFOV(float endValue)
     {
         GetComponent<Camera>().DOFieldOfView(endValue, 0.3f);
+    }
+
+    public void DoTilt(float zTilt)
+    {
+        transform.DOLocalRotate(new Vector3(0, 0, zTilt), 0.25f);
     }
 }

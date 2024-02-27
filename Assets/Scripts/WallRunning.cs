@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
+
 //using System.Numerics;
 using UnityEngine;
 
@@ -43,6 +45,7 @@ public class WallRunning : MonoBehaviour
 
     [Header("References")]
     public Transform orientation;
+    public CameraMovement camera;
     private PlayerMovement pm;
     private Rigidbody rb;
 
@@ -126,6 +129,10 @@ public class WallRunning : MonoBehaviour
         pm.wallrunning = true;
         wallRunTimer = maxWallRunTime;
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+        camera.doFOV(75f);
+        if (wallLeft) camera.DoTilt(-5f);
+        if (wallRight) camera.DoTilt(5f);
     }
 
     private void WallRunningMovement()
@@ -155,6 +162,8 @@ public class WallRunning : MonoBehaviour
     private void StopWallRun()
     {
         pm.wallrunning = false;
+        camera.doFOV(60f);
+        camera.DoTilt(0f);
     }
 
     private void WallJump()
@@ -168,4 +177,6 @@ public class WallRunning : MonoBehaviour
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(forceToApply, ForceMode.Impulse);
     }
+
+
 }
