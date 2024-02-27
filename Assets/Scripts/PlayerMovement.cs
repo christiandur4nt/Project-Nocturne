@@ -229,7 +229,7 @@ public class PlayerMovement : MonoBehaviour
         else if(!grappling)
             rb.AddForce(moveDirection.normalized * speed * 10f * airMultiplier, ForceMode.Force);
         
-        if (!dashing)     
+        if (!dashing || !wallrunning)     
             rb.useGravity = !OnSlope();
     }
 
