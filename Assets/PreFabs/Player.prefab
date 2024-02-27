@@ -180,11 +180,15 @@ GameObject:
   m_Component:
   - component: {fileID: 9052847866643067949}
   - component: {fileID: 2375585340017145061}
+  - component: {fileID: 2341161777526344861}
   - component: {fileID: 3026227704703407070}
   - component: {fileID: 5373325343474894981}
   - component: {fileID: 2475344850574706797}
   - component: {fileID: 8097603237451495311}
   - component: {fileID: 3639759653024151079}
+  - component: {fileID: 1595545549369495604}
+  - component: {fileID: 1369466243956096655}
+  - component: {fileID: 8536811747998001592}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -237,6 +241,29 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!136 &2341161777526344861
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7214346714808347728}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3026227704703407070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,6 +284,7 @@ MonoBehaviour:
   walkSpeed: 7
   sprintSpeed: 10
   dashSpeed: 30
+  wallRunSpeed: 0
   dashSpeedChangeFactor: 50
   groundDrag: 5
   maxYSpeed: 0
@@ -274,6 +302,7 @@ MonoBehaviour:
   dashing: 0
   bouncing: 0
   grappling: 0
+  wallrunning: 0
 --- !u!114 &5373325343474894981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -469,6 +498,72 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &1595545549369495604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7214346714808347728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 537285cc0ab94b745a536386bf5d292c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orientation: {fileID: 1764157197159838843}
+  bounceForce: 1
+  launchForce: 30
+  upwardForce: 2.5
+  bounceDuration: 0.25
+  bounceKey: 32
+  resetVelocity: 0
+--- !u!114 &1369466243956096655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7214346714808347728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fb7cfacbb8c0de4bb00b1fd8e9ee7b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatIsWall:
+    serializedVersion: 2
+    m_Bits: 512
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 8
+  wallRunForce: 200
+  wallJumpUpForce: 7
+  wallJumpSideForce: 12
+  maxWallRunTime: 0.7
+  wallClimbSpeed: 5
+  upwardsRunKey: 304
+  downwardsRunKey: 306
+  jumpKey: 32
+  exitWallTime: 0.2
+  useGravity: 0
+  gravityCounterForce: 10
+  wallCheckDistance: 0.7
+  minJumpHeight: 2
+  orientation: {fileID: 1764157197159838843}
+  cam: {fileID: 0}
+--- !u!114 &8536811747998001592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7214346714808347728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0d80962e01438b4eaf1e9b329fd39fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: 114
+  slowTimeScale: 0.5
 --- !u!1001 &5698111004616503974
 PrefabInstance:
   m_ObjectHideFlags: 0

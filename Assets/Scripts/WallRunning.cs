@@ -45,7 +45,7 @@ public class WallRunning : MonoBehaviour
 
     [Header("References")]
     public Transform orientation;
-    public CameraMovement camera;
+    public CameraMovement cam;
     private PlayerMovement pm;
     private Rigidbody rb;
 
@@ -130,9 +130,9 @@ public class WallRunning : MonoBehaviour
         wallRunTimer = maxWallRunTime;
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-        camera.doFOV(75f);
-        if (wallLeft) camera.DoTilt(-5f);
-        if (wallRight) camera.DoTilt(5f);
+        cam.doFOV(75f);
+        if (wallLeft) cam.DoTilt(-5f);
+        if (wallRight) cam.DoTilt(5f);
     }
 
     private void WallRunningMovement()
@@ -162,8 +162,8 @@ public class WallRunning : MonoBehaviour
     private void StopWallRun()
     {
         pm.wallrunning = false;
-        camera.doFOV(60f);
-        camera.DoTilt(0f);
+        cam.doFOV(60f);
+        cam.DoTilt(0f);
     }
 
     private void WallJump()
