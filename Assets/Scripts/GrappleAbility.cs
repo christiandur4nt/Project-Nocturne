@@ -36,7 +36,6 @@ public class GrappleAbility : MonoBehaviour
     private float cooldownTimer;
 
     void Reset() {
-        playerCameraT = Camera.main.transform;
         grappleMouseKey = 1;
         cooldownTime = 0.1f;
         animationDuration = 0.1f;
@@ -49,6 +48,7 @@ public class GrappleAbility : MonoBehaviour
 
     void Start() {
         pm = GetComponent<PlayerMovement>();
+        playerCameraT = Camera.main.transform;
         activeIcons = new();
 
         string[] layers = {"Grapple Zip", "Grapple Swing", "Enemies"};

@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Runtime.CompilerServices;
+
 //using System.Numerics;
 using UnityEditor.Animations;
 using UnityEngine;
@@ -20,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     public float walkSpeed;
     public float sprintSpeed;
     public float dashSpeed;
+    public float wallRunSpeed;
     public float dashSpeedChangeFactor;
     public float groundDrag;
     public float maxYSpeed;
@@ -62,12 +65,14 @@ public class PlayerMovement : MonoBehaviour
         dashing,
         bouncing,
         grappling,
+        wallrunning,
     }
 
     // Ability Bools
     public bool dashing;
     public bool bouncing;
     public bool grappling;
+    public bool wallrunning;
 
     void Awake() {
         orientation = GameObject.Find("Orientation").transform;
@@ -137,6 +142,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void StateHandler()
     {
+
+        if (wallrunning)
+        {
+            state = MovementState.wallrunning;
+            desiredMoveSpeed = wallRunSpeed;
+        }
 
         if (dashing)
         {
