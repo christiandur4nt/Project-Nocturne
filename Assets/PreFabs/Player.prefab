@@ -103,10 +103,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.6
-  m_Height: 2.1280074
+  m_Radius: 0.5
+  m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 0.060996294, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3838985054493953336
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,7 +317,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orientation: {fileID: 1764157197159838843}
   playerCamera: {fileID: 0}
-  dashForce: 40
+  dashForce: 30
   dashUpwardForce: 0
   dashDuration: 0.25
   maxDashYSpeed: 10
@@ -327,7 +327,7 @@ MonoBehaviour:
   dashButton: 0
   useCameraForward: 0
   allowAllDirections: 1
-  resetVelocity: 1
+  resetVelocity: 0
   disableGravity: 1
   onCooldown: 0
   armAnimation: {fileID: 0}
@@ -538,7 +538,7 @@ MonoBehaviour:
   wallRunForce: 200
   wallJumpUpForce: 7
   wallJumpSideForce: 12
-  maxWallRunTime: 3
+  maxWallRunTime: 0.7
   wallClimbSpeed: 5
   upwardsRunKey: 304
   downwardsRunKey: 306
@@ -547,7 +547,7 @@ MonoBehaviour:
   useGravity: 0
   gravityCounterForce: 10
   wallCheckDistance: 0.7
-  minJumpHeight: 1.75
+  minJumpHeight: 2
   orientation: {fileID: 1764157197159838843}
   cam: {fileID: 0}
 --- !u!114 &8536811747998001592
@@ -578,7 +578,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5655796799025526938, guid: 53ee2e30259ddc44592b8f5745faa07a, type: 3}
       propertyPath: m_Name
-      value: Grapple Hook
+      value: GrappleHook
       objectReference: {fileID: 0}
     - target: {fileID: 9039470086811374733, guid: 53ee2e30259ddc44592b8f5745faa07a, type: 3}
       propertyPath: m_LocalScale.z
