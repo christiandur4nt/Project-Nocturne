@@ -10,6 +10,7 @@ public class GrappleAbility : MonoBehaviour
     private PlayerMovement pm;
 
     [Header("General Variables")]
+    [SerializeField] private LayerMask grappleableObjects;
     public float maxGrappleDistance;
     public float animationDuration;
     public float cooldownTime;
@@ -26,9 +27,8 @@ public class GrappleAbility : MonoBehaviour
     public float relativeSwingRadius;
 
     // Internal
-    [SerializeField] private LayerMask gZip;
-    [SerializeField] private LayerMask gSwing;
-    private LayerMask grappleableObjects;
+    private LayerMask gZip;
+    private LayerMask gSwing;
     private SpringJoint joint;
     private Vector3 grapplePoint;
     private RaycastHit hit;
@@ -37,6 +37,8 @@ public class GrappleAbility : MonoBehaviour
     private bool isValidHit;
 
     void Reset() {
+        string[] layers = {"Grapple Zip", "Grapple Swing", "Enemies"};
+        grappleableObjects = LayerMask.GetMask(layers);
         grappleMouseKey = 1;
         cooldownTime = 0.1f;
         animationDuration = 0.1f;
@@ -47,15 +49,15 @@ public class GrappleAbility : MonoBehaviour
         massScale = 4.5f;
     }
 
-    void Start() {
-        pm = GetComponent<PlayerMovement>();
-        playerCameraT = Camera.main.transform;
-        activeIcons = new();
-
+    void Awake() {
         gZip = LayerMask.GetMask("Grapple Zip");
         gSwing = LayerMask.GetMask("Grapple Swing");
-        string[] layers = {"Grapple Zip", "Grapple Swing", "Enemies"};
-        grappleableObjects = LayerMask.GetMask(layers);
+        pm = GetComponent<PlayerMovement>();
+        playerCameraT = Camera.main.transform;
+    }
+
+    void Start() {
+        activeIcons = new();
         isValidHit = false;
     }
 

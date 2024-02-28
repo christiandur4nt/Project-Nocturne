@@ -345,6 +345,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCameraT: {fileID: 0}
   armAnimation: {fileID: 0}
+  grappleableObjects:
+    serializedVersion: 2
+    m_Bits: 448
   maxGrappleDistance: 100
   animationDuration: 0.1
   cooldownTime: 0.1
@@ -354,12 +357,6 @@ MonoBehaviour:
   damper: 7
   massScale: 4.5
   relativeSwingRadius: 0.5
-  gZip:
-    serializedVersion: 2
-    m_Bits: 0
-  gSwing:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &8097603237451495311
 MonoBehaviour:
   m_ObjectHideFlags: 0
