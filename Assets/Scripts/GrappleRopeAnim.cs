@@ -8,6 +8,8 @@ public class GrappleRopeAnim : MonoBehaviour {
     private LineRenderer lineRenderer;
     private Vector3 currentGrapplePosition;
     private GrappleAbility grappleScript;
+
+    [Header("Animation Variables")]
     public int quality;
     public float damper;
     public float strength;

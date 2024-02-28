@@ -5,7 +5,7 @@ public class CameraMovement : MonoBehaviour
 {
     [Header("Components")]
     [HideInInspector] public Transform orientation;
-    public Transform cameraHolder;
+    [HideInInspector] public Transform cameraHolder;
     
     [Header("Mouse Variables")]
     public float sensitivityX;
@@ -22,6 +22,7 @@ public class CameraMovement : MonoBehaviour
 
     void Awake() {
         orientation = GameObject.Find("Orientation").transform;
+        cameraHolder = transform.parent;
     }
 
     void Start()
