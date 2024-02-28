@@ -26,14 +26,15 @@ public class GrappleAbility : MonoBehaviour
     public float relativeSwingRadius;
 
     // Internal
-    [SerializeField] private LayerMask gZip; // WIP: gZip
-    [SerializeField] private LayerMask gSwing; // WIP: gSwing
+    [SerializeField] private LayerMask gZip;
+    [SerializeField] private LayerMask gSwing;
     private LayerMask grappleableObjects;
     private SpringJoint joint;
     private Vector3 grapplePoint;
     private RaycastHit hit;
     private ArrayList activeIcons;
     private float cooldownTimer;
+    private bool isValidHit;
 
     void Reset() {
         grappleMouseKey = 1;
@@ -55,24 +56,34 @@ public class GrappleAbility : MonoBehaviour
         gZip = LayerMask.GetMask("Grapple Zip");
         gSwing = LayerMask.GetMask("Grapple Swing");
         grappleableObjects = LayerMask.GetMask(layers);
+        isValidHit = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Separate Ray-cast for rendering grapple icon for grappleable objects
-        if (Physics.Raycast(playerCameraT.position, playerCameraT.forward, out hit, maxGrappleDistance, gZip | gSwing)) {
-            Transform grappleIcon = hit.transform.Find("Hook Icon");
-            if (grappleIcon != null) {
-                grappleIcon.gameObject.SetActive(true);
-                activeIcons.Add(grappleIcon);
+        // Ray-cast to determine if the object currently being viewed is grappleable
+        if (Physics.Raycast(playerCameraT.position, playerCameraT.forward, out hit, maxGrappleDistance)) {
+            // Check if hit GameObject layer is a part of the grappleableObjects layermask
+            if (((1 << hit.transform.gameObject.layer) & grappleableObjects.value) != 0) {
+                isValidHit = true;
+                Transform grappleIcon = hit.transform.Find("Hook Icon");
+                if (grappleIcon != null) {
+                    grappleIcon.gameObject.SetActive(true);
+                    activeIcons.Add(grappleIcon);
+                } else {
+                    Debug.Log("Grappleable object " + hit.transform.name + " does not have an icon!");
+                }
+            } else {
+                isValidHit = false;
+                ClearIcons();
             }
         } else {
-            foreach (Transform icon in activeIcons) {
-                icon.gameObject.SetActive(false);
-            }
-            activeIcons.Clear();
+            isValidHit = false;
+            ClearIcons();
         }
+        
+        Debug.Log("isValidHit: " + isValidHit);
 
         if (Input.GetMouseButtonDown(grappleMouseKey)) {
             InitGrapple();
@@ -89,19 +100,21 @@ public class GrappleAbility : MonoBehaviour
 
         pm.grappling = true;
         // armAnimation.SetBool("IsGrappling", true);
-        if (Physics.Raycast(playerCameraT.position, playerCameraT.forward, out hit, maxGrappleDistance, gZip)) {
-            grapplePoint = hit.transform.position;
-            PerformGrappleZip();
-        } else if (Physics.Raycast(playerCameraT.position, playerCameraT.forward, out hit, maxGrappleDistance, gSwing)) {
-            grapplePoint = hit.transform.position;
-            PerformGrappleSwing();
+
+        if (isValidHit) {
+            if (((1 << hit.transform.gameObject.layer) & gZip.value) != 0) { // Grapple Zip
+                grapplePoint = hit.transform.position;
+                PerformGrappleZip();
+            } else if (((1 << hit.transform.gameObject.layer) & gSwing.value) != 0) { // Grapple Swing
+                grapplePoint = hit.transform.position;
+                PerformGrappleSwing();
+            }
         } else {
             grapplePoint = playerCameraT.position + playerCameraT.forward*maxGrappleDistance;
         }
     }
     
     void PerformGrappleZip() {
-
         Vector3 lowestPoint = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
         float grapplePointRelativeYPos = grapplePoint.y - lowestPoint.y;
         float highestPointOnArc = grapplePointRelativeYPos + overshootYAxis;
@@ -118,11 +131,11 @@ public class GrappleAbility : MonoBehaviour
 
         float distanceFromPoint = Vector3.Distance(transform.position, grapplePoint);
 
-        //The distance grapple will try to keep from grapple point. 
+        // The distance grapple will try to keep from grapple point
         joint.maxDistance = distanceFromPoint * relativeSwingRadius;
         joint.minDistance = 0;
 
-        //Adjust these values to fit your game.
+        // Spring adjustments
         joint.spring = grappleForce;
         joint.damper = damper;
         joint.massScale = massScale;
@@ -137,6 +150,13 @@ public class GrappleAbility : MonoBehaviour
 
         if (cooldownTimer <= 0)
             cooldownTimer = cooldownTime;
+    }
+
+    private void ClearIcons() {
+        foreach (Transform icon in activeIcons) {
+            icon.gameObject.SetActive(false);
+        }
+        activeIcons.Clear();
     }
 
     public bool IsGrappling() {
