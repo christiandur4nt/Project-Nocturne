@@ -44,14 +44,16 @@ public class WallRunning : MonoBehaviour
     private bool wallRight;
 
     [Header("References")]
-    public Transform orientation;
-    public CameraMovement cam;
+    [HideInInspector] public Transform orientation;
+    [HideInInspector] public CameraMovement cam;
     private PlayerMovement pm;
     private Rigidbody rb;
 
     // Start is called before the first frame update
     private void Start()
     {
+        orientation = GameObject.Find("Orientation").transform;
+        cam = FindFirstObjectByType<CameraMovement>();
         pm = GetComponent<PlayerMovement>();
         rb = GetComponent<Rigidbody>();
     }

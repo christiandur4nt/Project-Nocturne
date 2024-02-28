@@ -4,14 +4,15 @@ using UnityEngine;
 public class EnemyKill : MonoBehaviour
 {
     [Header("References")]
-    public GameObject player;
+    [HideInInspector] public GameObject player;
 
     // Internal
     private PlayerMovement pm;
     private bool dashing = false;
 
-    void Start()
+    void Awake()
     {
+        player = GameObject.Find("Player");
         pm = player.GetComponent<PlayerMovement>();
     }
 
