@@ -97,11 +97,10 @@ public class GrappleAbility : MonoBehaviour
     void InitGrapple() {
         // Prevent use on cooldown or if grappling is currently active somehow
         if (cooldownTimer > 0 || pm.grappling) return;
-
-        pm.grappling = true;
         // armAnimation.SetBool("IsGrappling", true);
 
         if (isValidHit) {
+            pm.grappling = true;
             if (((1 << hit.transform.gameObject.layer) & gZip.value) != 0) { // Grapple Zip
                 grapplePoint = hit.transform.position;
                 PerformGrappleZip();
