@@ -52,9 +52,9 @@ public class GrappleAbility : MonoBehaviour
         playerCameraT = Camera.main.transform;
         activeIcons = new();
 
-        string[] layers = {"Grapple Zip", "Grapple Swing", "Enemies"};
         gZip = LayerMask.GetMask("Grapple Zip");
         gSwing = LayerMask.GetMask("Grapple Swing");
+        string[] layers = {"Grapple Zip", "Grapple Swing", "Enemies"};
         grappleableObjects = LayerMask.GetMask(layers);
         isValidHit = false;
     }
@@ -83,8 +83,6 @@ public class GrappleAbility : MonoBehaviour
             ClearIcons();
         }
         
-        Debug.Log("isValidHit: " + isValidHit);
-
         if (Input.GetMouseButtonDown(grappleMouseKey)) {
             InitGrapple();
         } else if (Input.GetMouseButtonUp(grappleMouseKey)) {
@@ -107,6 +105,9 @@ public class GrappleAbility : MonoBehaviour
             } else if (((1 << hit.transform.gameObject.layer) & gSwing.value) != 0) { // Grapple Swing
                 grapplePoint = hit.transform.position;
                 PerformGrappleSwing();
+            } else { // Default to Grapple Zip for all other layers within grappleableObjects
+                grapplePoint = hit.transform.position;
+                PerformGrappleZip();
             }
         } else {
             grapplePoint = playerCameraT.position + playerCameraT.forward*maxGrappleDistance;
