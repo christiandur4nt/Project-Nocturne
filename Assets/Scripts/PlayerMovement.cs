@@ -142,18 +142,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void StateHandler()
     {
-
-        if (wallrunning)
-        {
-            state = MovementState.wallrunning;
-            desiredMoveSpeed = wallRunSpeed;
-        }
-
         if (dashing)
         {
             state = MovementState.dashing;
             desiredMoveSpeed = dashSpeed;
             speedChangeFactor = dashSpeedChangeFactor;
+        }
+
+        if (wallrunning)
+        {
+            state = MovementState.wallrunning;
+            desiredMoveSpeed = wallRunSpeed;
         }
 
         if (bouncing)
@@ -229,7 +228,7 @@ public class PlayerMovement : MonoBehaviour
         else if(!grappling)
             rb.AddForce(moveDirection.normalized * speed * 10f * airMultiplier, ForceMode.Force);
         
-        if (!dashing || !wallrunning)     
+        if (!dashing && !wallrunning)     
             rb.useGravity = !OnSlope();
     }
 
