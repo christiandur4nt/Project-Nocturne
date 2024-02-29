@@ -69,7 +69,7 @@ public class GrappleAbility : MonoBehaviour
             // Check if hit GameObject layer is a part of the grappleableObjects layermask
             if (((1 << hit.transform.gameObject.layer) & grappleableObjects.value) != 0) {
                 isValidHit = true;
-                Transform grappleIcon = hit.transform.Find("Hook Icon");
+                Transform grappleIcon = hit.transform.Find("Icon Joint").Find("Hook Icon");
                 if (grappleIcon != null) {
                     grappleIcon.gameObject.SetActive(true);
                     activeIcons.Add(grappleIcon);
