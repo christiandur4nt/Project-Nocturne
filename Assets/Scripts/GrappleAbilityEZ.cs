@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class GrappleAbility : MonoBehaviour
+public class GrappleAbilityEZ : MonoBehaviour
 {
     [Header("Components")]
     [HideInInspector] public Transform playerCameraT;
@@ -101,20 +101,20 @@ public class GrappleAbility : MonoBehaviour
 
         if (isValidHit) {
             pm.grappling = true;
-            grapplePoint = hit.point;
+            grapplePoint = hit.transform.position;
             if (((1 << hit.transform.gameObject.layer) & gZip.value) != 0) { // Grapple Zip
-                PerformGrappleZip();
+                PerformEZGrappleZip();
             } else if (((1 << hit.transform.gameObject.layer) & gSwing.value) != 0) { // Grapple Swing
-                PerformGrappleSwing();
+                PerformEZGrappleSwing();
             } else { // Default to Grapple Zip for all other layers within grappleableObjects
-                PerformGrappleZip();
+                PerformEZGrappleZip();
             }
         } else {
             grapplePoint = playerCameraT.position + playerCameraT.forward*maxGrappleDistance;
         }
     }
     
-    void PerformGrappleZip() {
+    void PerformEZGrappleZip() {
         Vector3 lowestPoint = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
         float grapplePointRelativeYPos = grapplePoint.y - lowestPoint.y;
         float highestPointOnArc = grapplePointRelativeYPos + overshootYAxis;
@@ -124,7 +124,7 @@ public class GrappleAbility : MonoBehaviour
         pm.JumpToPosition(grapplePoint, highestPointOnArc);
     }
 
-    void PerformGrappleSwing() {
+    void PerformEZGrappleSwing() {
         joint = gameObject.AddComponent<SpringJoint>();
         joint.autoConfigureConnectedAnchor = false;
         joint.connectedAnchor = grapplePoint;
@@ -159,11 +159,11 @@ public class GrappleAbility : MonoBehaviour
         activeIcons.Clear();
     }
 
-    public bool IsGrappling() {
+    public bool IsEZGrappling() {
         return pm.grappling;
     }
 
-    public Vector3 GetGrapplePoint() {
+    public Vector3 GetEZGrapplePoint() {
         return grapplePoint;
     }
 }
