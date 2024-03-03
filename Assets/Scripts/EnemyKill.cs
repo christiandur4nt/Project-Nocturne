@@ -12,14 +12,12 @@ public class EnemyKill : MonoBehaviour
 
     void Awake()
     {
-        player = GameObject.Find("Player");
         pm = player.GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(dashing);
         dashing = pm.dashing;
     }
 
