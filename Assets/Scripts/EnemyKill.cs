@@ -4,13 +4,13 @@ using UnityEngine;
 public class EnemyKill : MonoBehaviour
 {
     [Header("References")]
-    public GameObject player;
+    [HideInInspector] public GameObject player;
 
     // Internal
     private PlayerMovement pm;
     private bool dashing = false;
 
-    void Start()
+    void Awake()
     {
         pm = player.GetComponent<PlayerMovement>();
     }
@@ -18,7 +18,6 @@ public class EnemyKill : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(dashing);
         dashing = pm.dashing;
     }
 

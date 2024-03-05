@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Runtime.CompilerServices;
+
 //using System.Numerics;
 using UnityEditor.Animations;
 using UnityEngine;
@@ -27,8 +28,6 @@ public class PlayerMovement : MonoBehaviour
     public float maxYSpeed;
     private float speed;
     
-    
-
     [Header("Jumping")]
     public float jumpForce;
     public float jumpCooldown;
@@ -114,10 +113,10 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log(state);
         isGrounded = Physics.Raycast(transform.position, Vector3.down, height * 0.5f + 0.2f, groundLayer);
 
         getInput();
-        if (!grappling) TopSpeed();
         StateHandler();
 
         if (state == MovementState.walking || state == MovementState.sprinting || state == MovementState.crouching)
@@ -125,15 +124,16 @@ public class PlayerMovement : MonoBehaviour
         else
             rb.drag = 0;
 
-         if (xInput != 0 || zInput != 0)
-             animator.SetBool("Movement", true);
-         else
-             animator.SetBool("Movement", false);
+        // if (xInput != 0 || zInput != 0)
+        //     animator.SetBool("Movement", true);
+        // else
+        //     animator.SetBool("Movement", false);
     }
 
     private void FixedUpdate()
     {
         MovePlayer();
+        if (!grappling) TopSpeed();
     }
 
     private float desiredMoveSpeed;
@@ -143,14 +143,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void StateHandler()
     {
-
-        
-
         if (dashing)
         {
             state = MovementState.dashing;
             desiredMoveSpeed = dashSpeed;
             speedChangeFactor = dashSpeedChangeFactor;
+        }
+
+        if (wallrunning)
+        {
+            state = MovementState.wallrunning;
+            desiredMoveSpeed = wallRunSpeed;
         }
 
         if (bouncing)
@@ -161,11 +164,6 @@ public class PlayerMovement : MonoBehaviour
         if (grappling) {
             state = MovementState.grappling;
         } 
-        else if (wallrunning)
-        {
-            state = MovementState.wallrunning;
-            desiredMoveSpeed = wallRunSpeed;
-        }
         else if (Input.GetKey(crouchKey))
         {
             state = MovementState.crouching;
@@ -231,7 +229,7 @@ public class PlayerMovement : MonoBehaviour
         else if(!grappling)
             rb.AddForce(moveDirection.normalized * speed * 10f * airMultiplier, ForceMode.Force);
         
-        if (!dashing)     
+        if (!dashing && !wallrunning)     
             rb.useGravity = !OnSlope();
     }
 
@@ -267,8 +265,11 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (maxYSpeed != 0 && rb.velocity.y > maxYSpeed)
+        if (state != MovementState.air && maxYSpeed != 0 && rb.velocity.y > maxYSpeed)
+        {
             rb.velocity = new Vector3(rb.velocity.x, maxYSpeed, rb.velocity.z);
+        }
+            
     }
 
     private bool OnSlope()
