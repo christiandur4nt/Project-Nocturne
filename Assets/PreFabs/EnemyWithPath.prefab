@@ -41,6 +41,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5624962808718441785}
     m_Modifications:
+    - target: {fileID: 28287411794946449, guid: 1d6d47cceba2ddf4e9f3dc08bdcb4401, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 7214346714808347728, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
     - target: {fileID: 5958011393709272099, guid: 1d6d47cceba2ddf4e9f3dc08bdcb4401, type: 3}
       propertyPath: m_Name
       value: Enemy Variant

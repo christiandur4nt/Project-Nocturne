@@ -3317,6 +3317,18 @@ PrefabInstance:
       propertyPath: grappling
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3026227704703407070, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
+      propertyPath: walkSpeed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3026227704703407070, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
+      propertyPath: sprintSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3026227704703407070, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
+      propertyPath: wallRunSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7214346714808347728, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
       propertyPath: m_Name
       value: Player
