@@ -96,6 +96,10 @@ public class DashAbility : MonoBehaviour
 
         Invoke(nameof(DelayedDashForce), 0.025f);
         Invoke(nameof(ResetDash), dashDuration);
+
+
+        armAnimation.SetBool("Is Dashing", true);
+
     }
 
     private Vector3 delayedForceToApply;
@@ -111,6 +115,7 @@ public class DashAbility : MonoBehaviour
     {
         pm.dashing = false;
         pm.maxYSpeed = 0;
+        armAnimation.SetBool("Is Dashing", false);
 
         cam.doFOV(60f);
 
