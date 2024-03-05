@@ -88,7 +88,7 @@ public class GrappleAbility : MonoBehaviour
         if (cooldownTimer > 0 || pm.grappling) return;
 
         pm.grappling = true;
-        // armAnimation.SetBool("IsGrappling", true);
+        armAnimation.SetBool("IsGrappling", true);
         if (Physics.Raycast(playerCameraT.position, playerCameraT.forward, out hit, maxGrappleDistance, gZip)) {
             grapplePoint = hit.transform.position;
             PerformGrappleZip();
@@ -130,7 +130,7 @@ public class GrappleAbility : MonoBehaviour
 
     void StopGrapple() {
         pm.grappling = false;
-        // armAnimation.SetBool("IsGrappling", false);
+        armAnimation.SetBool("IsGrappling", false);
 
         if (joint != null)
             Destroy(joint);

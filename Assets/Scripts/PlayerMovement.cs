@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Runtime.CompilerServices;
-
 //using System.Numerics;
 using UnityEditor.Animations;
 using UnityEngine;
@@ -28,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     public float maxYSpeed;
     private float speed;
     
+    
+
     [Header("Jumping")]
     public float jumpForce;
     public float jumpCooldown;
@@ -124,10 +125,10 @@ public class PlayerMovement : MonoBehaviour
         else
             rb.drag = 0;
 
-        // if (xInput != 0 || zInput != 0)
-        //     animator.SetBool("Movement", true);
-        // else
-        //     animator.SetBool("Movement", false);
+         if (xInput != 0 || zInput != 0)
+             animator.SetBool("Movement", true);
+         else
+             animator.SetBool("Movement", false);
     }
 
     private void FixedUpdate()
