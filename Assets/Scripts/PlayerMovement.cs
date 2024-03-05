@@ -124,10 +124,10 @@ public class PlayerMovement : MonoBehaviour
         else
             rb.drag = 0;
 
-        // if (xInput != 0 || zInput != 0)
-        //     animator.SetBool("Movement", true);
-        // else
-        //     animator.SetBool("Movement", false);
+        if (xInput != 0 || zInput != 0)
+            animator.SetBool("Movement", true);
+        else
+            animator.SetBool("Movement", false);
     }
 
     private void FixedUpdate()
