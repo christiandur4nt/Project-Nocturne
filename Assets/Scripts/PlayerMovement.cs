@@ -113,10 +113,10 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log(state);
         isGrounded = Physics.Raycast(transform.position, Vector3.down, height * 0.5f + 0.2f, groundLayer);
 
         getInput();
-        if (!grappling) TopSpeed();
         StateHandler();
 
         if (state == MovementState.walking || state == MovementState.sprinting || state == MovementState.crouching)
@@ -133,6 +133,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
+        if (!grappling) TopSpeed();
     }
 
     private float desiredMoveSpeed;
@@ -264,8 +265,11 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (maxYSpeed != 0 && rb.velocity.y > maxYSpeed)
+        if (state != MovementState.air && maxYSpeed != 0 && rb.velocity.y > maxYSpeed)
+        {
             rb.velocity = new Vector3(rb.velocity.x, maxYSpeed, rb.velocity.z);
+        }
+            
     }
 
     private bool OnSlope()

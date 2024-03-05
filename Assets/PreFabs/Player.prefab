@@ -577,6 +577,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GrappleHook
       objectReference: {fileID: 0}
+    - target: {fileID: 7051624392576826285, guid: 53ee2e30259ddc44592b8f5745faa07a, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: d3c62173f535eaa4a8409e991c2da70d, type: 2}
     - target: {fileID: 9039470086811374733, guid: 53ee2e30259ddc44592b8f5745faa07a, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.20000002
