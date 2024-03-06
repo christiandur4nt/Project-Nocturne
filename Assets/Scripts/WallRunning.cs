@@ -160,7 +160,7 @@ public class WallRunning : MonoBehaviour
         if (useGravity)
             rb.AddForce(transform.up * gravityCounterForce, ForceMode.Force);
 
-        Debug.Log(wallRunTimer);
+        // Debug.Log(wallRunTimer);
     }
 
     private void StopWallRun()

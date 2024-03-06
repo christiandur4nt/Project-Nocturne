@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("References")]
     [HideInInspector] public Transform orientation;
     [SerializeField] private Animator animator;
+    private Rigidbody rb;
     
 
     [Header("Keybinds")]
@@ -18,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode crouchKey = KeyCode.LeftControl;
 
-    [Header("Movement")]
+    [Header("Movement Speed Controls")]
     public float walkSpeed;
     public float sprintSpeed;
     public float dashSpeed;
@@ -26,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     public float dashSpeedChangeFactor;
     public float groundDrag;
     public float maxYSpeed;
+    public float diveAcceleration;
     private float speed;
     
     [Header("Jumping")]
@@ -34,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
     public float airMultiplier;
     private bool readyToJump;
 
-    [Header("Crounching")]
+    [Header("Crouching")]
     public float crouchSpeed;
     public float crouchYScale;
     private float startYScale;
@@ -49,10 +51,12 @@ public class PlayerMovement : MonoBehaviour
     private bool exitingSlope;
     private RaycastHit slopeHit;
 
-    // Internal
+    // Internal variables for input/movement
     private float xInput;
     private float zInput;
-    private Rigidbody rb;
+    private bool crouchKeyActive, crouchKeyDown, crouchKeyUp;
+    private bool jumpKeyActive;
+    private bool sprintKeyActive;
     private Vector3 moveDirection;
 
     public MovementState state;
@@ -68,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
         wallrunning,
     }
 
-    // Ability Bools
+    // Ability Bools: Manipulated in their respective scripts
     public bool dashing;
     public bool bouncing;
     public bool grappling;
@@ -76,12 +80,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Awake() {
         orientation = GameObject.Find("Orientation").transform;
+        rb = GetComponent<Rigidbody>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         readyToJump = true;
         startYScale = transform.localScale.y;
@@ -92,28 +96,24 @@ public class PlayerMovement : MonoBehaviour
         xInput = Input.GetAxisRaw("Horizontal");
         zInput = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKey(jumpKey) && readyToJump && isGrounded)
-        {
-            readyToJump = false;
-            Jump();
-            Invoke(nameof(ResetJump), jumpCooldown);
-        }
-
-        if (Input.GetKeyDown(crouchKey))
+        // Handle crouch inputs
+        if (crouchKeyDown = Input.GetKeyDown(crouchKey))
         {
             transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
-            rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
         }
-        if (Input.GetKeyUp(crouchKey))
+        if (crouchKeyUp = Input.GetKeyUp(crouchKey))
         {
             transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
         }
+        crouchKeyActive = Input.GetKey(crouchKey);
+        jumpKeyActive = Input.GetKey(jumpKey);
+        sprintKeyActive = Input.GetKey(sprintKey);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(state);
+        // Debug.Log("State: " + state);
         isGrounded = Physics.Raycast(transform.position, Vector3.down, height * 0.5f + 0.2f, groundLayer);
 
         getInput();
@@ -164,12 +164,12 @@ public class PlayerMovement : MonoBehaviour
         if (grappling) {
             state = MovementState.grappling;
         } 
-        else if (Input.GetKey(crouchKey))
+        else if (state != MovementState.air && crouchKeyActive)
         {
             state = MovementState.crouching;
             desiredMoveSpeed = crouchSpeed;
         }
-        else if (isGrounded && Input.GetKey(sprintKey))
+        else if (isGrounded && sprintKeyActive)
         {
             state = MovementState.sprinting;
             desiredMoveSpeed = sprintSpeed;
@@ -211,6 +211,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
+        if (jumpKeyActive && readyToJump && isGrounded)
+        {
+            readyToJump = false;
+            Jump();
+            Invoke(nameof(ResetJump), jumpCooldown);
+        }
+
+        // Divebomb
+        if (state == MovementState.air && crouchKeyActive) {
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + (-diveAcceleration*Time.fixedDeltaTime), rb.velocity.z);
+        }
+
         moveDirection = orientation.forward * zInput + orientation.right * xInput;
 
         if (OnSlope())

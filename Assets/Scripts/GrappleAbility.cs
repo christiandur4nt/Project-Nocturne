@@ -12,7 +12,6 @@ public class GrappleAbility : MonoBehaviour
     [Header("General Variables")]
     [SerializeField] private LayerMask grappleableObjects;
     public float maxGrappleDistance;
-    public float animationDuration;
     public float cooldownTime;
     public int grappleMouseKey;
 
@@ -41,7 +40,6 @@ public class GrappleAbility : MonoBehaviour
         grappleableObjects = LayerMask.GetMask(layers);
         grappleMouseKey = 1;
         cooldownTime = 0.1f;
-        animationDuration = 0.1f;
         maxGrappleDistance = 100f;
         grappleForce = 80f;
         relativeSwingRadius = 0.5f;
@@ -54,6 +52,7 @@ public class GrappleAbility : MonoBehaviour
         gSwing = LayerMask.GetMask("Grapple Swing");
         pm = GetComponent<PlayerMovement>();
         playerCameraT = Camera.main.transform;
+        cooldownTimer = 0;
     }
 
     void Start() {
@@ -69,23 +68,25 @@ public class GrappleAbility : MonoBehaviour
             // Check if hit GameObject layer is a part of the grappleableObjects layermask
             if (((1 << hit.transform.gameObject.layer) & grappleableObjects.value) != 0) {
                 isValidHit = true;
-                Transform grappleIcon = hit.transform.Find("Icon Joint").Find("Hook Icon");
-                if (grappleIcon != null) {
-                    grappleIcon.gameObject.SetActive(true);
-                    activeIcons.Add(grappleIcon);
-                } else {
-                    Debug.Log("Grappleable object " + hit.transform.name + " does not have an icon!");
-                }
+
+                // WIP: Replace grapple icon with highlighting
+                // Transform grappleIcon = hit.transform.parent.Find("Icon Joint").Find("Hook Icon");
+                // if (grappleIcon != null) {
+                //     grappleIcon.gameObject.SetActive(true);
+                //     activeIcons.Add(grappleIcon);
+                // } else {
+                //     Debug.Log("Grappleable object " + hit.transform.name + " does not have an icon!");
+                // }
             } else {
                 isValidHit = false;
-                ClearIcons();
+                // ClearIcons(); // WIP: remove
             }
         } else {
             isValidHit = false;
-            ClearIcons();
+            // ClearIcons(); // WIP: remove
         }
         
-        if (Input.GetMouseButtonDown(grappleMouseKey)) {
+        if (Input.GetMouseButton(grappleMouseKey)) {
             InitGrapple();
         } else if (Input.GetMouseButtonUp(grappleMouseKey)) {
             StopGrapple();
@@ -97,9 +98,9 @@ public class GrappleAbility : MonoBehaviour
     void InitGrapple() {
         // Prevent use on cooldown or if grappling is currently active somehow
         if (cooldownTimer > 0 || pm.grappling) return;
-        // armAnimation.SetBool("IsGrappling", true);
 
         if (isValidHit) {
+            armAnimation.SetBool("IsGrappling", true);
             pm.grappling = true;
             grapplePoint = hit.point;
             if (((1 << hit.transform.gameObject.layer) & gZip.value) != 0) { // Grapple Zip
@@ -110,6 +111,7 @@ public class GrappleAbility : MonoBehaviour
                 PerformGrappleZip();
             }
         } else {
+            // Animation no longer plays for grappling an invalid area since pm.grappling=true only if hit is valid
             grapplePoint = playerCameraT.position + playerCameraT.forward*maxGrappleDistance;
         }
     }
@@ -142,14 +144,16 @@ public class GrappleAbility : MonoBehaviour
     }
 
     void StopGrapple() {
-        pm.grappling = false;
-        // armAnimation.SetBool("IsGrappling", false);
+        if (pm.grappling) {
+            pm.grappling = false;
+            armAnimation.SetBool("IsGrappling", false);
 
-        if (joint != null)
-            Destroy(joint);
+            if (joint != null)
+                Destroy(joint);
 
-        if (cooldownTimer <= 0)
-            cooldownTimer = cooldownTime;
+            if (cooldownTimer <= 0)
+                cooldownTimer = cooldownTime;
+        }
     }
 
     private void ClearIcons() {
