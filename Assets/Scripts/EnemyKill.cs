@@ -4,7 +4,7 @@ using UnityEngine;
 public class EnemyKill : MonoBehaviour
 {
     [Header("References")]
-    [HideInInspector] public GameObject player;
+    public GameObject Player;
 
     // Internal
     private PlayerMovement pm;
@@ -12,7 +12,7 @@ public class EnemyKill : MonoBehaviour
 
     void Awake()
     {
-        pm = player.GetComponent<PlayerMovement>();
+        pm = Player.GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
