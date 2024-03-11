@@ -48,7 +48,8 @@ public class PauseMenu : MonoBehaviour
 
     public void ReturnToDemo()
     {
-       SceneManager.LoadScene("Scenes/DemoMenu");
-       Console.WriteLine("PRESSED!");
+        Time.timeScale = 1f;
+        gameIsPaused = false;
+        SceneManager.LoadScene(0);
     }
 }
