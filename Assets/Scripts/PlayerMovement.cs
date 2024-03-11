@@ -1,9 +1,6 @@
-using System;
 using System.Collections;
-using System.Runtime.CompilerServices;
 
 //using System.Numerics;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
