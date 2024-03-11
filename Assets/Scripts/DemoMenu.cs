@@ -15,6 +15,11 @@ public class DemoMenu : MonoBehaviour
         SceneManager.LoadScene("Scenes/Grapple Hook Tutorial");
     }
 
+    public void PlayDash()
+    {
+        SceneManager.LoadScene(3);
+    }
+
     public void Start()
     {
         Cursor.lockState = CursorLockMode.None;

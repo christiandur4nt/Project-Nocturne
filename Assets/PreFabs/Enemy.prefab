@@ -22,19 +22,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b0c9027d2955e3045aea5f9276cd0ecc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.84
+      value: -4.888733
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b0c9027d2955e3045aea5f9276cd0ecc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.89
+      value: -28.2151
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b0c9027d2955e3045aea5f9276cd0ecc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.23
+      value: 295.81262
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b0c9027d2955e3045aea5f9276cd0ecc, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.07691517
+      value: 0.99974066
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b0c9027d2955e3045aea5f9276cd0ecc, type: 3}
       propertyPath: m_LocalRotation.x
@@ -42,7 +42,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b0c9027d2955e3045aea5f9276cd0ecc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.99703765
+      value: 0.022773417
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b0c9027d2955e3045aea5f9276cd0ecc, type: 3}
       propertyPath: m_LocalRotation.z
@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b0c9027d2955e3045aea5f9276cd0ecc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 171.177
+      value: 2.61
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b0c9027d2955e3045aea5f9276cd0ecc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -183,4 +183,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ae9c154636b79449cdaafefaf7d9c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 7214346714808347728, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
+  Player: {fileID: 0}
