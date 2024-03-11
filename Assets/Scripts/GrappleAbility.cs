@@ -76,22 +76,11 @@ public class GrappleAbility : MonoBehaviour
             // Check if hit GameObject layer is a part of the grappleableObjects layermask
             if (((1 << hit.transform.gameObject.layer) & grappleableObjects.value) != 0) {
                 isValidHit = true;
-
-                // WIP: Replace grapple icon with highlighting
-                // Transform grappleIcon = hit.transform.parent.Find("Icon Joint").Find("Hook Icon");
-                // if (grappleIcon != null) {
-                //     grappleIcon.gameObject.SetActive(true);
-                //     activeIcons.Add(grappleIcon);
-                // } else {
-                //     Debug.Log("Grappleable object " + hit.transform.name + " does not have an icon!");
-                // }
             } else {
                 isValidHit = false;
-                // ClearIcons(); // WIP: remove
             }
         } else {
             isValidHit = false;
-            // ClearIcons(); // WIP: remove
         }
         
         if (Input.GetMouseButton(grappleMouseKey)) {
