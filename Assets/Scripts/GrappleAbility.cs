@@ -65,6 +65,8 @@ public class GrappleAbility : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!pm.MovementEnabled()) return;
+        
         // Ray-cast to determine if the object currently being viewed is grappleable
         if (Physics.Raycast(playerCameraT.position, playerCameraT.forward, out hit, maxGrappleDistance, ~runnableWall)) {
 

@@ -6,6 +6,7 @@ public class CameraMovement : MonoBehaviour
     [Header("Components")]
     [HideInInspector] public Transform orientation;
     [HideInInspector] public Transform cameraHolder;
+    [HideInInspector] public PlayerMovement pm;
     
     [Header("Mouse Variables")]
     public float sensitivityX;
@@ -21,6 +22,7 @@ public class CameraMovement : MonoBehaviour
     }
 
     void Awake() {
+        pm = FindFirstObjectByType<PlayerMovement>();
         orientation = GameObject.Find("Orientation").transform;
         cameraHolder = transform.parent;
     }
@@ -35,20 +37,20 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (pm.MovementEnabled())
+        {
+            float mouseX = Input.GetAxis("Mouse X") * sensitivityX * Time.deltaTime;
+            float mouseY = Input.GetAxis("Mouse Y") * sensitivityY * Time.deltaTime;
 
-        float mouseX = Input.GetAxis("Mouse X") * sensitivityX * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * sensitivityY * Time.deltaTime;
+            orientation.Rotate(Vector3.up * mouseX);
 
-        orientation.Rotate(Vector3.up * mouseX);
+            rotationY += mouseX;
+            rotationX -= mouseY;
+            rotationX = Mathf.Clamp(rotationX, -90f, 90f);
 
-        rotationY += mouseX;
-        rotationX -= mouseY;
-        rotationX = Mathf.Clamp(rotationX, -90f, 90f);
-
-        cameraHolder.rotation = Quaternion.Euler(rotationX, rotationY, 0f);
-        orientation.rotation = Quaternion.Euler(0, rotationY, 0);
-        // transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, smoothness);
+            cameraHolder.rotation = Quaternion.Euler(rotationX, rotationY, 0f);
+            orientation.rotation = Quaternion.Euler(0, rotationY, 0);
+        }
     }
 
     public void doFOV(float endValue)

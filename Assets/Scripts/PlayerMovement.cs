@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public Transform orientation;
     [SerializeField] private Animator animator;
     private Rigidbody rb;
-    
 
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
@@ -49,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
     private RaycastHit slopeHit;
 
     // Internal variables for input/movement
+    private bool allowMovement;
     private float xInput;
     private float zInput;
     private bool crouchKeyActive, crouchKeyDown, crouchKeyUp;
@@ -76,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
     public bool wallrunning;
 
     void Awake() {
+        allowMovement = true;
         orientation = GameObject.Find("Orientation").transform;
         rb = GetComponent<Rigidbody>();
     }
@@ -90,8 +91,8 @@ public class PlayerMovement : MonoBehaviour
     
     private void getInput()
     {
-        xInput = Input.GetAxisRaw("Horizontal");
-        zInput = Input.GetAxisRaw("Vertical");
+        xInput = allowMovement ? Input.GetAxisRaw("Horizontal") : 0;
+        zInput = allowMovement ? Input.GetAxisRaw("Vertical") : 0;
 
         // Handle crouch inputs
         if (crouchKeyDown = Input.GetKeyDown(crouchKey))
@@ -309,6 +310,18 @@ public class PlayerMovement : MonoBehaviour
 
     public bool IsGrounded() {
         return isGrounded;
+    }
+
+    public void enableMovement() {
+        allowMovement = true;
+    }
+
+    public void disableMovement() {
+        allowMovement = false;
+    }
+
+    public bool MovementEnabled() {
+        return allowMovement;
     }
 
     // Grapple Functions //
