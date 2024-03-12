@@ -284,7 +284,7 @@ MonoBehaviour:
   walkSpeed: 7
   sprintSpeed: 10
   dashSpeed: 30
-  wallRunSpeed: 0
+  wallRunSpeed: 15
   dashSpeedChangeFactor: 50
   groundDrag: 5
   maxYSpeed: 0
