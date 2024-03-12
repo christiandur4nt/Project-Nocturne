@@ -146,13 +146,7 @@ public class PlayerMovement : MonoBehaviour
             state = MovementState.dashing;
             desiredMoveSpeed = dashSpeed;
             speedChangeFactor = dashSpeedChangeFactor;
-        }
-
-        if (wallrunning)
-        {
-            state = MovementState.wallrunning;
-            desiredMoveSpeed = wallRunSpeed;
-        }
+        } 
 
         if (bouncing)
         {
@@ -161,7 +155,12 @@ public class PlayerMovement : MonoBehaviour
         
         if (grappling) {
             state = MovementState.grappling;
-        } 
+        }
+        else if (wallrunning)
+        {
+            state = MovementState.wallrunning;
+            desiredMoveSpeed = wallRunSpeed;
+        }
         else if (state != MovementState.air && crouchKeyActive)
         {
             state = MovementState.crouching;
