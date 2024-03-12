@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using cakeslice;
 using UnityEngine;
 
 public class GrappleAbility : MonoBehaviour
@@ -32,7 +33,7 @@ public class GrappleAbility : MonoBehaviour
     private SpringJoint joint;
     private Vector3 grapplePoint;
     private RaycastHit hit;
-    private ArrayList activeIcons;
+    private ArrayList validHits;
     private float cooldownTimer;
     private bool isValidHit;
 
@@ -58,7 +59,7 @@ public class GrappleAbility : MonoBehaviour
     }
 
     void Start() {
-        activeIcons = new();
+        validHits = new();
         isValidHit = false;
     }
 
@@ -76,10 +77,19 @@ public class GrappleAbility : MonoBehaviour
             // Check if hit GameObject layer is a part of the grappleableObjects layermask
             if (((1 << hit.transform.gameObject.layer) & grappleableObjects.value) != 0) {
                 isValidHit = true;
+                Outline outline = hit.transform.GetComponent<Outline>();
+                if (outline != null) {
+                    outline.color = 1;
+                    validHits.Add(outline);
+                } else {
+                    Debug.Log("Grappleable object " + hit.transform.gameObject.name + " has no outline script attached!");
+                }
             } else {
+                ResetOutlines();
                 isValidHit = false;
             }
         } else {
+            ResetOutlines();
             isValidHit = false;
         }
         
@@ -153,11 +163,11 @@ public class GrappleAbility : MonoBehaviour
         }
     }
 
-    private void ClearIcons() {
-        foreach (Transform icon in activeIcons) {
-            icon.gameObject.SetActive(false);
+    private void ResetOutlines() {
+        foreach (Outline outline in validHits) {
+            outline.color = 0;
         }
-        activeIcons.Clear();
+        validHits.Clear();
     }
 
     public bool IsGrappling() {
