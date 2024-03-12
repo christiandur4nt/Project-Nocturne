@@ -153,13 +153,13 @@ public class PlayerMovement : MonoBehaviour
             state = MovementState.bouncing;
         }
         
-        if (grappling) {
-            state = MovementState.grappling;
-        }
-        else if (wallrunning)
+        if (wallrunning)
         {
             state = MovementState.wallrunning;
             desiredMoveSpeed = wallRunSpeed;
+        }
+        else if (grappling) {
+            state = MovementState.grappling;
         }
         else if (state != MovementState.air && crouchKeyActive)
         {
