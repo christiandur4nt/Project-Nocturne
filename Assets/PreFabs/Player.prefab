@@ -283,7 +283,7 @@ MonoBehaviour:
   crouchKey: 306
   walkSpeed: 7
   sprintSpeed: 10
-  dashSpeed: 30
+  dashSpeed: 50
   wallRunSpeed: 15
   dashSpeedChangeFactor: 50
   groundDrag: 5

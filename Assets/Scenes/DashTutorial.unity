@@ -4207,10 +4207,6 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 1311192175}
-    - target: {fileID: 3026227704703407070, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
-      propertyPath: dashSpeed
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 5373325343474894981, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
       propertyPath: dashForce
       value: 40
