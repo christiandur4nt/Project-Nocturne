@@ -282,6 +282,7 @@ MonoBehaviour:
   sprintKey: 304
   crouchKey: 306
   walkSpeed: 7
+  grappleLaunchSpeed: 15
   sprintSpeed: 10
   dashSpeed: 50
   wallRunSpeed: 15
@@ -354,9 +355,9 @@ MonoBehaviour:
   cooldownTime: 1
   grappleMouseKey: 1
   overshootYAxis: 0
-  grappleForce: 10
-  damper: 20
-  massScale: 50
+  grappleForce: 25
+  damper: 10
+  massScale: 1
   relativeSwingRadius: 0.25
 --- !u!114 &8097603237451495311
 MonoBehaviour:

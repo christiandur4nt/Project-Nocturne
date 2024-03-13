@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Movement Speed Controls")]
     public float walkSpeed;
+    public float grappleLaunchSpeed;
     public float sprintSpeed;
     public float dashSpeed;
     public float wallRunSpeed;
@@ -179,10 +180,21 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             state = MovementState.air;
-            if (desiredMoveSpeed < sprintSpeed)
+
+            // WIP: Temporary fix for maintaining speed after grappling
+            if (lastState == MovementState.grappling)
+                desiredMoveSpeed = grappleLaunchSpeed;
+            else if (desiredMoveSpeed < sprintSpeed)
                 desiredMoveSpeed = walkSpeed;
-            else
+            else if (desiredMoveSpeed != grappleLaunchSpeed)
                 desiredMoveSpeed = sprintSpeed;
+
+            // Previous Logic:
+            // state = MovementState.air;
+            // if (desiredMoveSpeed < sprintSpeed)
+            //     desiredMoveSpeed = walkSpeed;
+            // else
+            //     desiredMoveSpeed = sprintSpeed;
         }
 
         bool desiredSpeedHasChanged = desiredMoveSpeed != lastDesiredMoveSpeed;
