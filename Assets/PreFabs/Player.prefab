@@ -284,7 +284,7 @@ MonoBehaviour:
   walkSpeed: 7
   grappleLaunchSpeed: 15
   sprintSpeed: 10
-  dashSpeed: 50
+  dashSpeed: 60
   wallRunSpeed: 15
   dashSpeedChangeFactor: 50
   groundDrag: 5
@@ -292,7 +292,7 @@ MonoBehaviour:
   diveAcceleration: 35
   jumpForce: 8
   jumpCooldown: 0.25
-  airMultiplier: 0.4
+  airMultiplier: 0.6
   crouchSpeed: 3.5
   crouchYScale: 0.5
   height: 2
@@ -319,9 +319,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orientation: {fileID: 1764157197159838843}
   playerCamera: {fileID: 0}
-  dashForce: 50
+  dashForce: 60
   dashUpwardForce: 0.1
-  dashDuration: 0.5
+  dashDuration: 0.4
   maxDashYSpeed: 10
   cam: {fileID: 0}
   dashFOV: 75
@@ -528,8 +528,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: {fileID: 1764157197159838843}
-  bounceForce: 3.5
-  launchForce: 4.5
+  bounceForce: 12.5
+  launchForce: 15
   upwardForce: 0.25
   bounceDuration: 0.25
   bounceKey: 32

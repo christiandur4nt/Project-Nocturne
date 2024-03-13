@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4421,6 +4421,14 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6546935960511006510, guid: 88e7d65f57aa0bf4d8f34a16b2e5e899, type: 3}
+      propertyPath: sensitivityX
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 6546935960511006510, guid: 88e7d65f57aa0bf4d8f34a16b2e5e899, type: 3}
+      propertyPath: sensitivityY
+      value: 400
+      objectReference: {fileID: 0}
     - target: {fileID: 6904475495451002971, guid: 88e7d65f57aa0bf4d8f34a16b2e5e899, type: 3}
       propertyPath: m_Name
       value: Camera Holder
@@ -4440,15 +4448,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1595545549369495604, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
       propertyPath: bounceForce
-      value: 3.5
+      value: 12.5
       objectReference: {fileID: 0}
     - target: {fileID: 1595545549369495604, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
       propertyPath: launchForce
-      value: 4.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1595545549369495604, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
-      propertyPath: resetVelocity
-      value: 1
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2475344850574706797, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
       propertyPath: armAnimation
@@ -4458,29 +4462,25 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 1311192175}
-    - target: {fileID: 5373325343474894981, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
-      propertyPath: dashForce
-      value: 50
+    - target: {fileID: 3026227704703407070, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
+      propertyPath: dashSpeed
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 3026227704703407070, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
+      propertyPath: airMultiplier
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 5373325343474894981, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
-      propertyPath: dashSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 4759779467f4f314ab7b3db8ad3ca442, type: 3}
+      propertyPath: dashForce
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 5373325343474894981, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
       propertyPath: armAnimation
       value: 
       objectReference: {fileID: 1311192175}
     - target: {fileID: 5373325343474894981, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
       propertyPath: dashDuration
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5373325343474894981, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
-      propertyPath: resetVelocity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5373325343474894981, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
-      propertyPath: dashUpwardForce
-      value: 0.1
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 7214346714808347728, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
       propertyPath: m_Name
