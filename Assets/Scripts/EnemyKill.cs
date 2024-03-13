@@ -7,6 +7,8 @@ public class EnemyKill : MonoBehaviour
     public GameObject Player;
     public GameObject RespawnObj; 
 
+    [SerializeField] private AudioClip killSound;
+
     // Internal
     private PlayerMovement pm;
     private DemoRespawn dr;
@@ -36,6 +38,7 @@ public class EnemyKill : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" && dashing)
         {
+            SoundManager.instance.PlaySoundClip(killSound, transform, 1f);
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 100, gameObject.transform.position.z);
             rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
         }

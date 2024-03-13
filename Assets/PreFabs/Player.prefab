@@ -318,9 +318,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orientation: {fileID: 1764157197159838843}
   playerCamera: {fileID: 0}
-  dashForce: 30
-  dashUpwardForce: 1
-  dashDuration: 0.25
+  dashForce: 50
+  dashUpwardForce: 0.1
+  dashDuration: 0.5
   maxDashYSpeed: 10
   cam: {fileID: 0}
   dashFOV: 75
@@ -328,10 +328,11 @@ MonoBehaviour:
   dashButton: 0
   useCameraForward: 0
   allowAllDirections: 1
-  resetVelocity: 0
+  resetVelocity: 1
   disableGravity: 1
   onCooldown: 0
   armAnimation: {fileID: 0}
+  dashSound: {fileID: 8300000, guid: 4759779467f4f314ab7b3db8ad3ca442, type: 3}
 --- !u!114 &2475344850574706797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -526,12 +527,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: {fileID: 1764157197159838843}
-  bounceForce: 4.5
-  launchForce: 7
+  bounceForce: 3.5
+  launchForce: 4.5
   upwardForce: 0.25
   bounceDuration: 0.25
   bounceKey: 32
-  resetVelocity: 0
+  resetVelocity: 1
 --- !u!114 &1369466243956096655
 MonoBehaviour:
   m_ObjectHideFlags: 0

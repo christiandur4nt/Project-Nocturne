@@ -33,11 +33,13 @@ public class DashAbility : MonoBehaviour
     public bool disableGravity = true;
 
 
+
     // Internal
     public bool onCooldown = false;
     private float cooldownTimer = 0;
     private bool grounded = true;
     [SerializeField] private Animator armAnimation;
+    [SerializeField] private AudioClip dashSound;
 
     void Awake() {
         orientation = GameObject.Find("Orientation").transform;
@@ -79,6 +81,7 @@ public class DashAbility : MonoBehaviour
         pm.maxYSpeed = maxDashYSpeed;
 
         cam.doFOV(dashFOV);
+        SoundManager.instance.PlaySoundClip(dashSound, transform, 1f);
 
         Transform forwardT;
 
