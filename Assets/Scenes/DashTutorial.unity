@@ -1027,6 +1027,24 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce89c38d18bc6644fbe61e3d065fe530, type: 3}
+--- !u!1 &290732738 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6706636842729386581, guid: 0e0e0a775079a364199894772d6a9f59, type: 3}
+  m_PrefabInstance: {fileID: 5637389639070333011}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &290732741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 290732738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81a8e13497e549f46810fd0ebd3e827e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundFXObject: {fileID: 3329364863199477812, guid: 0e0e0a775079a364199894772d6a9f59, type: 3}
 --- !u!1 &297189214
 GameObject:
   m_ObjectHideFlags: 0
@@ -7316,6 +7334,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3329364863199477812, guid: 0e0e0a775079a364199894772d6a9f59, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6706636842729386581, guid: 0e0e0a775079a364199894772d6a9f59, type: 3}
       propertyPath: m_Name
       value: SoundManager
@@ -7364,10 +7386,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3329364863199477812, guid: 0e0e0a775079a364199894772d6a9f59, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6706636842729386581, guid: 0e0e0a775079a364199894772d6a9f59, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 290732741}
   m_SourcePrefab: {fileID: 100100000, guid: 0e0e0a775079a364199894772d6a9f59, type: 3}
 --- !u!1 &5962456878137005182
 GameObject:
