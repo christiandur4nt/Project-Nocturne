@@ -110,8 +110,8 @@ MonoBehaviour:
   orientation: {fileID: 0}
   cameraHolder: {fileID: 0}
   pm: {fileID: 0}
-  sensitivityX: 800
-  sensitivityY: 800
+  sensitivityX: 400
+  sensitivityY: 400
   smoothness: 0
 --- !u!114 &3762168741706251716
 MonoBehaviour:
