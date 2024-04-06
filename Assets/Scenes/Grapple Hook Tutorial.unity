@@ -1163,6 +1163,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 187972511110395565, guid: 5b53adf66858b6045953cfa78cf9b25b, type: 3}
+      propertyPath: dashFOV
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 187972511110395565, guid: 5b53adf66858b6045953cfa78cf9b25b, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -1224,15 +1228,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7058654638708616694, guid: 5b53adf66858b6045953cfa78cf9b25b, type: 3}
       propertyPath: walkSpeed
-      value: 100
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 7058654638708616694, guid: 5b53adf66858b6045953cfa78cf9b25b, type: 3}
       propertyPath: crouchSpeed
-      value: 25
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7058654638708616694, guid: 5b53adf66858b6045953cfa78cf9b25b, type: 3}
       propertyPath: sprintSpeed
-      value: 150
+      value: 350
       objectReference: {fileID: 0}
     - target: {fileID: 7527565381956219573, guid: 5b53adf66858b6045953cfa78cf9b25b, type: 3}
       propertyPath: m_Enabled

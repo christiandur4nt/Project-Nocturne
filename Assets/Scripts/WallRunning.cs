@@ -179,7 +179,7 @@ public class WallRunning : MonoBehaviour
         Vector3 forceToApply = transform.up * wallJumpUpForce + wallNormal * wallJumpSideForce;
 
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-        rb.AddForce(forceToApply * Time.deltaTime, ForceMode.Impulse);
+        rb.AddForce(forceToApply, ForceMode.Impulse);
     }
 
 

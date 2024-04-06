@@ -49,6 +49,7 @@ public class EnemyKill : MonoBehaviour
     {
         gameObject.transform.position = originalPos;
         gameObject.transform.rotation = originalRot;
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
         dr.respawn = false;
     }
 }
