@@ -281,19 +281,19 @@ MonoBehaviour:
   jumpKey: 32
   sprintKey: 304
   crouchKey: 306
-  walkSpeed: 7
+  walkSpeed: 250
   grappleLaunchSpeed: 15
-  sprintSpeed: 10
+  sprintSpeed: 350
   dashSpeed: 60
-  wallRunSpeed: 15
+  wallRunSpeed: 12
   dashSpeedChangeFactor: 50
   groundDrag: 5
   maxYSpeed: 0
   diveAcceleration: 35
   jumpForce: 8
   jumpCooldown: 0.25
-  airMultiplier: 0.6
-  crouchSpeed: 3.5
+  airMultiplier: 0.2
+  crouchSpeed: 150
   crouchYScale: 0.5
   height: 2
   groundLayer:
@@ -312,7 +312,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7214346714808347728}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42f91b329580e014fbe6bc15b8ca6182, type: 3}
   m_Name: 
@@ -341,7 +341,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7214346714808347728}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfbafa2cf6bfd11498165a0c5ed05504, type: 3}
   m_Name: 
@@ -366,7 +366,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7214346714808347728}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf772afc76e81a54799ef7801ddd3a03, type: 3}
   m_Name: 
@@ -410,7 +410,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7214346714808347728}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -555,7 +555,7 @@ MonoBehaviour:
   wallRunForce: 200
   wallJumpUpForce: 7
   wallJumpSideForce: 12
-  maxWallRunTime: 0.7
+  maxWallRunTime: 2
   wallClimbSpeed: 5
   upwardsRunKey: 304
   downwardsRunKey: 306
