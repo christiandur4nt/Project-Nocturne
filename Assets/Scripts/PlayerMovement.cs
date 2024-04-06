@@ -236,19 +236,19 @@ public class PlayerMovement : MonoBehaviour
 
         if (OnSlope())
         {
-            rb.AddForce(getSlopeMoveDirection() * speed * 20f, ForceMode.Force);
+            rb.AddForce(getSlopeMoveDirection() * speed * Time.deltaTime, ForceMode.Force);
 
             if (rb.velocity.y > 0)
-                rb.AddForce(Vector3.down * 80f, ForceMode.Force);
+                rb.AddForce(Vector3.down * 80f * Time.deltaTime, ForceMode.Force);
         }
         
         if (dashing)
             rb.drag = 0;
 
         if (isGrounded)
-            rb.AddForce(moveDirection.normalized * speed * 10f, ForceMode.Force);
+            rb.AddForce(moveDirection.normalized * speed * 10f * Time.deltaTime, ForceMode.Force);
         else if(!grappling)
-            rb.AddForce(moveDirection.normalized * speed * 10f * airMultiplier, ForceMode.Force);
+            rb.AddForce(moveDirection.normalized * speed * 10f * airMultiplier * Time.deltaTime, ForceMode.Force);
         
         if (!dashing && !wallrunning)     
             rb.useGravity = !OnSlope();

@@ -147,7 +147,7 @@ public class WallRunning : MonoBehaviour
         if ((orientation.forward - wallForward).magnitude > (orientation.forward - -wallForward).magnitude)
             wallForward = -wallForward;
 
-        rb.AddForce(wallForward * wallRunForce, ForceMode.Force);
+        rb.AddForce(wallForward * wallRunForce * Time.deltaTime, ForceMode.Force);
 
         if (upwardsRunning)
             rb.velocity = new Vector3(rb.velocity.x, wallClimbSpeed, rb.velocity.z);
@@ -155,7 +155,7 @@ public class WallRunning : MonoBehaviour
             rb.velocity = new Vector3(rb.velocity.x, -wallClimbSpeed, rb.velocity.z);
         
         if (!(wallLeft && xInput > 0) && !(wallRight && xInput < 0))
-            rb.AddForce(-wallNormal * 100, ForceMode.Force);
+            rb.AddForce(-wallNormal * 100 * Time.deltaTime, ForceMode.Force);
 
         if (useGravity)
             rb.AddForce(transform.up * gravityCounterForce, ForceMode.Force);
@@ -179,7 +179,7 @@ public class WallRunning : MonoBehaviour
         Vector3 forceToApply = transform.up * wallJumpUpForce + wallNormal * wallJumpSideForce;
 
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-        rb.AddForce(forceToApply, ForceMode.Impulse);
+        rb.AddForce(forceToApply * Time.deltaTime, ForceMode.Impulse);
     }
 
 

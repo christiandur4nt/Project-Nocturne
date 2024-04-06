@@ -96,7 +96,7 @@ public class DashAbility : MonoBehaviour
         
         rb.useGravity = false;
 
-        rb.AddForce(forceToApply, ForceMode.Impulse);
+        rb.AddForce(forceToApply * Time.deltaTime, ForceMode.Impulse);
         delayedForceToApply = forceToApply;
 
         Invoke(nameof(DelayedDashForce), 0.025f);
