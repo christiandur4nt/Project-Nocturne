@@ -64,9 +64,8 @@ public class BounceAbility : MonoBehaviour
 
         Vector3 launchDirection = orientation.forward;
         launchDirection += orientation.up * upwardForce;
-        launchDirection.Normalize();
         
-        rb.AddForce(launchDirection * launchForce * 50f * Time.deltaTime, ForceMode.Impulse);
+        rb.AddForce(launchDirection.normalized * launchForce * 50f * Time.deltaTime, ForceMode.Impulse);
     }
 
     private void ResetBounce()

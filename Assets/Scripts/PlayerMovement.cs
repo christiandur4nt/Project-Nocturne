@@ -246,9 +246,9 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = 0;
 
         if (isGrounded)
-            rb.AddForce(moveDirection.normalized * speed * 10f * Time.deltaTime, ForceMode.Force);
+            rb.AddForce(moveDirection.normalized * speed * 100f * Time.deltaTime, ForceMode.Force);
         else if(!grappling)
-            rb.AddForce(moveDirection.normalized * speed * 10f * airMultiplier * Time.deltaTime, ForceMode.Force);
+            rb.AddForce(moveDirection.normalized * speed * 100f * airMultiplier * Time.deltaTime, ForceMode.Force);
         
         if (!dashing && !wallrunning)     
             rb.useGravity = !OnSlope();
@@ -281,7 +281,8 @@ public class PlayerMovement : MonoBehaviour
 
             if (rawVelocity.magnitude > speed)
             {
-                Vector3 limitedVelocity = rawVelocity.normalized * speed;
+                Debug.Log("Capping speed");
+                Vector3 limitedVelocity = rawVelocity.normalized * speed * 0.5f; //TEMP FIX POTENTIALLY
                 rb.velocity = new Vector3(limitedVelocity.x, rb.velocity.y, limitedVelocity.z);
             }
         }
