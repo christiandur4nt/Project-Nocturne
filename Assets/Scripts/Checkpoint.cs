@@ -30,7 +30,7 @@ public class Checkpoint : MonoBehaviour
             if (updateRespawn) pm.CheckpointPos = teleportPos;
 
             // If a tutorial is present, display it
-            if (tutorialUIScript != null)
+            if (tutorialUIScript != null && !tutorialUIScript.tutorialOver)
             {
                 tutorialUIScript.gameObject.SetActive(true);
             }

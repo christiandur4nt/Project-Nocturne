@@ -10,9 +10,10 @@ public class LightFlicker : MonoBehaviour
     private Light lightSource;
     private AudioSource audioSource;
 
-    private bool flickering = false;
+    private bool flickering;
 
     void Awake() {
+        flickering = false;
         lightSource = GetComponent<Light>();
         audioSource = GetComponent<AudioSource>();
         lightSource.enabled = false;
