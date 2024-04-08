@@ -134,7 +134,7 @@ public class GrappleAbility : MonoBehaviour
         if (grapplePointRelativeYPos < 0) highestPointOnArc = overshootYAxis;
 
         pm.JumpToPosition(grapplePoint, highestPointOnArc);
-        StartCoroutine(StopGrapple(0.4f));
+        // StartCoroutine(StopGrapple(0.4f));
     }
 
     void PerformGrappleSwing() {

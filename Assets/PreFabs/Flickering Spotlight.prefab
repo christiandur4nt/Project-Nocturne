@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7b09d2e28c2823e42a0756653e544774, type: 2}
+  - {fileID: 2100000, guid: 2161706917cfd6643bc17ab680dd7900, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -192,7 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7aa68e757cf4e546af016b68ab171f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: 7b09d2e28c2823e42a0756653e544774, type: 2}
+  material: {fileID: 2100000, guid: 2161706917cfd6643bc17ab680dd7900, type: 2}
 --- !u!82 &6522785635570191062
 AudioSource:
   m_ObjectHideFlags: 0
@@ -315,7 +315,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7974173566219474316}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.4411996, y: -0.2815639, z: 0.45839763, w: 0.7182871}
+  m_LocalRotation: {x: -0.44119862, y: -0.28156945, z: 0.4583952, w: 0.71828705}
   m_LocalPosition: {x: -187, y: 178.44, z: 342.33}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
