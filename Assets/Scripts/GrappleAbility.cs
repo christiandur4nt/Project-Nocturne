@@ -67,7 +67,7 @@ public class GrappleAbility : MonoBehaviour
     void Update()
     {
         if (!pm.MovementEnabled() || pm.state == PlayerMovement.MovementState.wallrunning) {
-            StopGrapple();
+            StartCoroutine(StopGrapple(0));
             return;
         }
         
@@ -99,7 +99,7 @@ public class GrappleAbility : MonoBehaviour
         if (Input.GetMouseButton(grappleMouseKey)) {
             InitGrapple();
         } else if (Input.GetMouseButtonUp(grappleMouseKey)) {
-            StopGrapple();
+            StartCoroutine(StopGrapple(0));
         }
         
         if (cooldownTimer > 0) cooldownTimer -= Time.deltaTime;
@@ -134,6 +134,7 @@ public class GrappleAbility : MonoBehaviour
         if (grapplePointRelativeYPos < 0) highestPointOnArc = overshootYAxis;
 
         pm.JumpToPosition(grapplePoint, highestPointOnArc);
+        // StartCoroutine(StopGrapple(0.4f));
     }
 
     void PerformGrappleSwing() {
@@ -153,7 +154,8 @@ public class GrappleAbility : MonoBehaviour
         joint.massScale = massScale;
     }
 
-    void StopGrapple() {
+    IEnumerator StopGrapple(float waitTime) {
+        yield return new WaitForSeconds(waitTime);
         if (pm.grappling) {
             pm.grappling = false;
             armAnimation.SetBool("IsGrappling", false);
