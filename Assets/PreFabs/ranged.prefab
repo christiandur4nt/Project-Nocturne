@@ -137,7 +137,7 @@ MonoBehaviour:
   trigger: {fileID: 6989976432501558906}
   ProjectileSpawner: {fileID: 1548354164644449063}
   Projectile: {fileID: 560576397407160956, guid: 8b627d3f0eead97469c2457fdafbd3eb, type: 3}
-  shootForce: 10
+  shootForce: 50
 --- !u!135 &6989976432501558906
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -192,4 +192,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ae9c154636b79449cdaafefaf7d9c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  Player: {fileID: 0}
+  RespawnObj: {fileID: 0}
+  killSound: {fileID: 0}
