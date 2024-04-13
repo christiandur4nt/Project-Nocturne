@@ -5,6 +5,7 @@ using UnityEngine;
 public class Checkpoint : MonoBehaviour
 {
     public bool updateRespawn;
+    public bool triggerTutorial;
 
     // Internal
     private bool reached = false;
@@ -14,6 +15,7 @@ public class Checkpoint : MonoBehaviour
 
     void Reset() {
         updateRespawn = true;
+        triggerTutorial = false;
     }
 
     void Awake() {
@@ -30,7 +32,7 @@ public class Checkpoint : MonoBehaviour
             if (updateRespawn) pm.CheckpointPos = teleportPos;
 
             // If a tutorial is present, display it
-            if (tutorialUIScript != null && !tutorialUIScript.tutorialOver)
+            if (triggerTutorial && tutorialUIScript != null)
             {
                 tutorialUIScript.gameObject.SetActive(true);
             }
