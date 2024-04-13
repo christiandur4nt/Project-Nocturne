@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6535157526098306391}
-  m_Layer: 0
+  - component: {fileID: 8583778814599157976}
+  m_Layer: 8
   m_Name: FlyingEnemyWithPath
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36,6 +37,28 @@ Transform:
   - {fileID: 8017291043284089691}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &8583778814599157976
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238138796135101757}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &735993045863918854
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,6 +235,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlyingEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 81f8636f510f538449c872be5b48de07, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -225,6 +252,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 81f8636f510f538449c872be5b48de07, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4893874701598900608}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 81f8636f510f538449c872be5b48de07, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9024685126351400020}
   m_SourcePrefab: {fileID: 100100000, guid: 81f8636f510f538449c872be5b48de07, type: 3}
 --- !u!1 &7208278476962275809 stripped
 GameObject:
@@ -285,7 +315,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7208278476962275809}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: d3c62173f535eaa4a8409e991c2da70d, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -293,12 +323,27 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 2.036316
+  m_Center: {x: 0.14801025, y: 0.6319542, z: 0.0065078735}
+--- !u!114 &9024685126351400020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7208278476962275809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05ae9c154636b79449cdaafefaf7d9c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 0}
+  RespawnObj: {fileID: 0}
+  killSound: {fileID: 0}
 --- !u!4 &8017291043284089691 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 81f8636f510f538449c872be5b48de07, type: 3}
