@@ -2440,7 +2440,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2233572447846856833, guid: 5b53adf66858b6045953cfa78cf9b25b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4065138387746572711, guid: 5b53adf66858b6045953cfa78cf9b25b, type: 3}
       propertyPath: m_Enabled
@@ -2452,7 +2452,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5616177506306519869, guid: 5b53adf66858b6045953cfa78cf9b25b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.4
+      value: 1.62
       objectReference: {fileID: 0}
     - target: {fileID: 5616177506306519869, guid: 5b53adf66858b6045953cfa78cf9b25b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8118,6 +8118,10 @@ PrefabInstance:
     - target: {fileID: 2233572447846856833, guid: 5b53adf66858b6045953cfa78cf9b25b, type: 3}
       propertyPath: m_Name
       value: TEST PLAYER
+      objectReference: {fileID: 0}
+    - target: {fileID: 2233572447846856833, guid: 5b53adf66858b6045953cfa78cf9b25b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2575449194847022228, guid: 5b53adf66858b6045953cfa78cf9b25b, type: 3}
       propertyPath: m_BackGroundColor.b
@@ -17258,6 +17262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da337464feab0fd4eb42fc517916712e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tutorialOver: 0
 --- !u!1 &5343909049827955829
 GameObject:
   m_ObjectHideFlags: 0
