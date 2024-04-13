@@ -167,12 +167,12 @@ public class PlayerMovement : MonoBehaviour
             state = MovementState.crouching;
             desiredMoveSpeed = crouchSpeed;
         }
-        else if (isGrounded && sprintKeyActive)
+        else if (isGrounded && sprintKeyActive && !dashing)
         {
             state = MovementState.sprinting;
             desiredMoveSpeed = sprintSpeed;
         }
-        else if (isGrounded)
+        else if (isGrounded && !dashing)
         {
             state = MovementState.walking;
             desiredMoveSpeed = walkSpeed;
@@ -245,7 +245,7 @@ public class PlayerMovement : MonoBehaviour
         if (dashing)
             rb.drag = 0;
 
-        if (isGrounded)
+        if (isGrounded && !dashing)
             rb.AddForce(moveDirection.normalized * speed * 100f * Time.deltaTime, ForceMode.Force);
         else if(!grappling)
             rb.AddForce(moveDirection.normalized * speed * 100f * airMultiplier * Time.deltaTime, ForceMode.Force);
