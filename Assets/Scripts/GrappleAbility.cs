@@ -66,7 +66,7 @@ public class GrappleAbility : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!pm.MovementEnabled() || pm.state == PlayerMovement.MovementState.wallrunning) {
+        if (!pm.AllowMovement || pm.state == PlayerMovement.MovementState.wallrunning) {
             StartCoroutine(StopGrapple(0));
             return;
         }

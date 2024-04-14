@@ -3,19 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
+using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class MenuFunctions : MonoBehaviour
 {
+    [Header("Global Pause Boolean")]
     public static bool gameIsPaused = false;
 
-    [Tooltip("Used for showing/hiding pause menu. N/A to main menu.")]
-    public GameObject pauseMenu;
+    [Header("Required Components")]
+    public MainMixerManager mainMixerManager;
+    public CameraMovement cameraMovement; // WIP: Sens must be changed using player prefs, since main menu doesn't have access to cameraMovement object
+    public GameObject settingsMenu;
+    public Slider sensitivitySlider;
+    public Slider masterSlider;
+    public Slider musicSlider;
+    public Slider soundFXSlider;
+    public Toggle armsToggle;
 
+    [Header("Components for Main Menu")]
     [Tooltip("Used for showing/hiding level menu. N/A to pause menu.")]
     public GameObject levelMenu;
 
-    public GameObject settingsMenu;
+    [Header("Components for Pause Menu")]
+    [Tooltip("Used for showing/hiding pause menu. N/A to main menu.")]
+    public GameObject pauseMenu;
+    [Tooltip("Used to disable movement when paused")]
+    public PlayerMovement playerMovement;
+    public AudioMixerSnapshot pausedSnapshot;
+    public AudioMixerSnapshot unpausedSnapshot;
 
+    // Internal
     private float previousTimeFlow;
 
     void Update()
@@ -38,21 +56,46 @@ public class MenuFunctions : MonoBehaviour
 
     void Resume()
     {
+        unpausedSnapshot.TransitionTo(0.1f);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         pauseMenu.SetActive(false);
         Time.timeScale = previousTimeFlow;
+        playerMovement.enableMovement();
         gameIsPaused = false;
     }
 
     void Pause()
     {
+        pausedSnapshot.TransitionTo(0);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         pauseMenu.SetActive(true);
         previousTimeFlow = Time.timeScale;
         Time.timeScale = 0f;
+        playerMovement.disableMovement();
         gameIsPaused = true;
+    }
+
+    public void SetSensitivity() {
+        cameraMovement.AdjustSensitivity(sensitivitySlider.value);
+    }
+
+    public void SetMasterVolume() {
+        mainMixerManager.SetMasterVolume(masterSlider.value);
+    }
+
+    public void SetMusicVolume() {
+        mainMixerManager.SetMusicVolume(musicSlider.value);
+    }
+
+    public void SetSoundFXVolume() {
+        mainMixerManager.SetSoundFXVolume(soundFXSlider.value);
+    }
+
+    // WIP: Enabled/Disable Arms
+    public void ToggleArms() {
+        Debug.Log("Enable Arms: " + armsToggle.isOn);
     }
 
     public void ToggleLevelMenu() {
@@ -62,7 +105,8 @@ public class MenuFunctions : MonoBehaviour
 
     public void ToggleSettingsMenu() {
         settingsMenu.SetActive(!settingsMenu.activeSelf);
-        levelMenu.SetActive(false);
+        if (SceneManager.GetActiveScene().name.Equals("MainMenu"))
+            levelMenu.SetActive(false);
     }
 
     public void LoadNewScene(string name)

@@ -37,7 +37,7 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (pm.MovementEnabled())
+        if (pm.AllowMovement)
         {
             float mouseX = Input.GetAxis("Mouse X") * sensitivityX * Time.deltaTime;
             float mouseY = Input.GetAxis("Mouse Y") * sensitivityY * Time.deltaTime;
@@ -53,9 +53,9 @@ public class CameraMovement : MonoBehaviour
         }
     }
 
-    public void AdjustSensativity(float newSensativity)
+    public void AdjustSensitivity(float newSensitivity)
     {
-        sensitivityX = sensitivityY = newSensativity;
+        sensitivityX = sensitivityY = newSensitivity;
     }
 
     public void doFOV(float endValue)

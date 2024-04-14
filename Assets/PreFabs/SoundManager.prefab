@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81a8e13497e549f46810fd0ebd3e827e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundFXObject: {fileID: 0}
+  soundFXObject: {fileID: 3329364863199477812, guid: 0e0e0a775079a364199894772d6a9f59, type: 3}

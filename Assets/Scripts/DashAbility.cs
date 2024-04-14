@@ -56,7 +56,7 @@ public class DashAbility : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!pm.MovementEnabled()) return;
+        if (!pm.AllowMovement) return;
 
         grounded = pm.IsGrounded();
         if (Input.GetMouseButtonDown(dashButton) && !onCooldown)

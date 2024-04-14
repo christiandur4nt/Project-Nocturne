@@ -50,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
 
     // Internal variables for input/movement
     private bool allowMovement;
+    public bool AllowMovement { get { return allowMovement; } }
     private float xInput;
     private float zInput;
     private bool crouchKeyActive, crouchKeyDown, crouchKeyUp;
@@ -330,10 +331,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void disableMovement() {
         allowMovement = false;
-    }
-
-    public bool MovementEnabled() {
-        return allowMovement;
     }
 
     // Grapple Functions //
