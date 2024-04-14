@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -645,16 +645,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1748545452}
-        m_TargetAssemblyTypeName: DemoMenu, Assembly-CSharp
-        m_MethodName: PlayGrapple
-        m_Mode: 1
+      - m_Target: {fileID: 1698232419}
+        m_TargetAssemblyTypeName: MenuFunctions, Assembly-CSharp
+        m_MethodName: LoadNewScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: GrappleHookLevel
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &954491838
@@ -1135,6 +1135,7 @@ GameObject:
   - component: {fileID: 1698232417}
   - component: {fileID: 1698232416}
   - component: {fileID: 1698232415}
+  - component: {fileID: 1698232419}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1228,6 +1229,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1698232419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1698232414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52746f6df4bbe73438c0c7d554d7e690, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseMenuUI: {fileID: 0}
 --- !u!1 &1747165569
 GameObject:
   m_ObjectHideFlags: 0
@@ -1311,16 +1325,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1748545452}
-        m_TargetAssemblyTypeName: DemoMenu, Assembly-CSharp
-        m_MethodName: PlayDash
-        m_Mode: 1
+      - m_Target: {fileID: 1698232419}
+        m_TargetAssemblyTypeName: MenuFunctions, Assembly-CSharp
+        m_MethodName: LoadNewScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: DashTutorial
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1747165572
@@ -1370,7 +1384,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1748545451}
-  - component: {fileID: 1748545452}
   m_Layer: 5
   m_Name: ButtonMenu
   m_TagString: Untagged
@@ -1400,18 +1413,6 @@ RectTransform:
   m_AnchoredPosition: {x: -7, y: -32.642}
   m_SizeDelta: {x: 228, y: 142.909}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1748545452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1748545450}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 254b0e52bd673ce4ba544f7c174e791f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1906188471
 GameObject:
   m_ObjectHideFlags: 0
@@ -1629,16 +1630,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1748545452}
-        m_TargetAssemblyTypeName: DemoMenu, Assembly-CSharp
-        m_MethodName: PlayFirst
-        m_Mode: 1
+      - m_Target: {fileID: 1698232419}
+        m_TargetAssemblyTypeName: MenuFunctions, Assembly-CSharp
+        m_MethodName: LoadNewScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: SampleScene
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2085806267

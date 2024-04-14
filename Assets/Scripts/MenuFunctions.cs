@@ -4,24 +4,28 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
 
-public class PauseMenu : MonoBehaviour
+public class MenuFunctions : MonoBehaviour
 {
     public static bool gameIsPaused = false;
 
+    [Tooltip("Used for showing/hiding pause menu. N/A to main menu.")]
     public GameObject pauseMenuUI;
 
     private float previousTimeFlow;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        // Only allow pausing in-game
+        if (!SceneManager.GetActiveScene().name.Equals("MainMenu") && Input.GetKeyDown(KeyCode.Escape))
         {
             if (gameIsPaused)
             {
+                Debug.Log("Resuming...");
                 Resume();
             }   
             else
             {
+                Debug.Log("Pausing...");
                 Pause();
             }
         }
@@ -46,10 +50,10 @@ public class PauseMenu : MonoBehaviour
         gameIsPaused = true;
     }
 
-    public void ReturnToDemo()
+    public void LoadNewScene(string name)
     {
         Time.timeScale = 1f;
         gameIsPaused = false;
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(name);
     }
 }
