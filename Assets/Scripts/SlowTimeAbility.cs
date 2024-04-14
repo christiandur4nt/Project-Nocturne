@@ -7,6 +7,7 @@ public class SlowTimeAbility : MonoBehaviour
 
     [Header("Slow Time Variables")]
     public float slowTimeScale;
+    public float duration = 3f;
 
     // Internal
     private bool isTimeSlowed = false;
