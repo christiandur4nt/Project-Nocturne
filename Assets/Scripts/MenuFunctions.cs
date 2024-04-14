@@ -9,7 +9,12 @@ public class MenuFunctions : MonoBehaviour
     public static bool gameIsPaused = false;
 
     [Tooltip("Used for showing/hiding pause menu. N/A to main menu.")]
-    public GameObject pauseMenuUI;
+    public GameObject pauseMenu;
+
+    [Tooltip("Used for showing/hiding level menu. N/A to pause menu.")]
+    public GameObject levelMenu;
+
+    public GameObject settingsMenu;
 
     private float previousTimeFlow;
 
@@ -35,7 +40,7 @@ public class MenuFunctions : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        pauseMenuUI.SetActive(false);
+        pauseMenu.SetActive(false);
         Time.timeScale = previousTimeFlow;
         gameIsPaused = false;
     }
@@ -44,10 +49,20 @@ public class MenuFunctions : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        pauseMenuUI.SetActive(true);
+        pauseMenu.SetActive(true);
         previousTimeFlow = Time.timeScale;
         Time.timeScale = 0f;
         gameIsPaused = true;
+    }
+
+    public void ToggleLevelMenu() {
+        levelMenu.SetActive(!levelMenu.activeSelf);
+        settingsMenu.SetActive(false);
+    }
+
+    public void ToggleSettingsMenu() {
+        settingsMenu.SetActive(!settingsMenu.activeSelf);
+        levelMenu.SetActive(false);
     }
 
     public void LoadNewScene(string name)
@@ -55,5 +70,14 @@ public class MenuFunctions : MonoBehaviour
         Time.timeScale = 1f;
         gameIsPaused = false;
         SceneManager.LoadScene(name);
+    }
+
+    public void QuitGame() {
+        // Exits playmode in editor
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
     }
 }
