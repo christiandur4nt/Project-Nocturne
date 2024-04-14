@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
+    public AudioSource checkpointSound;
     public bool updateRespawn;
     public bool triggerTutorial;
 
@@ -29,7 +30,10 @@ public class Checkpoint : MonoBehaviour
         if (!reached) {
             Debug.Log("Checkpoint Reached!");
             reached = true;
-            if (updateRespawn) pm.CheckpointPos = teleportPos;
+            if (updateRespawn) {
+                pm.CheckpointPos = teleportPos;
+                checkpointSound.Play();
+            }
 
             // If a tutorial is present, display it
             if (triggerTutorial && tutorialUIScript != null)
