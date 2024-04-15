@@ -9,6 +9,7 @@ public class GrappleAbility : MonoBehaviour
     [HideInInspector] public Transform playerCameraT;
     [SerializeField] private Animator armAnimation;
     private PlayerMovement pm;
+    public AudioSource grappleGunSound;
 
     [Header("General Variables")]
     [SerializeField] private LayerMask grappleableObjects;
@@ -115,6 +116,7 @@ public class GrappleAbility : MonoBehaviour
             armAnimation.SetBool("IsGrappling", true);
             pm.grappling = true;
             grapplePoint = hit.point;
+            grappleGunSound.Play();
             if (((1 << hit.transform.gameObject.layer) & gZip.value) != 0) { // Grapple Zip
                 PerformGrappleZip();
             } else if (((1 << hit.transform.gameObject.layer) & gSwing.value) != 0) { // Grapple Swing
