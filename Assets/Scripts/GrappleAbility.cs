@@ -30,6 +30,7 @@ public class GrappleAbility : MonoBehaviour
     private LayerMask gZip;
     private LayerMask gSwing;
     private LayerMask runnableWall;
+    private LayerMask checkpoint;
     private SpringJoint joint;
     private Vector3 grapplePoint;
     private RaycastHit hit;
@@ -53,6 +54,7 @@ public class GrappleAbility : MonoBehaviour
         gZip = LayerMask.GetMask("Grapple Zip");
         gSwing = LayerMask.GetMask("Grapple Swing");
         runnableWall = LayerMask.GetMask("Runnable");
+        checkpoint = LayerMask.GetMask("Checkpoint");
         pm = GetComponent<PlayerMovement>();
         playerCameraT = Camera.main.transform;
         cooldownTimer = 0;
@@ -72,7 +74,7 @@ public class GrappleAbility : MonoBehaviour
         }
         
         // Ray-cast to determine if the object currently being viewed is grappleable
-        if (Physics.Raycast(playerCameraT.position, playerCameraT.forward, out hit, maxGrappleDistance, ~runnableWall)) {
+        if (Physics.Raycast(playerCameraT.position, playerCameraT.forward, out hit, maxGrappleDistance, ~(runnableWall | checkpoint))) {
 
             // For Debugging:
             // Debug.Log(LayerMask.LayerToName(hit.transform.gameObject.layer));

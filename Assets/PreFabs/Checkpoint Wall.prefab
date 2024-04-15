@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 3590169678354896116}
   - component: {fileID: 1214587563725750027}
   - component: {fileID: 752896462300643207}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Checkpoint Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkpointSound: {fileID: 752896462300643207}
   updateRespawn: 1
-  triggerTutorial: 0
+  triggerTutorial: 1
 --- !u!82 &752896462300643207
 AudioSource:
   m_ObjectHideFlags: 0

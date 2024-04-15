@@ -16,6 +16,7 @@ public class MenuFunctions : MonoBehaviour
     public CameraMovement cameraMovement; // WIP: Sens must be changed using player prefs, since main menu doesn't have access to cameraMovement object
     public GameObject settingsMenu;
     public Slider sensitivitySlider;
+    public Slider fovSlider;
     public Slider masterSlider;
     public Slider musicSlider;
     public Slider soundFXSlider;
@@ -77,8 +78,14 @@ public class MenuFunctions : MonoBehaviour
         gameIsPaused = true;
     }
 
+    // Settings Functions
+
     public void SetSensitivity() {
         cameraMovement.AdjustSensitivity(sensitivitySlider.value);
+    }
+
+    public void SetFOV() {
+        cameraMovement.AdjustFOV(fovSlider.value);
     }
 
     public void SetMasterVolume() {

@@ -58,6 +58,11 @@ public class CameraMovement : MonoBehaviour
         sensitivityX = sensitivityY = newSensitivity;
     }
 
+    public void AdjustFOV(float fov)
+    {
+        GetComponent<Camera>().fieldOfView = fov;
+    }
+
     public void doFOV(float endValue)
     {
         GetComponent<Camera>().DOFieldOfView(endValue, 0.3f);

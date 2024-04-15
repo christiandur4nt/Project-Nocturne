@@ -42322,10 +42322,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1214587563725750027, guid: 3a141e44dc2b2004a973fdcbcf8c7134, type: 3}
-      propertyPath: triggerTutorial
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 9124597500979744843, guid: 3a141e44dc2b2004a973fdcbcf8c7134, type: 3}
       propertyPath: m_Name
       value: Checkpoint Wall
@@ -42626,10 +42622,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 298365260875315293, guid: 32407a20061c15941bfa9c0bafca4f9b, type: 3}
-      propertyPath: m_MinValue
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 1354723944996755536, guid: 32407a20061c15941bfa9c0bafca4f9b, type: 3}
       propertyPath: cameraMovement
       value: 
