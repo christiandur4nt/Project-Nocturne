@@ -21,6 +21,7 @@ public class MenuFunctions : MonoBehaviour
     public Slider musicSlider;
     public Slider soundFXSlider;
     public Toggle armsToggle;
+    public GameObject arms;
 
     [Header("Components for Main Menu")]
     [Tooltip("Used for showing/hiding level menu. N/A to pause menu.")]
@@ -100,9 +101,8 @@ public class MenuFunctions : MonoBehaviour
         mainMixerManager.SetSoundFXVolume(soundFXSlider.value);
     }
 
-    // WIP: Enabled/Disable Arms
     public void ToggleArms() {
-        Debug.Log("Enable Arms: " + armsToggle.isOn);
+        arms.SetActive(!arms.activeSelf);
     }
 
     public void ToggleLevelMenu() {
