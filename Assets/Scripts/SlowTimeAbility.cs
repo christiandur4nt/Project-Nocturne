@@ -9,6 +9,10 @@ public class SlowTimeAbility : MonoBehaviour
     public float slowTimeScale;
     public float duration = 3f;
 
+    [Header("Audio Clip")]
+    public AudioClip slowSound;
+    public AudioClip speedSound;
+
     // Internal
     private bool isTimeSlowed = false;
     private float ogFixedDeltaTime;
@@ -27,9 +31,16 @@ public class SlowTimeAbility : MonoBehaviour
     {
         if (Input.GetKeyDown(key+"")) {
             if (Time.timeScale == 1.0f)
+            {
                 Time.timeScale = slowTimeScale;
+                SoundManager.instance.PlaySoundClip(slowSound, transform, 1f);
+            }
+                
             else
+            {
                 Time.timeScale = 1.0f; // reset
+                SoundManager.instance.PlaySoundClip(speedSound, transform, 1f);   
+            }    
             Time.fixedDeltaTime = ogFixedDeltaTime * Time.timeScale;
         }
     }

@@ -9,7 +9,8 @@ public class GrappleAbility : MonoBehaviour
     [HideInInspector] public Transform playerCameraT;
     [SerializeField] private Animator armAnimation;
     private PlayerMovement pm;
-    public AudioSource grappleGunSound;
+    public AudioClip grappleGunSound;
+    public AudioClip shootSound;
 
     [Header("General Variables")]
     [SerializeField] private LayerMask grappleableObjects;
@@ -111,12 +112,12 @@ public class GrappleAbility : MonoBehaviour
     void InitGrapple() {
         // Prevent use on cooldown or if grappling is currently active somehow
         if (cooldownTimer > 0 || pm.grappling) return;
-
         if (isValidHit) {
             armAnimation.SetBool("IsGrappling", true);
             pm.grappling = true;
             grapplePoint = hit.point;
-            grappleGunSound.Play();
+            SoundManager.instance.PlaySoundClip(shootSound, transform, 1f);
+            SoundManager.instance.PlaySoundClip(grappleGunSound, transform, 1f); 
             if (((1 << hit.transform.gameObject.layer) & gZip.value) != 0) { // Grapple Zip
                 PerformGrappleZip();
             } else if (((1 << hit.transform.gameObject.layer) & gSwing.value) != 0) { // Grapple Swing

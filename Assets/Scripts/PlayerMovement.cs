@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpCooldown;
     public float airMultiplier;
     private bool readyToJump;
+    public AudioClip landingSound;
 
     [Header("Crouching")]
     public float crouchSpeed;
@@ -200,6 +201,8 @@ public class PlayerMovement : MonoBehaviour
 
         bool desiredSpeedHasChanged = desiredMoveSpeed != lastDesiredMoveSpeed;
         if (lastState == MovementState.dashing) keepMomentum = true;
+        if (lastState == MovementState.air && state == MovementState.walking || state == MovementState.sprinting || state == MovementState.crouching)
+            SoundManager.instance.PlaySoundClip(landingSound, transform, 1f);
 
         if (desiredSpeedHasChanged)
         {
