@@ -9733,6 +9733,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player + Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 4499918327180973968, guid: 5b53adf66858b6045953cfa78cf9b25b, type: 3}
+      propertyPath: slowSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d8d6622eb82fbd24a9df7444ed43df1b, type: 3}
+    - target: {fileID: 4499918327180973968, guid: 5b53adf66858b6045953cfa78cf9b25b, type: 3}
+      propertyPath: speedSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 21cb588b06c7ee14cab8b018e7f01805, type: 3}
     - target: {fileID: 5616177506306519869, guid: 5b53adf66858b6045953cfa78cf9b25b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.41137266
@@ -9773,6 +9781,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7058654638708616694, guid: 5b53adf66858b6045953cfa78cf9b25b, type: 3}
+      propertyPath: landingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 12a1fb53b573c88418a3cd1856cd6c78, type: 3}
+    - target: {fileID: 7660627262654395973, guid: 5b53adf66858b6045953cfa78cf9b25b, type: 3}
+      propertyPath: shootSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 7df259a195810bf4d807146836513968, type: 3}
+    - target: {fileID: 7660627262654395973, guid: 5b53adf66858b6045953cfa78cf9b25b, type: 3}
+      propertyPath: grappleGunSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 97e57a25528d9fd419f52908f7d85a3c, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
