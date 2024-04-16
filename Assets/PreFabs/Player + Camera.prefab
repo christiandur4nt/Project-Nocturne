@@ -255,17 +255,25 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2475344850574706797, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
+      propertyPath: shootSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 7df259a195810bf4d807146836513968, type: 3}
+    - target: {fileID: 2475344850574706797, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
       propertyPath: armAnimation
       value: 
       objectReference: {fileID: 474886702092596094}
     - target: {fileID: 2475344850574706797, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
       propertyPath: grappleGunSound
       value: 
-      objectReference: {fileID: 4091361209163215393}
+      objectReference: {fileID: 8300000, guid: 97e57a25528d9fd419f52908f7d85a3c, type: 3}
     - target: {fileID: 3026227704703407070, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
       propertyPath: animator
       value: 
       objectReference: {fileID: 474886702092596094}
+    - target: {fileID: 3026227704703407070, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
+      propertyPath: landingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 12a1fb53b573c88418a3cd1856cd6c78, type: 3}
     - target: {fileID: 3639759653024151079, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -294,6 +302,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8536811747998001592, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
+      propertyPath: slowSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d8d6622eb82fbd24a9df7444ed43df1b, type: 3}
+    - target: {fileID: 8536811747998001592, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
+      propertyPath: speedSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 21cb588b06c7ee14cab8b018e7f01805, type: 3}
     - target: {fileID: 9052847866643067949, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
