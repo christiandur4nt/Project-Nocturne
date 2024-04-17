@@ -293,6 +293,7 @@ MonoBehaviour:
   jumpForce: 8
   jumpCooldown: 0.25
   airMultiplier: 0.1
+  landingSound: {fileID: 8300000, guid: 12a1fb53b573c88418a3cd1856cd6c78, type: 3}
   crouchSpeed: 10
   crouchYScale: 0.5
   height: 2
@@ -348,6 +349,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCameraT: {fileID: 0}
   armAnimation: {fileID: 0}
+  grappleGunSound: {fileID: 0}
+  shootSound: {fileID: 0}
   grappleableObjects:
     serializedVersion: 2
     m_Bits: 448
@@ -581,6 +584,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: 114
   slowTimeScale: 0.5
+  duration: 3
+  slowSound: {fileID: 0}
+  speedSound: {fileID: 0}
 --- !u!114 &8711805121035411891
 MonoBehaviour:
   m_ObjectHideFlags: 0
