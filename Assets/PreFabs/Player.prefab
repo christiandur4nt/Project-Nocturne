@@ -318,6 +318,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42f91b329580e014fbe6bc15b8ca6182, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  armAnimation: {fileID: 0}
+  dashSound: {fileID: 8300000, guid: 4759779467f4f314ab7b3db8ad3ca442, type: 3}
   orientation: {fileID: 1764157197159838843}
   playerCamera: {fileID: 0}
   dashForce: 9
@@ -333,8 +335,6 @@ MonoBehaviour:
   resetVelocity: 0
   disableGravity: 1
   onCooldown: 0
-  armAnimation: {fileID: 0}
-  dashSound: {fileID: 8300000, guid: 4759779467f4f314ab7b3db8ad3ca442, type: 3}
 --- !u!114 &2475344850574706797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,7 +355,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 448
   maxGrappleDistance: 60
-  cooldownTime: 1
+  cooldownDuration: 0
   grappleMouseKey: 1
   overshootYAxis: 0.4
   grappleForce: 15
@@ -587,6 +587,7 @@ MonoBehaviour:
   duration: 3
   slowSound: {fileID: 0}
   speedSound: {fileID: 0}
+  cooldownDuration: 5
 --- !u!114 &8711805121035411891
 MonoBehaviour:
   m_ObjectHideFlags: 0
