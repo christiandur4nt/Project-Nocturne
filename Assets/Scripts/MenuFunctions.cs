@@ -39,6 +39,9 @@ public class MenuFunctions : MonoBehaviour
 
     void Awake() {
         if (!PlayerPrefs.HasKey("armsOn")) PlayerPrefs.SetInt("armsOn", 1);
+        cameraMovement = FindAnyObjectByType<CameraMovement>();
+        playerMovement = FindAnyObjectByType<PlayerMovement>();
+        arms = GameObject.FindWithTag("Arms");
     }
 
     void Start() {
