@@ -32,8 +32,8 @@ public class CameraMovement : MonoBehaviour
         if (!PlayerPrefs.HasKey("sensitivity")) PlayerPrefs.SetFloat("sensitivity", DEFAULT_SENSITIVITY);
         if (!PlayerPrefs.HasKey("fieldOfView")) PlayerPrefs.SetFloat("fieldOfView", DEFAULT_FIELD_OF_VIEW);
 
-        sensitivityX = sensitivityY = PlayerPrefs.GetFloat("sensitivity");
-        GetComponent<Camera>().fieldOfView = PlayerPrefs.GetFloat("fieldOfView");
+        UpdateSensitivity();
+        UpdateFOV();
     }
 
     void Start()
@@ -62,16 +62,14 @@ public class CameraMovement : MonoBehaviour
         }
     }
 
-    public void AdjustSensitivity(float newSensitivity)
+    public void UpdateSensitivity()
     {
-        sensitivityX = sensitivityY = newSensitivity;
-        PlayerPrefs.SetFloat("sensitivity", newSensitivity);
+        sensitivityX = sensitivityY = PlayerPrefs.GetFloat("sensitivity");
     }
 
-    public void AdjustFOV(float fov)
+    public void UpdateFOV()
     {
-        GetComponent<Camera>().fieldOfView = fov;
-        PlayerPrefs.SetFloat("fieldOfView", fov);
+        GetComponent<Camera>().fieldOfView = PlayerPrefs.GetFloat("fieldOfView");
     }
 
     public void doFOV(float endValue)

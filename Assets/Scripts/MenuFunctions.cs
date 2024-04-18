@@ -47,8 +47,7 @@ public class MenuFunctions : MonoBehaviour
         masterSlider.value = PlayerPrefs.GetFloat("masterVolume");
         musicSlider.value = PlayerPrefs.GetFloat("soundFXVolume");
         soundFXSlider.value = PlayerPrefs.GetFloat("musicVolume");
-        armsToggle.SetIsOnWithoutNotify(PlayerPrefs.GetInt("armsOn") == 1);
-        if (arms != null) arms.SetActive(armsToggle.isOn);
+        armsToggle.isOn = PlayerPrefs.GetInt("armsOn") == 1;
     }
 
     void Update()
@@ -94,15 +93,15 @@ public class MenuFunctions : MonoBehaviour
 
     // Settings Functions
 
-    // WIP: Create button in UI
     public void ResetSettings() {
-        if (cameraMovement != null) cameraMovement.AdjustSensitivity(CameraMovement.DEFAULT_SENSITIVITY);
-        if (cameraMovement != null) cameraMovement.AdjustFOV(CameraMovement.DEFAULT_FIELD_OF_VIEW);
+        PlayerPrefs.SetFloat("sensitivity", CameraMovement.DEFAULT_SENSITIVITY);
+        if (cameraMovement != null) cameraMovement.UpdateSensitivity();
+        PlayerPrefs.SetFloat("fieldOfView", CameraMovement.DEFAULT_FIELD_OF_VIEW);
+        if (cameraMovement != null) cameraMovement.UpdateFOV();
         MainMixerManager.Instance.SetMasterVolume(0);
         MainMixerManager.Instance.SetMusicVolume(0);
         MainMixerManager.Instance.SetSoundFXVolume(0);
-        arms.SetActive(!arms.activeSelf);
-        PlayerPrefs.SetInt("armsOn", 1);
+        armsToggle.isOn = true;
         CalibrateSliders();
     }
 
@@ -112,15 +111,17 @@ public class MenuFunctions : MonoBehaviour
         masterSlider.value = PlayerPrefs.GetFloat("masterVolume");
         musicSlider.value = PlayerPrefs.GetFloat("soundFXVolume");
         soundFXSlider.value = PlayerPrefs.GetFloat("musicVolume");
-        armsToggle.isOn = PlayerPrefs.GetInt("armsOn") == 1;
+        armsToggle.SetIsOnWithoutNotify(PlayerPrefs.GetInt("armsOn") == 1);
     }
 
     public void SetSensitivity() {
-        if (cameraMovement != null) cameraMovement.AdjustSensitivity(sensitivitySlider.value);
+        PlayerPrefs.SetFloat("sensitivity", sensitivitySlider.value);
+        if (cameraMovement != null) cameraMovement.UpdateSensitivity();
     }
 
     public void SetFOV() {
-        if (cameraMovement != null) cameraMovement.AdjustFOV(fovSlider.value);
+        PlayerPrefs.SetFloat("fieldOfView", fovSlider.value);
+        if (cameraMovement != null) cameraMovement.UpdateFOV();
     }
 
     public void SetMasterVolume() {
