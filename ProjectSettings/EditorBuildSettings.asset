@@ -6,13 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/DemoMenu.unity
+    path: Assets/Scenes/MainMenu.unity
     guid: 057db9dbfddff614e95d4fa5cd344ef7
   - enabled: 1
     path: Assets/Scenes/Tutorial-Dylan.unity
     guid: 183685da9b3582348bdb4816bf8bf9d5
   - enabled: 1
-    path: Assets/Scenes/Grapple Hook Tutorial.unity
+    path: Assets/Scenes/GrappleHookLevel.unity
     guid: 086b43bc2c609794cbec45b6da4fad93
   - enabled: 1
     path: Assets/Scenes/DashTutorial.unity

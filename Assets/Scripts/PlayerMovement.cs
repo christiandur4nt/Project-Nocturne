@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpCooldown;
     public float airMultiplier;
     private bool readyToJump;
+    public AudioClip landingSound;
 
     [Header("Crouching")]
     public float crouchSpeed;
@@ -50,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
 
     // Internal variables for input/movement
     private bool allowMovement;
+    public bool AllowMovement { get { return allowMovement; } }
     private float xInput;
     private float zInput;
     private bool crouchKeyActive, crouchKeyDown, crouchKeyUp;
@@ -167,12 +169,12 @@ public class PlayerMovement : MonoBehaviour
             state = MovementState.crouching;
             desiredMoveSpeed = crouchSpeed;
         }
-        else if (isGrounded && sprintKeyActive)
+        else if (isGrounded && sprintKeyActive && !dashing)
         {
             state = MovementState.sprinting;
             desiredMoveSpeed = sprintSpeed;
         }
-        else if (isGrounded)
+        else if (isGrounded && !dashing)
         {
             state = MovementState.walking;
             desiredMoveSpeed = walkSpeed;
@@ -199,6 +201,8 @@ public class PlayerMovement : MonoBehaviour
 
         bool desiredSpeedHasChanged = desiredMoveSpeed != lastDesiredMoveSpeed;
         if (lastState == MovementState.dashing) keepMomentum = true;
+        // if (lastState == MovementState.air && state == MovementState.walking || state == MovementState.sprinting || state == MovementState.crouching)
+        //     SoundManager.Instance.PlaySoundClip(landingSound, transform, 1f);
 
         if (desiredSpeedHasChanged)
         {
@@ -245,7 +249,7 @@ public class PlayerMovement : MonoBehaviour
         if (dashing)
             rb.drag = 0;
 
-        if (isGrounded)
+        if (isGrounded && !dashing)
             rb.AddForce(moveDirection.normalized * speed * 100f * Time.deltaTime, ForceMode.Force);
         else if(!grappling)
             rb.AddForce(moveDirection.normalized * speed * 100f * airMultiplier * Time.deltaTime, ForceMode.Force);
@@ -330,10 +334,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void disableMovement() {
         allowMovement = false;
-    }
-
-    public bool MovementEnabled() {
-        return allowMovement;
     }
 
     // Grapple Functions //

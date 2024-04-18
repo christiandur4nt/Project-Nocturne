@@ -9,11 +9,13 @@ public class GrappleAbility : MonoBehaviour
     [HideInInspector] public Transform playerCameraT;
     [SerializeField] private Animator armAnimation;
     private PlayerMovement pm;
+    public AudioClip grappleGunSound;
+    public AudioClip shootSound;
 
     [Header("General Variables")]
     [SerializeField] private LayerMask grappleableObjects;
     public float maxGrappleDistance;
-    public float cooldownTime;
+    public float cooldownDuration;
     public int grappleMouseKey;
 
     [Header("Zip Variables")]
@@ -30,6 +32,7 @@ public class GrappleAbility : MonoBehaviour
     private LayerMask gZip;
     private LayerMask gSwing;
     private LayerMask runnableWall;
+    private LayerMask checkpoint;
     private SpringJoint joint;
     private Vector3 grapplePoint;
     private RaycastHit hit;
@@ -41,7 +44,7 @@ public class GrappleAbility : MonoBehaviour
         string[] layers = {"Grapple Zip", "Grapple Swing", "Enemies"};
         grappleableObjects = LayerMask.GetMask(layers);
         grappleMouseKey = 1;
-        cooldownTime = 0.1f;
+        cooldownDuration = 0.1f;
         maxGrappleDistance = 100f;
         grappleForce = 80f;
         relativeSwingRadius = 0.5f;
@@ -53,6 +56,7 @@ public class GrappleAbility : MonoBehaviour
         gZip = LayerMask.GetMask("Grapple Zip");
         gSwing = LayerMask.GetMask("Grapple Swing");
         runnableWall = LayerMask.GetMask("Runnable");
+        checkpoint = LayerMask.GetMask("Checkpoint");
         pm = GetComponent<PlayerMovement>();
         playerCameraT = Camera.main.transform;
         cooldownTimer = 0;
@@ -66,13 +70,13 @@ public class GrappleAbility : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!pm.MovementEnabled() || pm.state == PlayerMovement.MovementState.wallrunning) {
+        if (!pm.AllowMovement || pm.state == PlayerMovement.MovementState.wallrunning) {
             StartCoroutine(StopGrapple(0));
             return;
         }
         
         // Ray-cast to determine if the object currently being viewed is grappleable
-        if (Physics.Raycast(playerCameraT.position, playerCameraT.forward, out hit, maxGrappleDistance, ~runnableWall)) {
+        if (Physics.Raycast(playerCameraT.position, playerCameraT.forward, out hit, maxGrappleDistance, ~(runnableWall | checkpoint))) {
 
             // For Debugging:
             // Debug.Log(LayerMask.LayerToName(hit.transform.gameObject.layer));
@@ -108,11 +112,12 @@ public class GrappleAbility : MonoBehaviour
     void InitGrapple() {
         // Prevent use on cooldown or if grappling is currently active somehow
         if (cooldownTimer > 0 || pm.grappling) return;
-
         if (isValidHit) {
             armAnimation.SetBool("IsGrappling", true);
             pm.grappling = true;
             grapplePoint = hit.point;
+            SoundManager.Instance.PlaySoundClip(shootSound, transform, 1f);
+            SoundManager.Instance.PlaySoundClip(grappleGunSound, transform, 1f); 
             if (((1 << hit.transform.gameObject.layer) & gZip.value) != 0) { // Grapple Zip
                 PerformGrappleZip();
             } else if (((1 << hit.transform.gameObject.layer) & gSwing.value) != 0) { // Grapple Swing
@@ -164,7 +169,7 @@ public class GrappleAbility : MonoBehaviour
                 Destroy(joint);
 
             if (cooldownTimer <= 0)
-                cooldownTimer = cooldownTime;
+                cooldownTimer = cooldownDuration;
         }
     }
 

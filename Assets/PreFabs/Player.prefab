@@ -281,9 +281,9 @@ MonoBehaviour:
   jumpKey: 32
   sprintKey: 304
   crouchKey: 306
-  walkSpeed: 250
-  grappleLaunchSpeed: 15
-  sprintSpeed: 350
+  walkSpeed: 25
+  grappleLaunchSpeed: 40
+  sprintSpeed: 35
   dashSpeed: 9
   wallRunSpeed: 12
   dashSpeedChangeFactor: 50
@@ -293,7 +293,8 @@ MonoBehaviour:
   jumpForce: 8
   jumpCooldown: 0.25
   airMultiplier: 0.1
-  crouchSpeed: 100
+  landingSound: {fileID: 8300000, guid: 12a1fb53b573c88418a3cd1856cd6c78, type: 3}
+  crouchSpeed: 10
   crouchYScale: 0.5
   height: 2
   groundLayer:
@@ -317,6 +318,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42f91b329580e014fbe6bc15b8ca6182, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  armAnimation: {fileID: 0}
+  dashSound: {fileID: 8300000, guid: 4759779467f4f314ab7b3db8ad3ca442, type: 3}
   orientation: {fileID: 1764157197159838843}
   playerCamera: {fileID: 0}
   dashForce: 9
@@ -332,8 +335,6 @@ MonoBehaviour:
   resetVelocity: 0
   disableGravity: 1
   onCooldown: 0
-  armAnimation: {fileID: 0}
-  dashSound: {fileID: 8300000, guid: 4759779467f4f314ab7b3db8ad3ca442, type: 3}
 --- !u!114 &2475344850574706797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,14 +349,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCameraT: {fileID: 0}
   armAnimation: {fileID: 0}
+  grappleGunSound: {fileID: 0}
+  shootSound: {fileID: 0}
   grappleableObjects:
     serializedVersion: 2
     m_Bits: 448
-  maxGrappleDistance: 75
-  cooldownTime: 1
+  maxGrappleDistance: 60
+  cooldownDuration: 0
   grappleMouseKey: 1
-  overshootYAxis: 0
-  grappleForce: 25
+  overshootYAxis: 0.4
+  grappleForce: 15
   damper: 10
   massScale: 1
   relativeSwingRadius: 0.25
@@ -581,6 +584,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: 114
   slowTimeScale: 0.5
+  duration: 3
+  slowSound: {fileID: 0}
+  speedSound: {fileID: 0}
+  cooldownDuration: 5
 --- !u!114 &8711805121035411891
 MonoBehaviour:
   m_ObjectHideFlags: 0
