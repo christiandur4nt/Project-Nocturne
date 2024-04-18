@@ -250,6 +250,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1369466243956096655, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
+      propertyPath: maxWallRunTime
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 2475344850574706797, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -270,6 +274,10 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 474886702092596094}
+    - target: {fileID: 3026227704703407070, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
+      propertyPath: jumpForce
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3026227704703407070, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
       propertyPath: landingSound
       value: 
