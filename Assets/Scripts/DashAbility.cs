@@ -5,6 +5,8 @@ using UnityEngine;
 public class DashAbility : MonoBehaviour
 {
     [Header("Components")]
+    [SerializeField] private Animator armAnimation;
+    [SerializeField] private AudioClip dashSound;
     [HideInInspector] public Transform orientation;
     [HideInInspector] public Transform playerCamera;
     private PlayerMovement pm;
@@ -32,14 +34,10 @@ public class DashAbility : MonoBehaviour
     public bool resetVelocity = true;
     public bool disableGravity = true;
 
-
-
     // Internal
     public bool onCooldown = false;
     private float cooldownTimer = 0;
     private bool grounded = true;
-    [SerializeField] private Animator armAnimation;
-    [SerializeField] private AudioClip dashSound;
 
     void Awake() {
         orientation = GameObject.Find("Orientation").transform;

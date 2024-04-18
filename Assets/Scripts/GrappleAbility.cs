@@ -15,7 +15,7 @@ public class GrappleAbility : MonoBehaviour
     [Header("General Variables")]
     [SerializeField] private LayerMask grappleableObjects;
     public float maxGrappleDistance;
-    public float cooldownTime;
+    public float cooldownDuration;
     public int grappleMouseKey;
 
     [Header("Zip Variables")]
@@ -44,7 +44,7 @@ public class GrappleAbility : MonoBehaviour
         string[] layers = {"Grapple Zip", "Grapple Swing", "Enemies"};
         grappleableObjects = LayerMask.GetMask(layers);
         grappleMouseKey = 1;
-        cooldownTime = 0.1f;
+        cooldownDuration = 0.1f;
         maxGrappleDistance = 100f;
         grappleForce = 80f;
         relativeSwingRadius = 0.5f;
@@ -169,7 +169,7 @@ public class GrappleAbility : MonoBehaviour
                 Destroy(joint);
 
             if (cooldownTimer <= 0)
-                cooldownTimer = cooldownTime;
+                cooldownTimer = cooldownDuration;
         }
     }
 
