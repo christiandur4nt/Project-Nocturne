@@ -12,7 +12,7 @@ public class MenuFunctions : MonoBehaviour
     public static bool gameIsPaused = false;
 
     [Header("Required Components")]
-    public CameraMovement cameraMovement; // WIP: Sens must be changed using player prefs, since main menu doesn't have access to cameraMovement object
+    public CameraMovement cameraMovement;
     public GameObject settingsMenu;
     public Slider sensitivitySlider;
     public Slider fovSlider;
@@ -29,8 +29,10 @@ public class MenuFunctions : MonoBehaviour
     [Header("Components for Pause Menu")]
     [Tooltip("Used for showing/hiding pause menu. N/A to main menu.")]
     public GameObject pauseMenu;
+    public GameObject confirmationPanel;
     [Tooltip("Used to disable movement when paused")]
     public PlayerMovement playerMovement;
+    public PlayerManager playerManager;
     public AudioMixerSnapshot pausedSnapshot;
     public AudioMixerSnapshot unpausedSnapshot;
 
@@ -41,6 +43,7 @@ public class MenuFunctions : MonoBehaviour
         if (!PlayerPrefs.HasKey("armsOn")) PlayerPrefs.SetInt("armsOn", 1);
         cameraMovement = FindAnyObjectByType<CameraMovement>();
         playerMovement = FindAnyObjectByType<PlayerMovement>();
+        playerManager = FindAnyObjectByType<PlayerManager>();
         arms = GameObject.FindWithTag("Arms");
     }
 
@@ -94,7 +97,7 @@ public class MenuFunctions : MonoBehaviour
         gameIsPaused = true;
     }
 
-    // Settings Functions
+    // Settings Functions //
 
     public void ResetSettings() {
         PlayerPrefs.SetFloat("sensitivity", CameraMovement.DEFAULT_SENSITIVITY);
@@ -142,6 +145,22 @@ public class MenuFunctions : MonoBehaviour
     public void ToggleArms() {
         if (arms != null) arms.SetActive(armsToggle.isOn);
         PlayerPrefs.SetInt("armsOn", armsToggle.isOn ? 1 : 0);
+    }
+
+    // End Settings Functions //
+
+    public void ReturnToLastCheckpoint() {
+        playerManager.ResetToCheckpoint();
+        Resume();
+    }
+
+    public void RestartLevel() {
+        Resume();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void ToggleConfirmationPanel() {
+        confirmationPanel.SetActive(!confirmationPanel.activeSelf);
     }
 
     public void ToggleLevelMenu() {
