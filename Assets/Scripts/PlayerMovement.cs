@@ -201,8 +201,8 @@ public class PlayerMovement : MonoBehaviour
 
         bool desiredSpeedHasChanged = desiredMoveSpeed != lastDesiredMoveSpeed;
         if (lastState == MovementState.dashing) keepMomentum = true;
-        if (lastState == MovementState.air && state == MovementState.walking || state == MovementState.sprinting || state == MovementState.crouching)
-            SoundManager.Instance.PlaySoundClip(landingSound, transform, 1f);
+        // if (lastState == MovementState.air && state == MovementState.walking || state == MovementState.sprinting || state == MovementState.crouching)
+        //     SoundManager.Instance.PlaySoundClip(landingSound, transform, 1f);
 
         if (desiredSpeedHasChanged)
         {

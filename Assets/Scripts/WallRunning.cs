@@ -48,6 +48,7 @@ public class WallRunning : MonoBehaviour
     [HideInInspector] public CameraMovement cam;
     private PlayerMovement pm;
     private Rigidbody rb;
+    private DashAbility da;
 
     // Start is called before the first frame update
     private void Start()
@@ -55,6 +56,7 @@ public class WallRunning : MonoBehaviour
         orientation = GameObject.Find("Orientation").transform;
         cam = FindFirstObjectByType<CameraMovement>();
         pm = GetComponent<PlayerMovement>();
+        da = GetComponent<DashAbility>();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -110,7 +112,10 @@ public class WallRunning : MonoBehaviour
         else if (exitingWall)
         {
             if(pm.wallrunning)
+            {
                 StopWallRun();
+                da.onCooldown = false;
+            }
             
             if (exitWallTimer > 0)
                 exitWallTimer -= Time.deltaTime;
