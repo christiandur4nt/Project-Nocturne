@@ -33,13 +33,13 @@ public class SlowTimeAbility : MonoBehaviour
             if (Time.timeScale == 1.0f)
             {
                 Time.timeScale = slowTimeScale;
-                SoundManager.instance.PlaySoundClip(slowSound, transform, 1f);
+                SoundManager.Instance.PlaySoundClip(slowSound, transform, 1f);
             }
                 
             else
             {
                 Time.timeScale = 1.0f; // reset
-                SoundManager.instance.PlaySoundClip(speedSound, transform, 1f);   
+                SoundManager.Instance.PlaySoundClip(speedSound, transform, 1f);   
             }    
             Time.fixedDeltaTime = ogFixedDeltaTime * Time.timeScale;
         }

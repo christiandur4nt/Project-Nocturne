@@ -116,8 +116,8 @@ public class GrappleAbility : MonoBehaviour
             armAnimation.SetBool("IsGrappling", true);
             pm.grappling = true;
             grapplePoint = hit.point;
-            SoundManager.instance.PlaySoundClip(shootSound, transform, 1f);
-            SoundManager.instance.PlaySoundClip(grappleGunSound, transform, 1f); 
+            SoundManager.Instance.PlaySoundClip(shootSound, transform, 1f);
+            SoundManager.Instance.PlaySoundClip(grappleGunSound, transform, 1f); 
             if (((1 << hit.transform.gameObject.layer) & gZip.value) != 0) { // Grapple Zip
                 PerformGrappleZip();
             } else if (((1 << hit.transform.gameObject.layer) & gSwing.value) != 0) { // Grapple Swing

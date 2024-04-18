@@ -3267,7 +3267,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9219888789373540425}
   - component: {fileID: 1354723944996755536}
-  - component: {fileID: 8407658924204813042}
   m_Layer: 0
   m_Name: PauseMenuCanvas
   m_TagString: Untagged
@@ -3303,7 +3302,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52746f6df4bbe73438c0c7d554d7e690, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMixerManager: {fileID: 8407658924204813042}
   cameraMovement: {fileID: 0}
   settingsMenu: {fileID: 571139929875666544}
   sensitivitySlider: {fileID: 298365260875315293}
@@ -3312,24 +3310,12 @@ MonoBehaviour:
   musicSlider: {fileID: 4170215710342492666}
   soundFXSlider: {fileID: 6551131348075864489}
   armsToggle: {fileID: 7945664435650956438}
+  arms: {fileID: 0}
   levelMenu: {fileID: 0}
   pauseMenu: {fileID: 321260237629980029}
   playerMovement: {fileID: 0}
   pausedSnapshot: {fileID: -5341733837757174076, guid: 699ff208a61842c4881ca50b922b63de, type: 2}
   unpausedSnapshot: {fileID: 24500006, guid: 699ff208a61842c4881ca50b922b63de, type: 2}
---- !u!114 &8407658924204813042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6885541025436925830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b3437ced1364b74e811b4b53e958025, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioMixer: {fileID: 24100000, guid: 699ff208a61842c4881ca50b922b63de, type: 2}
 --- !u!1 &7048338343218811896
 GameObject:
   m_ObjectHideFlags: 0

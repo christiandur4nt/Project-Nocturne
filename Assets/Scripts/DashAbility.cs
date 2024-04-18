@@ -81,7 +81,7 @@ public class DashAbility : MonoBehaviour
         pm.maxYSpeed = maxDashYSpeed;
 
         cam.doFOV(dashFOV);
-        SoundManager.instance.PlaySoundClip(dashSound, transform, 1f);
+        SoundManager.Instance.PlaySoundClip(dashSound, transform, 1f);
 
         Transform forwardT;
 

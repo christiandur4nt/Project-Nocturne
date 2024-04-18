@@ -12,7 +12,6 @@ public class MenuFunctions : MonoBehaviour
     public static bool gameIsPaused = false;
 
     [Header("Required Components")]
-    public MainMixerManager mainMixerManager;
     public CameraMovement cameraMovement; // WIP: Sens must be changed using player prefs, since main menu doesn't have access to cameraMovement object
     public GameObject settingsMenu;
     public Slider sensitivitySlider;
@@ -37,6 +36,20 @@ public class MenuFunctions : MonoBehaviour
 
     // Internal
     private float previousTimeFlow;
+
+    void Awake() {
+        if (!PlayerPrefs.HasKey("armsOn")) PlayerPrefs.SetInt("armsOn", 1);
+    }
+
+    void Start() {
+        sensitivitySlider.value = PlayerPrefs.GetFloat("sensitivity");
+        fovSlider.value = PlayerPrefs.GetFloat("fieldOfView");
+        masterSlider.value = PlayerPrefs.GetFloat("masterVolume");
+        musicSlider.value = PlayerPrefs.GetFloat("soundFXVolume");
+        soundFXSlider.value = PlayerPrefs.GetFloat("musicVolume");
+        armsToggle.SetIsOnWithoutNotify(PlayerPrefs.GetInt("armsOn") == 1);
+        if (arms != null) arms.SetActive(armsToggle.isOn);
+    }
 
     void Update()
     {
@@ -81,28 +94,50 @@ public class MenuFunctions : MonoBehaviour
 
     // Settings Functions
 
+    // WIP: Create button in UI
+    public void ResetSettings() {
+        if (cameraMovement != null) cameraMovement.AdjustSensitivity(CameraMovement.DEFAULT_SENSITIVITY);
+        if (cameraMovement != null) cameraMovement.AdjustFOV(CameraMovement.DEFAULT_FIELD_OF_VIEW);
+        MainMixerManager.Instance.SetMasterVolume(0);
+        MainMixerManager.Instance.SetMusicVolume(0);
+        MainMixerManager.Instance.SetSoundFXVolume(0);
+        arms.SetActive(!arms.activeSelf);
+        PlayerPrefs.SetInt("armsOn", 1);
+        CalibrateSliders();
+    }
+
+    private void CalibrateSliders() {
+        sensitivitySlider.value = PlayerPrefs.GetFloat("sensitivity");
+        fovSlider.value = PlayerPrefs.GetFloat("fieldOfView");
+        masterSlider.value = PlayerPrefs.GetFloat("masterVolume");
+        musicSlider.value = PlayerPrefs.GetFloat("soundFXVolume");
+        soundFXSlider.value = PlayerPrefs.GetFloat("musicVolume");
+        armsToggle.isOn = PlayerPrefs.GetInt("armsOn") == 1;
+    }
+
     public void SetSensitivity() {
-        cameraMovement.AdjustSensitivity(sensitivitySlider.value);
+        if (cameraMovement != null) cameraMovement.AdjustSensitivity(sensitivitySlider.value);
     }
 
     public void SetFOV() {
-        cameraMovement.AdjustFOV(fovSlider.value);
+        if (cameraMovement != null) cameraMovement.AdjustFOV(fovSlider.value);
     }
 
     public void SetMasterVolume() {
-        mainMixerManager.SetMasterVolume(masterSlider.value);
+        MainMixerManager.Instance.SetMasterVolume(masterSlider.value);
     }
 
     public void SetMusicVolume() {
-        mainMixerManager.SetMusicVolume(musicSlider.value);
+        MainMixerManager.Instance.SetMusicVolume(musicSlider.value);
     }
 
     public void SetSoundFXVolume() {
-        mainMixerManager.SetSoundFXVolume(soundFXSlider.value);
+        MainMixerManager.Instance.SetSoundFXVolume(soundFXSlider.value);
     }
 
     public void ToggleArms() {
-        arms.SetActive(!arms.activeSelf);
+        if (arms != null) arms.SetActive(armsToggle.isOn);
+        PlayerPrefs.SetInt("armsOn", armsToggle.isOn ? 1 : 0);
     }
 
     public void ToggleLevelMenu() {

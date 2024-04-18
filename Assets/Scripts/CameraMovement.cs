@@ -16,15 +16,24 @@ public class CameraMovement : MonoBehaviour
     // Internal
     private float rotationX;
     private float rotationY;
+    public const float DEFAULT_SENSITIVITY = 500f;
+    public const float DEFAULT_FIELD_OF_VIEW = 90f;
 
     void Reset() {
-        sensitivityX = sensitivityY = 800f;
+        sensitivityX = sensitivityY = DEFAULT_SENSITIVITY;
     }
 
     void Awake() {
         pm = FindFirstObjectByType<PlayerMovement>();
         orientation = GameObject.Find("Orientation").transform;
         cameraHolder = transform.parent;
+
+        // Set default values
+        if (!PlayerPrefs.HasKey("sensitivity")) PlayerPrefs.SetFloat("sensitivity", DEFAULT_SENSITIVITY);
+        if (!PlayerPrefs.HasKey("fieldOfView")) PlayerPrefs.SetFloat("fieldOfView", DEFAULT_FIELD_OF_VIEW);
+
+        sensitivityX = sensitivityY = PlayerPrefs.GetFloat("sensitivity");
+        GetComponent<Camera>().fieldOfView = PlayerPrefs.GetFloat("fieldOfView");
     }
 
     void Start()
@@ -56,11 +65,13 @@ public class CameraMovement : MonoBehaviour
     public void AdjustSensitivity(float newSensitivity)
     {
         sensitivityX = sensitivityY = newSensitivity;
+        PlayerPrefs.SetFloat("sensitivity", newSensitivity);
     }
 
     public void AdjustFOV(float fov)
     {
         GetComponent<Camera>().fieldOfView = fov;
+        PlayerPrefs.SetFloat("fieldOfView", fov);
     }
 
     public void doFOV(float endValue)
