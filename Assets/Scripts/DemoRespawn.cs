@@ -9,6 +9,16 @@ public class DemoRespawn : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            Debug.Log("RESPAWN NOW!!!");
+            respawn = true;
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("RESPAWN NOW!!!");
             respawn = true;
         }
     }

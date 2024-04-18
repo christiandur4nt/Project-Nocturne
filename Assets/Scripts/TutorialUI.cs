@@ -7,8 +7,10 @@ public class TutorialUI : MonoBehaviour
     private PlayerMovement pm;
     private GameObject[] tutorials;
     private int currTutorial;
+    public bool tutorialOver;
 
     void Awake() {
+        tutorialOver = false;
         pm = FindFirstObjectByType<PlayerMovement>();
         tutorials = GameObject.FindGameObjectsWithTag("Tutorial");
         currTutorial = 0;
@@ -50,7 +52,9 @@ public class TutorialUI : MonoBehaviour
 
         // Show specific tutorial screen
         tutorials[currTutorial].SetActive(false);
-        currTutorial++; // Move index to next tutorial screen
+
+        // Move index to next tutorial screen
+        currTutorial++;
 
         // Hide and lock cursor
         Cursor.lockState = CursorLockMode.Locked;
@@ -64,5 +68,8 @@ public class TutorialUI : MonoBehaviour
 
         // Close tutorial
         gameObject.SetActive(false);
+
+        // Check if all tutorials have been completed
+        if (currTutorial == tutorials.Length) tutorialOver = true;
     }
 }

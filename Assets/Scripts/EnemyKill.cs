@@ -39,7 +39,7 @@ public class EnemyKill : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" && dashing)
         {
-            SoundManager.instance.PlaySoundClip(killSound, transform, 1f);
+            SoundManager.Instance.PlaySoundClip(killSound, transform, 1f);
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 100, gameObject.transform.position.z);
             rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
         }
@@ -49,6 +49,7 @@ public class EnemyKill : MonoBehaviour
     {
         gameObject.transform.position = originalPos;
         gameObject.transform.rotation = originalRot;
+        rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
         dr.respawn = false;
     }
 }

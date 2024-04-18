@@ -26,9 +26,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8555937696829842522}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.4742, y: 1, z: 1.2624}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 511948529481455638}
@@ -132,6 +132,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 1fa8a9ea01757ba439cff05497063215, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 025fcb7e56c9c1d48b0d3cc7712797d2, type: 2}
     - target: {fileID: 919132149155446097, guid: 1fa8a9ea01757ba439cff05497063215, type: 3}
       propertyPath: m_Name
       value: GrappleBar

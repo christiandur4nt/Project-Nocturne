@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,6 +8,6 @@ public class DemoWin : MonoBehaviour
 {
     private void OnCollisionEnter(Collision collision)
     {
-        SceneManager.LoadScene(0);
+        LevelChanger.instance.FadeOut();
     }
 }

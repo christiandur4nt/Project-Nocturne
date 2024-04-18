@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Numerics;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -54,6 +51,8 @@ public class enemyAI : MonoBehaviour
         {
             targetPoint = 0;
         }
+        Quaternion targetRotation = Quaternion.LookRotation(patrolPoints[targetPoint].position - transform.position);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * speed);
         transform.position = UnityEngine.Vector3.MoveTowards(transform.position, patrolPoints[targetPoint].position, speed * Time.deltaTime);       
     }
 
@@ -66,7 +65,8 @@ public class enemyAI : MonoBehaviour
 
             if(enemyType == enemyType.flying)
             {
-                transform.position = UnityEngine.Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+                Quaternion targetRotation = Quaternion.LookRotation(other.transform.position - transform.position);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * speed);
             }
             if(enemyType == enemyType.ranged)
             {
@@ -81,6 +81,6 @@ public class enemyAI : MonoBehaviour
                 
             }
         }
-
     }
+   
 }
