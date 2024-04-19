@@ -70,7 +70,7 @@ public class DashAbility : MonoBehaviour
         Color color = PlayerUI.Instance.abilityIcons[(int)PlayerUI.Ability.SlowTimeAbility].color;
         color.a = (cooldownTimer > 0) ? Mathf.SmoothStep(1f, 0.2f, cooldownTimer/cooldownDuration) : (onCooldown ? 0.2f : 1f);
         PlayerUI.Instance.abilityIcons[(int)PlayerUI.Ability.DashAbility].color = color;
-        PlayerUI.Instance.abilityTimers[(int)PlayerUI.Ability.DashAbility].SetText(cooldownTimer.ToString("0.0"));
+        PlayerUI.Instance.abilityTimers[(int)PlayerUI.Ability.DashAbility].SetText(cooldownTimer <= 0 ? "<sprite=0>" : cooldownTimer.ToString("0.0"));
 
         if (cooldownTimer > 0)
             cooldownTimer -= Time.deltaTime;
