@@ -6,6 +6,7 @@ public class DogAI : MonoBehaviour
 {
     [Range(0, 100), SerializeField] private float speed;
     [Range(0, 500), SerializeField] private float walkRadius;
+    [SerializeField] private GameObject player;
     private NavMeshAgent agent;
     private float walkTimeStart;
     private float walkTimeElapsed;
@@ -38,20 +39,7 @@ public class DogAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        walkTimeElapsed = Time.time - walkTimeStart;
-        if(agent != null && (agent.remainingDistance <= agent.stoppingDistance) || walkTimeElapsed > 2)
-        {
-            agent.SetDestination(RandomNavMeshLocation());
-        }
+        agent.SetDestination(player.transform.position);
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        if(other.tag == "Player")
-        {
-            Quaternion targetRotation = Quaternion.LookRotation(other.transform.position - transform.position);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * speed);
-            transform.position = Vector3.MoveTowards(transform.position ,other.transform.position, speed * Time.deltaTime*.15f);
-        }
-    }
 }
