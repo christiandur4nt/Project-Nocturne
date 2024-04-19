@@ -193,8 +193,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fc6dd783b60a2e4eb1edf0d0baaa9ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 88.2
-  walkRadius: 13
+  speed: 10
+  walkRadius: 12
   player: {fileID: 0}
 --- !u!195 &6889210812947469961
 NavMeshAgent:
@@ -206,10 +206,10 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: -1372625422
   m_Radius: 45.18
-  m_Speed: 3.5
-  m_Acceleration: 8
+  m_Speed: 10
+  m_Acceleration: 140
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 300
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
