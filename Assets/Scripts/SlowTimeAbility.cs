@@ -47,6 +47,11 @@ public class SlowTimeAbility : MonoBehaviour
             if (activeTimer >= duration) DeactivateSlowTime();
         }
 
+        // Update Player UI icons (WIP)
+        Color color = PlayerUI.Instance.abilityIcons[(int)PlayerUI.Ability.SlowTimeAbility].color;
+        color.a = Mathf.SmoothStep(1f, 0.2f, cooldownTimer/cooldownDuration);
+        PlayerUI.Instance.abilityIcons[(int)PlayerUI.Ability.SlowTimeAbility].color = color;
+
         if (cooldownTimer > 0)
             cooldownTimer -= Time.deltaTime;
     }

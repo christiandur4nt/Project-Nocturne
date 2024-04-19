@@ -105,7 +105,12 @@ public class GrappleAbility : MonoBehaviour
         } else if (Input.GetMouseButtonUp(grappleMouseKey)) {
             StartCoroutine(StopGrapple(0));
         }
-        
+
+        // Update Player UI icons (WIP)
+        Color color = PlayerUI.Instance.abilityIcons[(int)PlayerUI.Ability.GrappleAbility].color;
+        color.a = Mathf.SmoothStep(1f, 0.2f, cooldownTimer/cooldownDuration);
+        PlayerUI.Instance.abilityIcons[(int)PlayerUI.Ability.GrappleAbility].color = color;
+
         if (cooldownTimer > 0) cooldownTimer -= Time.deltaTime;
     }
 

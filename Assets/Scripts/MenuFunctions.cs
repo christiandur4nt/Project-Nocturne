@@ -82,6 +82,11 @@ public class MenuFunctions : MonoBehaviour
         pauseMenu.SetActive(false);
         Time.timeScale = previousTimeFlow;
         playerMovement.enableMovement();
+
+        // Close other panels
+        confirmationPanel.SetActive(false);
+        settingsMenu.SetActive(false);
+
         gameIsPaused = false;
     }
 
