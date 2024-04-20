@@ -13,6 +13,7 @@ public class EndDoor : MonoBehaviour
     [Header("Settings")]
     public KeyCode interactKey = KeyCode.E;
     public float interactDist = 3f;
+    public string newScene;
 
     private RaycastHit hit;
 
@@ -21,8 +22,8 @@ public class EndDoor : MonoBehaviour
     {   
         if (Input.GetKeyDown(interactKey))
         {
-            if (Physics.Raycast(player.transform.position, playerCamera.transform.forward, out hit, interactDist, doorLayer))
-                SceneManager.LoadScene(0);
+            if (Physics.Raycast(player.transform.position, playerCamera.transform.forward, out hit, interactDist, doorLayer) && newScene != null)
+                SceneManager.LoadScene(newScene);
         }
     }
 }
