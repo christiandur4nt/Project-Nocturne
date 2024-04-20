@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class DemoRespawn : MonoBehaviour
 {
+    public GameObject[] enemies;
     public bool respawn = false;
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Player")
         {
             Debug.Log("RESPAWN NOW!!!");
-            respawn = true;
+            foreach (GameObject enemy in enemies)
+            {
+                enemy.GetComponent<EnemyKill>().Respawn();
+            }
         }
     }
 
@@ -19,7 +23,10 @@ public class DemoRespawn : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("RESPAWN NOW!!!");
-            respawn = true;
+            foreach (GameObject enemy in enemies)
+            {
+                enemy.GetComponent<EnemyKill>().Respawn();
+            }
         }
     }
 }
