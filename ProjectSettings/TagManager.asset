@@ -10,6 +10,8 @@ TagManager:
   - DemoRespawn
   - Tutorial
   - Arms
+  - Blood Particle System
+  - Ability Panel
   layers:
   - Default
   - TransparentFX

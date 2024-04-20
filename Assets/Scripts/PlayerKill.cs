@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class PlayerKill : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    void OnCollisionEnter(Collision collisionInfo)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (!PlayerManager.isDead) {
+            PlayerUIManager.Instance.Die();
+        }
     }
 }

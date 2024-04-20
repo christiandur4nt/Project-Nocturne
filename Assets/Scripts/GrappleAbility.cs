@@ -107,10 +107,10 @@ public class GrappleAbility : MonoBehaviour
         }
 
         // Update Player UI icons (WIP)
-        Color color = PlayerUI.Instance.abilityIcons[(int)PlayerUI.Ability.GrappleAbility].color;
+        Color color = PlayerUIManager.Instance.abilityIcons[(int)PlayerUIManager.Ability.GrappleAbility].color;
         color.a = Mathf.SmoothStep(1f, 0.2f, cooldownTimer/cooldownDuration);
-        PlayerUI.Instance.abilityIcons[(int)PlayerUI.Ability.GrappleAbility].color = color;
-        PlayerUI.Instance.abilityTimers[(int)PlayerUI.Ability.GrappleAbility].SetText(cooldownTimer <= 0 ? "<sprite=1>" : cooldownTimer.ToString("0.0"));
+        PlayerUIManager.Instance.abilityIcons[(int)PlayerUIManager.Ability.GrappleAbility].color = color;
+        PlayerUIManager.Instance.abilityTimers[(int)PlayerUIManager.Ability.GrappleAbility].SetText(cooldownTimer <= 0 ? "<sprite=1>" : cooldownTimer.ToString("0.0"));
 
         if (cooldownTimer > 0) cooldownTimer -= Time.deltaTime;
     }

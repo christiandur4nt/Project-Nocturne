@@ -48,10 +48,10 @@ public class SlowTimeAbility : MonoBehaviour
         }
 
         // Update Player UI icons (WIP)
-        Color color = PlayerUI.Instance.abilityIcons[(int)PlayerUI.Ability.SlowTimeAbility].color;
+        Color color = PlayerUIManager.Instance.abilityIcons[(int)PlayerUIManager.Ability.SlowTimeAbility].color;
         color.a = Mathf.SmoothStep(1f, 0.2f, cooldownTimer/cooldownDuration);
-        PlayerUI.Instance.abilityIcons[(int)PlayerUI.Ability.SlowTimeAbility].color = color;
-        PlayerUI.Instance.abilityTimers[(int)PlayerUI.Ability.SlowTimeAbility].SetText(cooldownTimer <= 0 ? "<color=blue><b>R" : cooldownTimer.ToString("0.0"));
+        PlayerUIManager.Instance.abilityIcons[(int)PlayerUIManager.Ability.SlowTimeAbility].color = color;
+        PlayerUIManager.Instance.abilityTimers[(int)PlayerUIManager.Ability.SlowTimeAbility].SetText(cooldownTimer <= 0 ? "<color=blue><b>R" : cooldownTimer.ToString("0.0"));
 
         if (cooldownTimer > 0)
             cooldownTimer -= Time.deltaTime;

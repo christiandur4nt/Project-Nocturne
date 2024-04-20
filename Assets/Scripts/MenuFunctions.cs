@@ -35,9 +35,9 @@ public class MenuFunctions : MonoBehaviour
     public PlayerManager playerManager;
     public AudioMixerSnapshot pausedSnapshot;
     public AudioMixerSnapshot unpausedSnapshot;
-
+    
     // Internal
-    private float previousTimeFlow;
+    private float previousTimeFlow = 1f;
 
     void Awake() {
         if (!PlayerPrefs.HasKey("armsOn")) PlayerPrefs.SetInt("armsOn", 1);
@@ -81,7 +81,7 @@ public class MenuFunctions : MonoBehaviour
         Cursor.visible = false;
         pauseMenu.SetActive(false);
         Time.timeScale = previousTimeFlow;
-        playerMovement.enableMovement();
+        playerMovement.EnableMovement();
 
         // Close other panels
         confirmationPanel.SetActive(false);
@@ -98,7 +98,7 @@ public class MenuFunctions : MonoBehaviour
         pauseMenu.SetActive(true);
         previousTimeFlow = Time.timeScale;
         Time.timeScale = 0f;
-        playerMovement.disableMovement();
+        playerMovement.DisableMovement();
         gameIsPaused = true;
     }
 

@@ -328,12 +328,20 @@ public class PlayerMovement : MonoBehaviour
         return isGrounded;
     }
 
-    public void enableMovement() {
+    public void EnableMovement() {
         allowMovement = true;
     }
 
-    public void disableMovement() {
+    public void DisableMovement() {
         allowMovement = false;
+    }
+
+    public void FreezePlayer() {
+        rb.isKinematic = true;
+    }
+
+    public void UnfreezePlayer() {
+        rb.isKinematic = false;
     }
 
     // Grapple Functions //

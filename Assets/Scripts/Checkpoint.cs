@@ -10,7 +10,7 @@ public class Checkpoint : MonoBehaviour
 
     // Internal
     private bool reached = false;
-    private PlayerManager pm;
+    private PlayerManager playerManager;
     private TutorialUI tutorialUIScript;
     private Vector3 teleportPos;
 
@@ -20,7 +20,7 @@ public class Checkpoint : MonoBehaviour
     }
 
     void Awake() {
-        pm = FindFirstObjectByType<PlayerManager>();
+        playerManager = FindFirstObjectByType<PlayerManager>();
         tutorialUIScript = FindFirstObjectByType<TutorialUI>();
         teleportPos = transform.Find("Checkpoint").position;
     }
@@ -31,7 +31,7 @@ public class Checkpoint : MonoBehaviour
             Debug.Log("Checkpoint Reached!");
             reached = true;
             if (updateRespawn) {
-                pm.CheckpointPos = teleportPos;
+                playerManager.CheckpointPos = teleportPos;
                 checkpointSound.Play();
             }
 

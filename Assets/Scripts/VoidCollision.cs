@@ -5,17 +5,11 @@ using UnityEngine;
 
 public class VoidCollision : MonoBehaviour
 {
-    private PlayerManager pm;
-
-    void Awake() {
-        pm = FindFirstObjectByType<PlayerManager>();
-    } 
-
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player")) {
-            Debug.Log("Resetting to checkpoint: " + pm.CheckpointPos);
-            pm.ResetToCheckpoint();
+            // Debug.Log("Resetting to checkpoint: " + pm.CheckpointPos);
+            PlayerUIManager.Instance.Die();
         } else if (other.CompareTag("Wall")) {
             Destroy(other.gameObject);
         }
