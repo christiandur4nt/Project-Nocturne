@@ -34,7 +34,6 @@ public class PlayerUIManager : MonoBehaviour
     {
         if (Instance == null) Instance = this;
         bloodPS = GameObject.FindWithTag("Blood Particle System").GetComponent<ParticleSystem>();
-        bloodPS.Stop();
         abilityPanel = GameObject.FindWithTag("Ability Panel");
         playerMovement = FindFirstObjectByType<PlayerMovement>();
         playerManager = FindFirstObjectByType<PlayerManager>();
