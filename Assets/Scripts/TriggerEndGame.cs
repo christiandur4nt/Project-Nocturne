@@ -29,16 +29,13 @@ public class TriggerEndGame : MonoBehaviour
         if(other.tag == "Player")
         {
             other.transform.position = playerStartPos.transform.position;
-            playerMovement.DisableMovement();
             cameraHolder.rotation = Quaternion.LookRotation(-playerStartPos.transform.forward);
             StartCoroutine(ActionSequence());
-            playerMovement.EnableMovement();
-            
         }
-        
     }
 
     public IEnumerator ActionSequence() {
+        playerMovement.DisableMovement();
         playerCamera.SetActive(false);
         camera1.gameObject.SetActive(true);
         yield return new WaitForSeconds(2f);
@@ -52,5 +49,6 @@ public class TriggerEndGame : MonoBehaviour
         camera2.gameObject.SetActive(false);
         playerCamera.SetActive(true);
         dogGO.GetComponent<NavMeshAgent>().acceleration = 240;
+        playerMovement.EnableMovement();
     }
 }

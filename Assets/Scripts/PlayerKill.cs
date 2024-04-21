@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class PlayerKill : MonoBehaviour
 {
-    private AudioSource killSFX;
-
-    void Awake() {
-        killSFX = GetComponent<AudioSource>();
-    }
+    public AudioClip[] killSFX;
 
     void OnCollisionEnter(Collision collisionInfo)
     {
         if (collisionInfo.collider.CompareTag("Player") && !PlayerManager.isDead) {
-            if (killSFX != null) killSFX.Play();
+            if (killSFX.Length != 0) {
+                foreach (AudioClip SFX in killSFX) {
+                    SoundManager.Instance.PlaySoundClip(SFX, transform, 100f);
+                }
+            }
             PlayerUIManager.Instance.Die();
         }
     }
