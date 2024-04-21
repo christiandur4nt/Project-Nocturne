@@ -14,8 +14,14 @@ public class PlayerUIManager : MonoBehaviour
 
     [Header("UI Elements")]
     public GameObject deathPanel;
-    public GameObject abilityPanel;
-    public ParticleSystem bloodPS;
+    private GameObject abilityPanel;
+    private ParticleSystem bloodPS;
+
+    [Header("Dog Transforms")]
+    public Transform dog;
+    public Transform dogResetPos;
+    private bool resetDog;
+    public bool ResetDog { get { return resetDog; } set { resetDog = value; } }
 
     public static PlayerUIManager Instance;
 
@@ -63,6 +69,7 @@ public class PlayerUIManager : MonoBehaviour
 
     public void ResetToCheckpoint() {
         Undie();
+        if (resetDog) dog.position = dogResetPos.position;
         playerManager.ResetToCheckpoint();
     }
 

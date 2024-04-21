@@ -103,9 +103,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1e26b9578ff2f894a9a24188d5da97f6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6889210812947469961}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1e26b9578ff2f894a9a24188d5da97f6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1604747192817895589}
   m_SourcePrefab: {fileID: 100100000, guid: 1e26b9578ff2f894a9a24188d5da97f6, type: 3}
 --- !u!1 &4768875907555524239 stripped
 GameObject:
@@ -193,7 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fc6dd783b60a2e4eb1edf0d0baaa9ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 25
   walkRadius: 12
   player: {fileID: 0}
 --- !u!195 &6889210812947469961
@@ -218,24 +215,3 @@ NavMeshAgent:
   m_BaseOffset: 28.9
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!135 &1604747192817895589
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4768875907555524239}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 129.14
-  m_Center: {x: 0, y: 0, z: 0}

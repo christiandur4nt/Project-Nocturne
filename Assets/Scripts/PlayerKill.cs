@@ -8,11 +8,12 @@ public class PlayerKill : MonoBehaviour
 
     void OnCollisionEnter(Collision collisionInfo)
     {
-        if (collisionInfo.collider.CompareTag("Player") && !PlayerManager.isDead) {
-            if (killSFX.Length != 0) {
-                foreach (AudioClip SFX in killSFX) {
+        if (collisionInfo.collider.CompareTag("Player") && !PlayerManager.isDead)
+        {
+            if (killSFX.Length != 0)
+            {
+                foreach (AudioClip SFX in killSFX)
                     SoundManager.Instance.PlaySoundClip(SFX, transform, 100f);
-                }
             }
             PlayerUIManager.Instance.Die();
         }

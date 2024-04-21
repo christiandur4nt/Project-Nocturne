@@ -12,6 +12,7 @@ TagManager:
   - Arms
   - Blood Particle System
   - Ability Panel
+  - Spikes
   layers:
   - Default
   - TransparentFX

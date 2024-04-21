@@ -6,10 +6,15 @@ using UnityEngine.AI;
 
 public class TriggerEndGame : MonoBehaviour
 {
+    const float FADE_TIME_SECONDS = 5;
+
     [Header("Components")]
     public GameObject playerStartPos;
     public Camera camera1;
     public Camera camera2;
+    public AudioClip endMusic;
+    public AudioSource musicManager;
+    [SerializeField] private GameObject flashlight;
     private Transform cameraHolder;
     private GameObject playerCamera;
     private PlayerMovement playerMovement;
@@ -24,10 +29,44 @@ public class TriggerEndGame : MonoBehaviour
         playerMovement = FindFirstObjectByType<PlayerMovement>();
     }
 
+    void PlayRandom()
+    {
+        StartCoroutine(FadeIn());
+        
+        StartCoroutine(FadeOut(musicManager.clip.length - FADE_TIME_SECONDS));
+    }
+
+    IEnumerator FadeOut(float delay) 
+    {
+        yield return new WaitForSeconds(delay);
+        float timeElapsed = 0;
+
+        while (musicManager.volume > 0) 
+        {
+            musicManager.volume = Mathf.Lerp(1, 0, timeElapsed / FADE_TIME_SECONDS);
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    IEnumerator FadeIn() 
+    {
+        float timeElapsed = 0;
+        musicManager.volume = 0;
+        while (musicManager.volume < 1) 
+        {
+            musicManager.volume = Mathf.Lerp(0, 1, timeElapsed / FADE_TIME_SECONDS);
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+    }
+
     public void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
         {
+            musicManager.Stop();
+            musicManager.clip = endMusic;
             other.transform.position = playerStartPos.transform.position;
             cameraHolder.rotation = Quaternion.LookRotation(-playerStartPos.transform.forward);
             StartCoroutine(ActionSequence());
@@ -38,6 +77,8 @@ public class TriggerEndGame : MonoBehaviour
         playerMovement.DisableMovement();
         playerCamera.SetActive(false);
         camera1.gameObject.SetActive(true);
+        StartCoroutine(FadeIn());
+        musicManager.Play();
         yield return new WaitForSeconds(2f);
         camera1.gameObject.SetActive(false);
         camera2.gameObject.SetActive(true);
@@ -50,5 +91,7 @@ public class TriggerEndGame : MonoBehaviour
         playerCamera.SetActive(true);
         dogGO.GetComponent<NavMeshAgent>().acceleration = 240;
         playerMovement.EnableMovement();
+        flashlight.SetActive(true);
+        PlayerUIManager.Instance.ResetDog = true;
     }
 }

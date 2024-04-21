@@ -6,13 +6,14 @@ public class DogAI : MonoBehaviour
 {
     [Range(0, 100), SerializeField] private float speed;
     [Range(0, 500), SerializeField] private float walkRadius;
-    [SerializeField] private GameObject player;
+    private GameObject player;
     private NavMeshAgent agent;
     private float walkTimeStart;
     private float walkTimeElapsed;
     // Start is called before the first frame update
     void Awake()
     {
+        player = GameObject.Find("PlayerObj");
         agent = GetComponent<NavMeshAgent>();
         Debug.Log("Agent position: " + agent.transform.position);
         Debug.Log("Is on NavMesh: " + agent.isOnNavMesh);
