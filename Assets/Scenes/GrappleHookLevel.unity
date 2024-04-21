@@ -15710,6 +15710,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 807728457}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &809861582 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 2435936905166897778, guid: ffc93b6dbea4c3d4e9bcc29d1975dc84, type: 3}
+  m_PrefabInstance: {fileID: 78439014}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &812722270
 GameObject:
   m_ObjectHideFlags: 0
@@ -30799,6 +30804,7 @@ MonoBehaviour:
   playerStartPos: {fileID: 1967325892481936713}
   camera1: {fileID: 773062184}
   camera2: {fileID: 461647076}
+  dogRB: {fileID: 809861582}
   doorAnimator: {fileID: 483033227}
   dog: {fileID: 225038281}
 --- !u!114 &1530267533

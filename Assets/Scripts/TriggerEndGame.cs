@@ -13,6 +13,7 @@ public class TriggerEndGame : MonoBehaviour
     private GameObject playerCamera;
     private PlayerMovement playerMovement;
 
+    [SerializeField] private Rigidbody dogRB;
     [SerializeField] private Animator doorAnimator;
     [SerializeField] private Animator dog;
 
@@ -26,15 +27,11 @@ public class TriggerEndGame : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            doorAnimator.SetBool("CutScene", true);
-            dog.SetBool("CutScene", true);
             other.transform.position = playerStartPos.transform.position;
             playerMovement.DisableMovement();
-            // WIP: Rotate camera
-            Debug.Log(playerStartPos.transform.right);
             cameraHolder.rotation = Quaternion.LookRotation(-playerStartPos.transform.forward);
             StartCoroutine(ActionSequence());
-            // playerMovement.EnableMovement();
+            playerMovement.EnableMovement();
         }
         
     }
@@ -45,7 +42,9 @@ public class TriggerEndGame : MonoBehaviour
         yield return new WaitForSeconds(2f);
         camera1.gameObject.SetActive(false);
         camera2.gameObject.SetActive(true);
-        yield return new WaitForSeconds(2f);
+        doorAnimator.SetBool("CutScene", true);
+        dog.SetBool("CutScene", true);
+        yield return new WaitForSeconds(4f);
         camera2.gameObject.SetActive(false);
         playerCamera.SetActive(true);
     }
