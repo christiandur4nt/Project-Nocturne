@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class TriggerEndGame : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class TriggerEndGame : MonoBehaviour
     private GameObject playerCamera;
     private PlayerMovement playerMovement;
 
-    [SerializeField] private Rigidbody dogRB;
+    [SerializeField] private GameObject dogGO;
     [SerializeField] private Animator doorAnimator;
     [SerializeField] private Animator dog;
 
@@ -32,6 +33,7 @@ public class TriggerEndGame : MonoBehaviour
             cameraHolder.rotation = Quaternion.LookRotation(-playerStartPos.transform.forward);
             StartCoroutine(ActionSequence());
             playerMovement.EnableMovement();
+            
         }
         
     }
@@ -44,8 +46,9 @@ public class TriggerEndGame : MonoBehaviour
         camera2.gameObject.SetActive(true);
         doorAnimator.SetBool("CutScene", true);
         dog.SetBool("CutScene", true);
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(5f);
         camera2.gameObject.SetActive(false);
         playerCamera.SetActive(true);
+        dogGO.GetComponent<NavMeshAgent>().acceleration = 240;
     }
 }
