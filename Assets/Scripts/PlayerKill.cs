@@ -6,7 +6,7 @@ public class PlayerKill : MonoBehaviour
 {
     void OnCollisionEnter(Collision collisionInfo)
     {
-        if (!PlayerManager.isDead) {
+        if (collisionInfo.collider.CompareTag("Player") && !PlayerManager.isDead) {
             PlayerUIManager.Instance.Die();
         }
     }
