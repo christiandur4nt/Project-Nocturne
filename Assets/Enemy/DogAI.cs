@@ -11,14 +11,15 @@ public class DogAI : MonoBehaviour
     private float walkTimeStart;
     private float walkTimeElapsed;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        if(agent != null)
+        Debug.Log("Agent position: " + agent.transform.position);
+        Debug.Log("Is on NavMesh: " + agent.isOnNavMesh);
+        if (agent != null)
         {
             agent.enabled = true;
             agent.speed = speed;
-            agent.SetDestination(RandomNavMeshLocation());
         }
     }
 
@@ -39,7 +40,11 @@ public class DogAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        agent.SetDestination(player.transform.position);
+        if (agent != null)
+        {
+            agent.SetDestination(player.transform.position);
+        }
+        
     }
 
 }
