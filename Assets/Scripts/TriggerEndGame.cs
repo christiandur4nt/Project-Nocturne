@@ -47,6 +47,8 @@ public class TriggerEndGame : MonoBehaviour
         doorAnimator.SetBool("CutScene", true);
         dog.SetBool("CutScene", true);
         yield return new WaitForSeconds(5f);
+        doorAnimator.SetBool("CutScene", false);
+        dog.SetBool("CutScene", false);
         camera2.gameObject.SetActive(false);
         playerCamera.SetActive(true);
         dogGO.GetComponent<NavMeshAgent>().acceleration = 240;
