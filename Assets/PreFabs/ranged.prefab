@@ -137,7 +137,7 @@ MonoBehaviour:
   trigger: {fileID: 6989976432501558906}
   ProjectileSpawner: {fileID: 1548354164644449063}
   Projectile: {fileID: 560576397407160956, guid: 8b627d3f0eead97469c2457fdafbd3eb, type: 3}
-  shootForce: 500
+  shootForce: 100000
   useDivebomb: 1
 --- !u!135 &6989976432501558906
 SphereCollider:
