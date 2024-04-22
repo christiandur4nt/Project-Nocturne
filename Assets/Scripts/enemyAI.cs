@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -23,10 +24,14 @@ public class enemyAI : MonoBehaviour
     private bool projectileDeployed = false;
     private float ProjectileStartTime = 0;
     private Rigidbody projectileRb;
+
+    public Boolean useDivebomb = true;
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = patrolPoints[targetPoint].position;
+        if (patrolPoints != null && patrolPoints[0] != null)
+            transform.position = patrolPoints[targetPoint].position;
+        player = GameObject.Find("PlayerObj");
     }
 
     // Update is called once per frame
@@ -43,17 +48,21 @@ public class enemyAI : MonoBehaviour
             }
         }
 
-        if (transform.position == patrolPoints[targetPoint].position)
+        
+        if (patrolPoints != null && patrolPoints.Length != 0 && patrolPoints[0] != null)
         {
-            targetPoint++;
-        }
-        if (targetPoint >= patrolPoints.Length)
-        {
-            targetPoint = 0;
-        }
-        Quaternion targetRotation = Quaternion.LookRotation(patrolPoints[targetPoint].position - transform.position);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * speed);
-        transform.position = UnityEngine.Vector3.MoveTowards(transform.position, patrolPoints[targetPoint].position, speed * Time.deltaTime);       
+            if (transform.position == patrolPoints[targetPoint].position)
+            {
+                targetPoint++;
+            }
+            if (targetPoint >= patrolPoints.Length)
+            {
+                targetPoint = 0;
+            }
+            Quaternion targetRotation = Quaternion.LookRotation(patrolPoints[targetPoint].position - transform.position);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * speed);
+            transform.position = UnityEngine.Vector3.MoveTowards(transform.position, patrolPoints[targetPoint].position, speed * Time.deltaTime); 
+        }      
     }
 
     private void OnTriggerStay(Collider other)
@@ -63,7 +72,7 @@ public class enemyAI : MonoBehaviour
             if(enemyAnim != null)
                 enemyAnim.SetBool("attack", true);
 
-            if(enemyType == enemyType.flying)
+            if(enemyType == enemyType.flying && useDivebomb)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(other.transform.position - transform.position);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * speed);
@@ -74,9 +83,10 @@ public class enemyAI : MonoBehaviour
                 {
                     ProjectileStartTime = Time.time;
                     projectileDeployed = true;
-                    cProjectile = Instantiate(Projectile, transform.position, UnityEngine.Quaternion.identity);
+                    cProjectile = Instantiate(Projectile, ProjectileSpawner.transform.position, UnityEngine.Quaternion.identity);
                     projectileRb = cProjectile.GetComponent<Rigidbody>();
-                    projectileRb.AddForce(-player.transform.position.normalized * shootForce, ForceMode.Impulse);
+                    projectileRb.velocity = (player.transform.position - transform.position).normalized * shootForce;
+                    Debug.Log(projectileRb.velocity);
                 }
                 
             }
