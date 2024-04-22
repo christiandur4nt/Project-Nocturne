@@ -90,6 +90,7 @@ public class TriggerEndGame : MonoBehaviour
         camera2.gameObject.SetActive(false);
         playerCamera.SetActive(true);
         dogGO.GetComponent<NavMeshAgent>().acceleration = 240;
+        dogGO.GetComponent<NavMeshAgent>().angularSpeed = 300;
         playerMovement.EnableMovement();
         flashlight.SetActive(true);
         PlayerUIManager.Instance.ResetDog = true;
