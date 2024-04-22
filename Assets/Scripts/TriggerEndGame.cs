@@ -10,6 +10,7 @@ public class TriggerEndGame : MonoBehaviour
 
     [Header("Components")]
     public GameObject playerStartPos;
+    public Rigidbody playerRB;
     public Camera camera1;
     public Camera camera2;
     public AudioClip endMusic;
@@ -27,6 +28,8 @@ public class TriggerEndGame : MonoBehaviour
         cameraHolder = GameObject.Find("Camera Holder").transform;
         playerCamera = GameObject.Find("Player Camera");
         playerMovement = FindFirstObjectByType<PlayerMovement>();
+        dogGO.GetComponent<NavMeshAgent>().isStopped = true;
+        dogGO.GetComponent<Rigidbody>().freezeRotation = true;
     }
 
     void PlayRandom()
@@ -74,6 +77,7 @@ public class TriggerEndGame : MonoBehaviour
     }
 
     public IEnumerator ActionSequence() {
+        playerRB.velocity = Vector3.zero;
         playerMovement.DisableMovement();
         playerCamera.SetActive(false);
         camera1.gameObject.SetActive(true);
@@ -91,6 +95,8 @@ public class TriggerEndGame : MonoBehaviour
         playerCamera.SetActive(true);
         dogGO.GetComponent<NavMeshAgent>().acceleration = 240;
         dogGO.GetComponent<NavMeshAgent>().angularSpeed = 300;
+        dogGO.GetComponent<Rigidbody>().freezeRotation = false;
+        dogGO.GetComponent<NavMeshAgent>().isStopped = false;
         playerMovement.EnableMovement();
         flashlight.SetActive(true);
         PlayerUIManager.Instance.ResetDog = true;

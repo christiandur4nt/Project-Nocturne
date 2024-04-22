@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 public class DogAI : MonoBehaviour
 {
-    [Range(0, 100), SerializeField] private float speed;
+    [Range(0, 100), SerializeField] public float speed;
     [Range(0, 500), SerializeField] private float walkRadius;
     private GameObject player;
     private NavMeshAgent agent;

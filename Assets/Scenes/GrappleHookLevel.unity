@@ -760,6 +760,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1268774619}
+    - target: {fileID: 398973431649377705, guid: ffc93b6dbea4c3d4e9bcc29d1975dc84, type: 3}
+      propertyPath: walkRadius
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 416664001870294064, guid: ffc93b6dbea4c3d4e9bcc29d1975dc84, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
@@ -939,6 +943,10 @@ PrefabInstance:
     - target: {fileID: 6610359007263704958, guid: ffc93b6dbea4c3d4e9bcc29d1975dc84, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6889210812947469961, guid: ffc93b6dbea4c3d4e9bcc29d1975dc84, type: 3}
+      propertyPath: m_Speed
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6889210812947469961, guid: ffc93b6dbea4c3d4e9bcc29d1975dc84, type: 3}
       propertyPath: m_Enabled
@@ -13128,6 +13136,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 532902432}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &535519405 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 7565471957038254797, guid: 5b53adf66858b6045953cfa78cf9b25b, type: 3}
+  m_PrefabInstance: {fileID: 457600746}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &539249065
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14829,6 +14842,10 @@ PrefabInstance:
     - target: {fileID: 2233572447846856833, guid: 5b53adf66858b6045953cfa78cf9b25b, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3176358197854294648, guid: 5b53adf66858b6045953cfa78cf9b25b, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 5616177506306519869, guid: 5b53adf66858b6045953cfa78cf9b25b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -31670,6 +31687,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStartPos: {fileID: 1967325892481936713}
+  playerRB: {fileID: 535519405}
   camera1: {fileID: 773062184}
   camera2: {fileID: 461647076}
   endMusic: {fileID: 8300000, guid: b09e22233bf34784fa8354e87139a7ec, type: 3}
