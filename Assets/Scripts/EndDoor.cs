@@ -20,10 +20,17 @@ public class EndDoor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
-        if (Input.GetKeyDown(interactKey))
+        if (Physics.Raycast(player.transform.position, playerCamera.transform.forward, out hit, interactDist, doorLayer) && newScene != null)
         {
-            if (Physics.Raycast(player.transform.position, playerCamera.transform.forward, out hit, interactDist, doorLayer) && newScene != null)
+            PlayerUIManager.Instance.ActivateInteractText(true);
+            if (Input.GetKeyDown(interactKey))
+            {
                 SceneManager.LoadScene(newScene);
+            }
+        }
+        else
+        {
+            PlayerUIManager.Instance.ActivateInteractText(false);
         }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,7 +14,8 @@ public class PlayerUIManager : MonoBehaviour
     public TMP_Text[] abilityTimers;
 
     [Header("UI Elements")]
-    public GameObject deathPanel;
+    [SerializeField] private GameObject deathPanel;
+    [SerializeField] private GameObject interactText;
     private GameObject abilityPanel;
     private ParticleSystem bloodPS;
 
@@ -43,6 +45,7 @@ public class PlayerUIManager : MonoBehaviour
         abilityPanel = GameObject.FindWithTag("Ability Panel");
         playerMovement = FindFirstObjectByType<PlayerMovement>();
         playerManager = FindFirstObjectByType<PlayerManager>();
+        resetDog = false;
     }
 
     public void Die() {
@@ -69,12 +72,16 @@ public class PlayerUIManager : MonoBehaviour
 
     public void ResetToCheckpoint() {
         Undie();
-        if (resetDog) dog.position = dogResetPos.position;
+        if (dog != null && resetDog) dog.position = dogResetPos.position;
         playerManager.ResetToCheckpoint();
     }
 
     public void RestartLevel() {
         Undie();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void ActivateInteractText(bool isActive) {
+        interactText.SetActive(isActive);
     }
 }
