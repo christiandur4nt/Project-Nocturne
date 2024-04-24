@@ -71,9 +71,9 @@ public class PlayerUIManager : MonoBehaviour
     }
 
     public void ResetToCheckpoint() {
-        Undie();
         if (dog != null && resetDog) dog.position = dogResetPos.position;
         playerManager.ResetToCheckpoint();
+        Undie();
     }
 
     public void RestartLevel() {
