@@ -45,7 +45,7 @@ public class EnemyKill : MonoBehaviour
         }
     }
 
-    private void Respawn()
+    public void Respawn()
     {
         gameObject.transform.position = originalPos;
         gameObject.transform.rotation = originalRot;

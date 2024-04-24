@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkpointSound: {fileID: 752896462300643207}
   updateRespawn: 1
-  triggerTutorial: 1
+  triggerTutorial: 0
 --- !u!82 &752896462300643207
 AudioSource:
   m_ObjectHideFlags: 0

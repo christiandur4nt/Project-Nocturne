@@ -6,10 +6,15 @@ public class ShutdownLights : MonoBehaviour
 {
     public GameObject lights;
     public AudioSource audioSource;
+    bool triggered = false;
     
     void OnTriggerEnter(Collider other)
     {
-       audioSource.Play();
-       lights.gameObject.SetActive(false);
+        // Play once
+        if (!triggered) {
+            audioSource.Play();
+            lights.gameObject.SetActive(false);
+            triggered = true;
+        }
     }
 }

@@ -250,10 +250,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1369466243956096655, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
-      propertyPath: maxWallRunTime
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 2475344850574706797, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -274,10 +270,6 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 474886702092596094}
-    - target: {fileID: 3026227704703407070, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
-      propertyPath: jumpForce
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 3026227704703407070, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
       propertyPath: landingSound
       value: 
@@ -301,14 +293,6 @@ PrefabInstance:
     - target: {fileID: 5373325343474894981, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
       propertyPath: dashDuration
       value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5373325343474894981, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
-      propertyPath: resetVelocity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5373325343474894981, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
-      propertyPath: disableGravity
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7214346714808347728, guid: 26fbce1ecfec31e409ca331ec5e647e4, type: 3}
       propertyPath: m_Name
@@ -443,6 +427,10 @@ PrefabInstance:
     - target: {fileID: 6904475495451002971, guid: 88e7d65f57aa0bf4d8f34a16b2e5e899, type: 3}
       propertyPath: m_Name
       value: Camera Holder
+      objectReference: {fileID: 0}
+    - target: {fileID: 7237796088080952304, guid: 88e7d65f57aa0bf4d8f34a16b2e5e899, type: 3}
+      propertyPath: m_TagString
+      value: Blood Particle System
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

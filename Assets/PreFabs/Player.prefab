@@ -355,7 +355,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 448
   maxGrappleDistance: 60
-  cooldownDuration: 0
+  cooldownDuration: 1
   grappleMouseKey: 1
   overshootYAxis: 0.4
   grappleForce: 15

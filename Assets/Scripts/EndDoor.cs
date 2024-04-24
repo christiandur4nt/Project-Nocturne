@@ -13,16 +13,24 @@ public class EndDoor : MonoBehaviour
     [Header("Settings")]
     public KeyCode interactKey = KeyCode.E;
     public float interactDist = 3f;
+    public string newScene;
 
     private RaycastHit hit;
 
     // Update is called once per frame
     void Update()
     {   
-        if (Input.GetKeyDown(interactKey))
+        if (Physics.Raycast(player.transform.position, playerCamera.transform.forward, out hit, interactDist, doorLayer) && newScene != null)
         {
-            if (Physics.Raycast(player.transform.position, playerCamera.transform.forward, out hit, interactDist, doorLayer))
-                SceneManager.LoadScene(0);
+            PlayerUIManager.Instance.ActivateInteractText(true);
+            if (Input.GetKeyDown(interactKey))
+            {
+                SceneManager.LoadScene(newScene);
+            }
+        }
+        else
+        {
+            PlayerUIManager.Instance.ActivateInteractText(false);
         }
     }
 }

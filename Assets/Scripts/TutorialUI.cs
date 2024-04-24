@@ -33,7 +33,7 @@ public class TutorialUI : MonoBehaviour
     void Update()
     {
         // Disable movement
-        pm.disableMovement();
+        pm.DisableMovement();
 
         // Pause game while tutorial is active
         Time.timeScale = 0;
@@ -64,7 +64,7 @@ public class TutorialUI : MonoBehaviour
         Time.timeScale = 1.0f;
         
         // Re-enable movement
-        pm.enableMovement();
+        pm.EnableMovement();
 
         // Close tutorial
         gameObject.SetActive(false);
