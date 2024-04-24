@@ -12523,17 +12523,25 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3525402027701542811, guid: 5b53adf66858b6045953cfa78cf9b25b, type: 3}
+      propertyPath: dog
+      value: 
+      objectReference: {fileID: 225038287}
+    - target: {fileID: 3525402027701542811, guid: 5b53adf66858b6045953cfa78cf9b25b, type: 3}
+      propertyPath: dogResetPos
+      value: 
+      objectReference: {fileID: 199964533}
     - target: {fileID: 5616177506306519869, guid: 5b53adf66858b6045953cfa78cf9b25b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.41137266
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5616177506306519869, guid: 5b53adf66858b6045953cfa78cf9b25b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.62
+      value: 2.59
       objectReference: {fileID: 0}
     - target: {fileID: 5616177506306519869, guid: 5b53adf66858b6045953cfa78cf9b25b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.3167682
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5616177506306519869, guid: 5b53adf66858b6045953cfa78cf9b25b, type: 3}
       propertyPath: m_LocalRotation.w

@@ -19,7 +19,7 @@ public class TriggerEndGame : MonoBehaviour
     private Transform cameraHolder;
     private GameObject playerCamera;
     private PlayerMovement playerMovement;
-    private MenuFunctions menuFunctions;
+    private PlayerManager playerManager;
 
     [SerializeField] private GameObject dogGO;
     [SerializeField] private Animator doorAnimator;
@@ -29,7 +29,7 @@ public class TriggerEndGame : MonoBehaviour
         cameraHolder = GameObject.Find("Camera Holder").transform;
         playerCamera = GameObject.Find("Player Camera");
         playerMovement = FindFirstObjectByType<PlayerMovement>();
-        menuFunctions = FindFirstObjectByType<MenuFunctions>();
+        playerManager = FindAnyObjectByType<PlayerManager>();
         dogGO.GetComponent<NavMeshAgent>().isStopped = true;
         dogGO.GetComponent<Rigidbody>().freezeRotation = true;
     }
@@ -101,6 +101,6 @@ public class TriggerEndGame : MonoBehaviour
         dogGO.GetComponent<NavMeshAgent>().isStopped = false;
         playerMovement.EnableMovement();
         flashlight.SetActive(true);
-        menuFunctions.ResetDog = true;
+        playerManager.ResetDog = true;
     }
 }

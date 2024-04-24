@@ -10,14 +10,21 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager Instance;
     public static bool isDead;
 
+    [Header("Dog Transforms")]
+    public Transform dog;
+    public Transform dogResetPos;
+    private bool resetDog;
+    public bool ResetDog { get { return resetDog; } set { resetDog = value; } }
+
     void Awake() {
         checkpointPos = transform.position;
         rb = GetComponent<Rigidbody>();
-        if (Instance != null) Instance = this;
+        if (Instance == null) Instance = this;
         isDead = false;
     }
 
     public void ResetToCheckpoint() {
+        if (dog != null && resetDog) dog.position = dogResetPos.position;
         transform.position = checkpointPos;
         rb.velocity = Vector3.zero;
     }

@@ -4546,6 +4546,8 @@ MonoBehaviour:
   playerManager: {fileID: 0}
   pausedSnapshot: {fileID: -5341733837757174076, guid: 699ff208a61842c4881ca50b922b63de, type: 2}
   unpausedSnapshot: {fileID: 24500006, guid: 699ff208a61842c4881ca50b922b63de, type: 2}
+  dog: {fileID: 0}
+  dogResetPos: {fileID: 0}
 --- !u!1 &7048338343218811896
 GameObject:
   m_ObjectHideFlags: 0
