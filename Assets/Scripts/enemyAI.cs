@@ -23,6 +23,7 @@ public class enemyAI : MonoBehaviour
     GameObject cProjectile = null;
     private bool projectileDeployed = false;
     private float ProjectileStartTime = 0;
+    private float ProjectileSpawnInterval = 0;
     private Rigidbody projectileRb;
 
     public Boolean useDivebomb = true;
@@ -37,14 +38,19 @@ public class enemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.time - ProjectileStartTime >= 2)
+        if (Time.time - ProjectileStartTime >= 1.5f)
         {
             if(projectileDeployed)
             {
                 GameObject.Destroy(cProjectile);
                 cProjectile = null;
+                //ProjectileSpawnInterval = Time.time + 1 + UnityEngine.Random.Range(0f, 1f);
                 projectileDeployed = false;
                 ProjectileStartTime = 0;
+            }
+            if (Time.time - ProjectileSpawnInterval >= 0)
+            {
+                
             }
         }
 
