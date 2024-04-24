@@ -155,9 +155,15 @@ public class WallRunning : MonoBehaviour
         rb.AddForce(wallForward * wallRunForce * Time.deltaTime, ForceMode.Force);
 
         if (upwardsRunning)
-            rb.velocity = new Vector3(rb.velocity.x, wallClimbSpeed, rb.velocity.z);
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y + wallClimbSpeed * Time.deltaTime, transform.position.z);
+            // rb.velocity = new Vector3(rb.velocity.x, wallClimbSpeed, rb.velocity.z);
+        }
         if (downwardsRunning)
-            rb.velocity = new Vector3(rb.velocity.x, -wallClimbSpeed, rb.velocity.z);
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y - wallClimbSpeed * Time.deltaTime, transform.position.z);
+            // rb.velocity = new Vector3(rb.velocity.x, -wallClimbSpeed, rb.velocity.z);
+        }
         
         if (!(wallLeft && xInput > 0) && !(wallRight && xInput < 0))
             rb.AddForce(-wallNormal * 100 * Time.deltaTime, ForceMode.Force);

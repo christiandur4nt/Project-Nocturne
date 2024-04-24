@@ -164,7 +164,7 @@ public class PlayerMovement : MonoBehaviour
         else if (grappling) {
             state = MovementState.grappling;
         }
-        else if (state != MovementState.air && crouchKeyActive)
+        else if (state != MovementState.air && state != MovementState.wallrunning && crouchKeyActive)
         {
             state = MovementState.crouching;
             desiredMoveSpeed = crouchSpeed;
