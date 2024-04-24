@@ -23090,7 +23090,7 @@ PrefabInstance:
       objectReference: {fileID: 2030975365}
     - target: {fileID: 3823561010276617060, guid: 1452c3ec60fa57e4882ef0b47f4d51cc, type: 3}
       propertyPath: newScene
-      value: MainMenu
+      value: MazeMap
       objectReference: {fileID: 0}
     - target: {fileID: 3823561010276617060, guid: 1452c3ec60fa57e4882ef0b47f4d51cc, type: 3}
       propertyPath: playerCamera
