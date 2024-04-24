@@ -23,7 +23,6 @@ public class LightFlicker : MonoBehaviour
 
     void Update()
     {
-        // WIP: Make more random so lights are more out of sync
         if (!flickering) {
             int rand = UnityEngine.Random.Range(0, 5000);
             if (rand == 2500) {
@@ -33,7 +32,6 @@ public class LightFlicker : MonoBehaviour
         }
     }
 
-    // WIP: Sync better with audio
     IEnumerator Flicker() {
         audioSource.Play(); 
         lightSource.enabled = true;

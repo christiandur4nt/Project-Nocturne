@@ -106,7 +106,6 @@ public class GrappleAbility : MonoBehaviour
             StartCoroutine(StopGrapple(0));
         }
 
-        // Update Player UI icons (WIP)
         Color color = PlayerUIManager.Instance.abilityIcons[(int)PlayerUIManager.Ability.GrappleAbility].color;
         color.a = Mathf.SmoothStep(1f, 0.2f, cooldownTimer/cooldownDuration);
         PlayerUIManager.Instance.abilityIcons[(int)PlayerUIManager.Ability.GrappleAbility].color = color;

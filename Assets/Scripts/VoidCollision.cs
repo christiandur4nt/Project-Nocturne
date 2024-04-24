@@ -14,8 +14,7 @@ public class VoidCollision : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player")) {
-            // Debug.Log("Resetting to checkpoint: " + playerManager.CheckpointPos);
-            PlayerUIManager.Instance.Die(); // WIP: Needs testing & fixing
+            PlayerUIManager.Instance.Die();
         } else if (other.CompareTag("Wall")) {
             Destroy(other.gameObject);
         }

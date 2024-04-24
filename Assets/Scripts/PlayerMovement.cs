@@ -183,7 +183,6 @@ public class PlayerMovement : MonoBehaviour
         {
             state = MovementState.air;
 
-            // WIP: Temporary fix for maintaining speed after grappling
             if (lastState == MovementState.grappling)
                 desiredMoveSpeed = grappleLaunchSpeed;
             else if (desiredMoveSpeed < sprintSpeed)
@@ -361,7 +360,6 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * gravity * trajectoryHeight);
 
-        // WIP: Velocity can be multiplied according to player's current velocity?
         Vector3 velocityXZ = displacementXZ / (Mathf.Sqrt(-2 * trajectoryHeight / gravity) 
             + Mathf.Sqrt(2 * (displacementY - trajectoryHeight) / gravity));
 
