@@ -19,12 +19,6 @@ public class PlayerUIManager : MonoBehaviour
     private GameObject abilityPanel;
     private ParticleSystem bloodPS;
 
-    [Header("Dog Transforms")]
-    public Transform dog;
-    public Transform dogResetPos;
-    private bool resetDog;
-    public bool ResetDog { get { return resetDog; } set { resetDog = value; } }
-
     public static PlayerUIManager Instance;
 
     private PlayerMovement playerMovement;
@@ -45,7 +39,6 @@ public class PlayerUIManager : MonoBehaviour
         abilityPanel = GameObject.FindWithTag("Ability Panel");
         playerMovement = FindFirstObjectByType<PlayerMovement>();
         playerManager = FindFirstObjectByType<PlayerManager>();
-        resetDog = false;
     }
 
     public void Die() {
@@ -71,7 +64,6 @@ public class PlayerUIManager : MonoBehaviour
     }
 
     public void ResetToCheckpoint() {
-        if (dog != null && resetDog) dog.position = dogResetPos.position;
         playerManager.ResetToCheckpoint();
         Undie();
     }

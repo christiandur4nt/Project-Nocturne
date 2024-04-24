@@ -48423,6 +48423,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1354723944996755536, guid: 32407a20061c15941bfa9c0bafca4f9b, type: 3}
+      propertyPath: dog
+      value: 
+      objectReference: {fileID: 225038287}
+    - target: {fileID: 1354723944996755536, guid: 32407a20061c15941bfa9c0bafca4f9b, type: 3}
+      propertyPath: dogResetPos
+      value: 
+      objectReference: {fileID: 199964533}
     - target: {fileID: 6885541025436925830, guid: 32407a20061c15941bfa9c0bafca4f9b, type: 3}
       propertyPath: m_Name
       value: PauseMenuCanvas

@@ -35,6 +35,12 @@ public class MenuFunctions : MonoBehaviour
     public PlayerManager playerManager;
     public AudioMixerSnapshot pausedSnapshot;
     public AudioMixerSnapshot unpausedSnapshot;
+
+    [Header("Dog Transforms")]
+    public Transform dog;
+    public Transform dogResetPos;
+    private bool resetDog;
+    public bool ResetDog { get { return resetDog; } set { resetDog = value; } }
     
     // Internal
     private float previousTimeFlow = 1f;
@@ -45,6 +51,7 @@ public class MenuFunctions : MonoBehaviour
         playerMovement = FindAnyObjectByType<PlayerMovement>();
         playerManager = FindAnyObjectByType<PlayerManager>();
         arms = GameObject.FindWithTag("Arms");
+        resetDog = false;
     }
 
     void Start() {
@@ -155,6 +162,7 @@ public class MenuFunctions : MonoBehaviour
     // End Settings Functions //
 
     public void ReturnToLastCheckpoint() {
+        if (dog != null && resetDog) dog.position = dogResetPos.position;
         playerManager.ResetToCheckpoint();
         Resume();
     }
