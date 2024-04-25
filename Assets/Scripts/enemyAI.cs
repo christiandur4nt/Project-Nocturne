@@ -20,6 +20,7 @@ public class enemyAI : MonoBehaviour
     [SerializeField] private GameObject ProjectileSpawner;
     [SerializeField] private GameObject Projectile;
     [SerializeField] float shootForce;
+    [SerializeField] private AudioClip shootSound;
     GameObject cProjectile = null;
     private bool projectileDeployed = false;
     private float ProjectileStartTime = 0;
@@ -89,6 +90,7 @@ public class enemyAI : MonoBehaviour
                 {
                     ProjectileStartTime = Time.time;
                     projectileDeployed = true;
+                    SoundManager.Instance.PlaySoundClip(shootSound, transform, 1f);
                     cProjectile = Instantiate(Projectile, ProjectileSpawner.transform.position, UnityEngine.Quaternion.identity);
                     projectileRb = cProjectile.GetComponent<Rigidbody>();
                     projectileRb.velocity = (player.transform.position - transform.position).normalized * shootForce;
