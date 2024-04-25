@@ -45,6 +45,10 @@ public class MenuFunctions : MonoBehaviour
         playerMovement = FindAnyObjectByType<PlayerMovement>();
         playerManager = FindAnyObjectByType<PlayerManager>();
         arms = GameObject.FindWithTag("Arms");
+        if (levelMenu != null) {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
 
     void Start() {
